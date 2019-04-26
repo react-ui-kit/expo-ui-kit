@@ -1,6 +1,8 @@
 {
   "name": "expo-ui-kit",
-  "version": "0.0.2",
+  "version": "0.0.3",
+  "keywords": ["expo", "react-native", "react-ui-kit", "expo-ui-kit"],
+  "homepage": "http://expo-ui-kit.com/",
   "description": "Expo.io UI Kit for React-Native",
   "main": "index.js",
   "author": "React-UI-Kit",
