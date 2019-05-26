@@ -5,6 +5,22 @@
   "homepage": "http://expo-ui-kit.com/",
   "description": "Expo.io UI Kit for React-Native",
   "main": "index.js",
-  "author": "React-UI-Kit",
-  "license": "MIT"
+  "author": "React-UI-Kit <contact@react-ui-kit.com> (https://react-ui-kit.com)",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint src"
+  },
+  "dependencies": {
+    "expo": "^32.0.0",
+    "react": "16.5.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-universe": "^1.0.7",
+    "prettier": "^1.17.1"
+  },
+  "eslintConfig": {
+    "extends": "universe/native"
+  }
 }
