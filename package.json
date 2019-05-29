@@ -1,14 +1,20 @@
 {
   "name": "expo-ui-kit",
-  "version": "0.0.3",
-  "keywords": ["expo", "react-native", "react-ui-kit", "expo-ui-kit"],
+  "version": "0.0.4",
+  "keywords": [
+    "expo",
+    "react-native",
+    "react-ui-kit",
+    "expo-ui-kit"
+  ],
   "homepage": "http://expo-ui-kit.com/",
   "description": "Expo.io UI Kit for React-Native",
   "main": "index.js",
   "author": "React-UI-Kit <contact@react-ui-kit.com> (https://react-ui-kit.com)",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "test": "jest"
   },
   "dependencies": {
     "expo": "^32.0.0",
@@ -18,7 +24,9 @@
   "devDependencies": {
     "eslint": "^5.16.0",
     "eslint-config-universe": "^1.0.7",
-    "prettier": "^1.17.1"
+    "jest": "^24.8.0",
+    "prettier": "^1.17.1",
+    "react-test-renderer": "^16.8.6"
   },
   "eslintConfig": {
     "extends": "universe/native"

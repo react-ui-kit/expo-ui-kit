@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import { StyleSheet, View, Animated } from "react-native";
 
-import * as expoTheme from "./theme";
+import expoTheme from "./theme";
 import { getMargins, getPaddings, mergeTheme } from "./utils";
 
 class Block extends PureComponent {
@@ -88,7 +88,6 @@ class Block extends PureComponent {
 }
 
 Block.defaultProps = {
-  theme: null,
   flex: 1,
   row: false,
   column: false,
@@ -107,7 +106,8 @@ Block.defaultProps = {
   radius: null,
   wrap: false,
   animated: false,
-  style: {}
+  style: {},
+  theme: {}
 };
 
 export default Block;

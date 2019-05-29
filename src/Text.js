@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Text, StyleSheet } from "react-native";
 
-import * as expoTheme from "./theme";
+import expoTheme from "./theme";
 import { mergeTheme } from "./utils";
 
 class Typography extends Component {
@@ -46,7 +46,7 @@ class Typography extends Component {
       ...props
     } = this.props;
 
-    const { SIZES, COLORS, FONTS } = mergeTheme(expoTheme, theme);
+    const { SIZES, COLORS, FONTS } = mergeTheme({ ...expoTheme }, theme);
 
     const textStyles = StyleSheet.flatten([
       {
@@ -130,7 +130,7 @@ Typography.defaultProps = {
   warning: false,
   success: false,
   info: false,
-  theme: null,
+  theme: {},
   style: {}
 };
 

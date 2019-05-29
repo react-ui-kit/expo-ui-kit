@@ -1,9 +1,10 @@
 import React, { PureComponent } from "react";
 import { StyleSheet } from "react-native";
 
-import Block from "./Block";
-import * as expoTheme from "./theme";
 import { rgba, mergeTheme } from "./utils";
+import expoTheme from "./theme";
+
+import Block from "./Block";
 
 class Card extends PureComponent {
   render() {
@@ -19,7 +20,7 @@ class Card extends PureComponent {
       ...props
     } = this.props;
 
-    const { SIZES, COLORS } = mergeTheme(expoTheme, theme);
+    const { SIZES, COLORS } = mergeTheme({ ...expoTheme }, theme);
 
     const cardStyles = StyleSheet.flatten([
       shadow && {
@@ -54,7 +55,7 @@ Card.defaultProps = {
   padding: null,
   shadow: false,
   outlined: false,
-  theme: null,
+  theme: {},
   style: {}
 };
 

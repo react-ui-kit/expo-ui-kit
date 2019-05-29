@@ -1,4 +1,4 @@
-const COLORS = {
+export const COLORS = {
   // base colors
   primary: "#4630EB",
   secondary: "#A3A1F7",
@@ -16,7 +16,7 @@ const COLORS = {
   info: "#4DA1FF"
 };
 
-const SIZES = {
+export const SIZES = {
   // global sizes
   base: 8,
   font: 16,
@@ -33,7 +33,7 @@ const SIZES = {
   small: 10
 };
 
-const FONTS = {
+export const FONTS = {
   h1: { fontSize: SIZES.h1, letterSpacing: 0.15 },
   h2: { fontSize: SIZES.h2, letterSpacing: 0 },
   h3: { fontSize: SIZES.h3, letterSpacing: 0.15 },
@@ -43,4 +43,4 @@ const FONTS = {
   small: { fontSize: SIZES.small, letterSpacing: 1.5 }
 };
 
-export { COLORS, SIZES, FONTS };
+export default { COLORS, SIZES, FONTS };
