@@ -3,7 +3,7 @@ import { StyleSheet, TextInput } from "react-native";
 
 import Block from "./Block";
 
-import * as expoTheme from "./theme";
+import expoTheme from "./theme";
 import { rgba, mergeTheme } from "./utils";
 
 class Input extends PureComponent {
@@ -32,7 +32,7 @@ class Input extends PureComponent {
 
   handleTextStyles() {
     const { theme, style } = this.props;
-    const { SIZES, COLORS } = mergeTheme(expoTheme, theme);
+    const { SIZES, COLORS } = mergeTheme({ ...expoTheme }, theme);
 
     return StyleSheet.flatten([
       {
@@ -103,7 +103,7 @@ Input.defaultProps = {
   onChange: null,
   onValidation: null,
   placeholder: null,
-  theme: null,
+  theme: {},
   style: {}
 };
 
