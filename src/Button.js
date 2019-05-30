@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
-import * as expoTheme from "./theme";
+import expoTheme from "./theme";
 import { rgba, mergeTheme } from "./utils";
 
 class Button extends Component {
@@ -28,10 +28,10 @@ class Button extends Component {
       ...props
     } = this.props;
 
-    const { SIZES, COLORS } = mergeTheme(expoTheme, theme);
+    const { SIZES, COLORS } = mergeTheme({ ...expoTheme }, theme);
 
     const buttonStyles = StyleSheet.flatten([
-      ({
+      {
         height: SIZES.base * 2.75,
         borderRadius: SIZES.border * 2,
         backgroundColor: COLORS.primary,
@@ -55,14 +55,12 @@ class Button extends Component {
         borderColor: COLORS.primary,
         backgroundColor: "transparent"
       },
-      style)
+      style
     ]);
 
     if (disabled) {
       const backgroundColor = StyleSheet.flatten(buttonStyles).backgroundColor;
-      buttonStyles.push({
-        backgroundColor: rgba(backgroundColor, 0.5)
-      });
+      buttonStyles.backgroundColor = rgba(backgroundColor, 0.5);
     }
 
     return (
@@ -93,7 +91,7 @@ Button.defaultProps = {
   warning: false,
   success: false,
   info: false,
-  theme: null,
+  theme: {},
   style: {}
 };
 
