@@ -1,8 +1,6 @@
 import React, { PureComponent } from "react";
 import { StyleSheet, TextInput } from "react-native";
 
-import Block from "./Block";
-
 import expoTheme from "./theme";
 import { rgba, mergeTheme } from "./utils";
 
@@ -30,24 +28,6 @@ class Input extends PureComponent {
     }
   }
 
-  handleTextStyles() {
-    const { theme, style } = this.props;
-    const { SIZES, COLORS } = mergeTheme({ ...expoTheme }, theme);
-
-    return StyleSheet.flatten([
-      {
-        borderWidth: 1,
-        height: SIZES.base * 5.5,
-        borderRadius: SIZES.border,
-        borderColor: rgba(COLORS.black, 0.8),
-        paddingHorizontal: SIZES.base,
-        paddingVertical: SIZES.base,
-        fontSize: SIZES.font
-      },
-      style
-    ]);
-  }
-
   onChange(value) {
     const { onChange, onValidation } = this.props;
     const isValid = this.handleValidation(value);
@@ -73,24 +53,35 @@ class Input extends PureComponent {
   }
 
   render() {
-    const { placeholder, children, flex, ...props } = this.props;
-    const textStyles = this.handleTextStyles();
+    const { placeholder, children, theme, style, ...props } = this.props;
+    const { SIZES, COLORS } = mergeTheme({ ...expoTheme }, theme);
+
+    const textStyles = StyleSheet.flatten([
+      {
+        borderWidth: 1,
+        height: SIZES.base * 5.5,
+        borderRadius: SIZES.border,
+        borderColor: rgba(COLORS.black, 0.8),
+        paddingHorizontal: SIZES.base,
+        paddingVertical: SIZES.base,
+        fontSize: SIZES.font
+      },
+      style
+    ]);
 
     return (
-      <Block flex={flex}>
-        <TextInput
-          style={textStyles}
-          autoCorrect={false}
-          autoCapitalize="none"
-          placeholder={placeholder}
-          value={this.state.value}
-          onFocus={event => this.onFocus(event)}
-          onBlur={event => this.onBlur(event)}
-          onChange={value => this.onChange(value)}
-          {...props}>
-          {children}
-        </TextInput>
-      </Block>
+      <TextInput
+        style={textStyles}
+        autoCorrect={false}
+        autoCapitalize="none"
+        placeholder={placeholder}
+        value={this.state.value}
+        onFocus={event => this.onFocus(event)}
+        onBlur={event => this.onBlur(event)}
+        onChange={value => this.onChange(value)}
+        {...props}>
+        {children}
+      </TextInput>
     );
   }
 }

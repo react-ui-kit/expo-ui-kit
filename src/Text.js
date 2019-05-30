@@ -73,7 +73,6 @@ class Typography extends Component {
       light && { fontWeight: "300" },
       center && styles.center,
       right && styles.right,
-      color && { color },
       // color shortcuts
       primary && { color: COLORS.primary },
       secondary && { color: COLORS.secondary },
@@ -85,6 +84,7 @@ class Typography extends Component {
       warning && { color: COLORS.warning },
       success && { color: COLORS.success },
       info && { color: COLORS.info },
+      color && { color },
       style // rewrite predefined styles
     ]);
 
