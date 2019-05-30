@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import { StyleSheet, Animated } from "react-native";
+import { StyleSheet } from "react-native";
 import { shallow } from "enzyme";
 
 import Block from "../Block";
