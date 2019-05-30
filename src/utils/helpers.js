@@ -8,7 +8,7 @@ export const getMargins = value => {
     };
   }
 
-  if (typeof margin === "object") {
+  if (typeof value === "object") {
     const marginSize = Object.keys(value).length;
     switch (marginSize) {
       case 1:
@@ -53,7 +53,7 @@ export const getPaddings = value => {
     };
   }
 
-  if (typeof padding === "object") {
+  if (typeof value === "object") {
     const paddingSize = Object.keys(value).length;
     switch (paddingSize) {
       case 1:

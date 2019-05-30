@@ -51,6 +51,111 @@ describe("<Text />", () => {
     expect(style.fontSize).toEqual(13);
   });
 
+  it("padding={6}", () => {
+    const component = shallow(<Text padding={6} />);
+    const style = StyleSheet.flatten(component.props().style);
+    expect(component.instance().props.padding).toEqual(6);
+    expect(style).toEqual({
+      fontWeight: "normal",
+      fontSize: SIZES.font,
+      color: COLORS.black,
+      paddingBottom: 6,
+      paddingLeft: 6,
+      paddingRight: 6,
+      paddingTop: 6
+    });
+  });
+
+  it("padding={[2, 4]}", () => {
+    const component = shallow(<Text padding={[2, 4]} />);
+    const style = StyleSheet.flatten(component.props().style);
+    expect(component.instance().props.padding).toEqual([2, 4]);
+    expect(style).toEqual({
+      fontWeight: "normal",
+      fontSize: SIZES.font,
+      color: COLORS.black,
+      paddingBottom: 2,
+      paddingLeft: 4,
+      paddingRight: 4,
+      paddingTop: 2
+    });
+  });
+
+  it("padding={[1, 2, 3, 4]}", () => {
+    const component = shallow(<Text padding={[1, 2, 3, 4]} />);
+    const style = StyleSheet.flatten(component.props().style);
+    expect(component.instance().props.padding).toEqual([1, 2, 3, 4]);
+    expect(style).toEqual({
+      fontWeight: "normal",
+      fontSize: SIZES.font,
+      color: COLORS.black,
+      paddingBottom: 3,
+      paddingLeft: 4,
+      paddingRight: 2,
+      paddingTop: 1
+    });
+  });
+
+  it("margin={6}", () => {
+    const component = shallow(<Text margin={6} />);
+    const style = StyleSheet.flatten(component.props().style);
+    expect(component.instance().props.margin).toEqual(6);
+    expect(style).toEqual({
+      fontWeight: "normal",
+      fontSize: SIZES.font,
+      color: COLORS.black,
+      marginBottom: 6,
+      marginLeft: 6,
+      marginRight: 6,
+      marginTop: 6
+    });
+  });
+
+  it("margin={6}", () => {
+    const component = shallow(<Text margin={6} />);
+    const style = StyleSheet.flatten(component.props().style);
+    expect(component.instance().props.margin).toEqual(6);
+    expect(style).toEqual({
+      fontWeight: "normal",
+      fontSize: SIZES.font,
+      color: COLORS.black,
+      marginBottom: 6,
+      marginLeft: 6,
+      marginRight: 6,
+      marginTop: 6
+    });
+  });
+
+  it("margin={[2, 4]}", () => {
+    const component = shallow(<Text margin={[2, 4]} />);
+    const style = StyleSheet.flatten(component.props().style);
+    expect(component.instance().props.margin).toEqual([2, 4]);
+    expect(style).toEqual({
+      fontWeight: "normal",
+      fontSize: SIZES.font,
+      color: COLORS.black,
+      marginBottom: 2,
+      marginLeft: 4,
+      marginRight: 4,
+      marginTop: 2
+    });
+  });
+
+  it("margin={[1, 2, 3, 4]}", () => {
+    const component = shallow(<Text margin={[1, 2, 3, 4]} />);
+    const style = StyleSheet.flatten(component.props().style);
+    expect(component.instance().props.margin).toEqual([1, 2, 3, 4]);
+    expect(style).toEqual({
+      fontWeight: "normal",
+      fontSize: SIZES.font,
+      color: COLORS.black,
+      marginBottom: 3,
+      marginLeft: 4,
+      marginRight: 2,
+      marginTop: 1
+    });
+  });
+
   it('transform="uppercase"', () => {
     const component = shallow(<Text transform="uppercase">uppercase</Text>);
     let style = StyleSheet.flatten(component.props().style);
