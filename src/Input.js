@@ -53,17 +53,16 @@ class Input extends PureComponent {
   }
 
   render() {
-    const { placeholder, children, theme, style, ...props } = this.props;
+    const { placeholder, children, theme, color, style, ...props } = this.props;
     const { SIZES, COLORS } = mergeTheme({ ...expoTheme }, theme);
 
     const textStyles = StyleSheet.flatten([
       {
         borderWidth: 1,
         height: SIZES.base * 5.5,
-        borderRadius: SIZES.border,
-        borderColor: rgba(COLORS.black, 0.8),
+        borderRadius: SIZES.radius,
+        borderColor: rgba(color || COLORS.primary, 0.4),
         paddingHorizontal: SIZES.base,
-        paddingVertical: SIZES.base,
         fontSize: SIZES.font
       },
       style
@@ -94,6 +93,7 @@ Input.defaultProps = {
   onChange: null,
   onValidation: null,
   placeholder: null,
+  color: null,
   theme: {},
   style: {}
 };

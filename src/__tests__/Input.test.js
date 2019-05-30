@@ -1,6 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import { StyleSheet } from "react-native";
+import { shallow } from "enzyme";
 
 import Input from "../Input";
 import { rgba } from "../utils";
@@ -13,10 +14,9 @@ describe("<Input />", () => {
     expect(style).toEqual({
       borderWidth: 1,
       height: SIZES.base * 5.5,
-      borderRadius: SIZES.border,
-      borderColor: rgba(COLORS.black, 0.8),
+      borderRadius: SIZES.radius,
+      borderColor: rgba(COLORS.primary, 0.4),
       paddingHorizontal: SIZES.base,
-      paddingVertical: SIZES.base,
       fontSize: SIZES.font
     });
   });
@@ -26,6 +26,13 @@ describe("<Input />", () => {
       .create(<Input placeholder="input" />)
       .getInstance();
     expect(instance.props.placeholder).toEqual("input");
+  });
+
+  it("custom color, borderColor to opacity 0.4", () => {
+    const component = shallow(<Input color="#DDDDDD" />);
+    let style = StyleSheet.flatten(component.props().style);
+    expect(style.borderColor).toEqual(rgba("#DDDDDD", 0.4));
+    expect(component.instance().props.color).toEqual("#DDDDDD");
   });
 
   it("onFocus & onBlur", () => {

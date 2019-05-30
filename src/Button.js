@@ -32,10 +32,11 @@ class Button extends Component {
 
     const buttonStyles = StyleSheet.flatten([
       {
-        height: SIZES.base * 2.75,
-        borderRadius: SIZES.border * 2,
+        height: SIZES.base * 5.5,
+        borderRadius: SIZES.radius,
         backgroundColor: COLORS.primary,
-        justifyContent: "center"
+        justifyContent: "center",
+        alignItems: "center"
       },
       transparent && { backgroundColor: "transparent" },
       primary && { backgroundColor: COLORS.primary },

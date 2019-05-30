@@ -11,8 +11,8 @@ describe("<Button />", () => {
     const component = renderer.create(<Button />).toJSON();
     const instance = renderer.create(<Button />).getInstance();
     const style = StyleSheet.flatten(component.props.style);
-    expect(style.height).toEqual(SIZES.base * 2.75);
-    expect(style.borderRadius).toEqual(SIZES.border * 2);
+    expect(style.height).toEqual(SIZES.base * 5.5);
+    expect(style.borderRadius).toEqual(SIZES.radius);
     expect(style.backgroundColor).toEqual(COLORS.primary);
     expect(style.justifyContent).toEqual("center");
     expect(instance.props.opacity).toEqual(0.8);
