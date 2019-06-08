@@ -160,4 +160,40 @@ describe("<Input />", () => {
     expect(onChange).toHaveBeenCalledWith("Password1");
     expect(onValidation).toHaveBeenCalledWith([true, true, true]);
   });
+
+  it("type: email using textContentType", () => {
+    const instance = renderer.create(<Input type="email" />).getInstance();
+    const tree = renderer.create(<Input type="email" />).toTree();
+    // console.log("component", component.toTree());
+    expect(instance.props.type).toEqual("email");
+    expect(tree.rendered.props.textContentType).toEqual("emailAddress");
+  });
+
+  it("type: phone using textContentType", () => {
+    const instance = renderer.create(<Input type="phone" />).getInstance();
+    const tree = renderer.create(<Input type="phone" />).toTree();
+    expect(instance.props.type).toEqual("phone");
+    expect(tree.rendered.props.textContentType).toEqual("telephoneNumber");
+  });
+
+  it("type: custom using textContentType", () => {
+    const instance = renderer
+      .create(<Input type="organizationName" />)
+      .getInstance();
+    const tree = renderer.create(<Input type="organizationName" />).toTree();
+    expect(instance.props.type).toEqual("organizationName");
+    expect(tree.rendered.props.textContentType).toEqual("organizationName");
+  });
+
+  it("autoCorrect, autoCapitalize", () => {
+    const component = shallow(<Input />);
+    expect(component.props().autoCorrect).toEqual(false);
+    expect(component.props().autoCapitalize).toEqual("none");
+
+    component.setProps({ autoCorrect: true });
+    expect(component.props().autoCorrect).toEqual(true);
+
+    component.setProps({ autoCapitalize: "words" });
+    expect(component.props().autoCapitalize).toEqual("words");
+  });
 });

@@ -52,8 +52,26 @@ class Input extends PureComponent {
     });
   }
 
+  handleTextType(type) {
+    return type === "email"
+      ? "emailAddress"
+      : type === "phone"
+      ? "telephoneNumber"
+      : type;
+  }
+
   render() {
-    const { placeholder, children, theme, color, style, ...props } = this.props;
+    const {
+      autoCorrect,
+      autoCapitalize,
+      placeholder,
+      children,
+      color,
+      type,
+      style,
+      theme,
+      ...props
+    } = this.props;
     const { SIZES, COLORS } = mergeTheme({ ...expoTheme }, theme);
 
     const textStyles = StyleSheet.flatten([
@@ -68,17 +86,22 @@ class Input extends PureComponent {
       style
     ]);
 
+    const textType = this.handleTextType(type);
+
+    const internalProps = {
+      style: textStyles,
+      autoCorrect,
+      autoCapitalize,
+      placeholder,
+      textContentType: textType,
+      value: this.state.value,
+      onFocus: event => this.onFocus(event),
+      onBlur: event => this.onBlur(event),
+      onChange: value => this.onChange(value)
+    };
+
     return (
-      <TextInput
-        style={textStyles}
-        autoCorrect={false}
-        autoCapitalize="none"
-        placeholder={placeholder}
-        value={this.state.value}
-        onFocus={event => this.onFocus(event)}
-        onBlur={event => this.onBlur(event)}
-        onChange={value => this.onChange(value)}
-        {...props}>
+      <TextInput {...internalProps} {...props}>
         {children}
       </TextInput>
     );
@@ -93,6 +116,8 @@ Input.defaultProps = {
   onChange: null,
   onValidation: null,
   placeholder: null,
+  autoCorrect: false,
+  autoCapitalize: "none",
   color: null,
   theme: {},
   style: {}
