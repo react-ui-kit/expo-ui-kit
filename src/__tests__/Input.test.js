@@ -164,7 +164,6 @@ describe("<Input />", () => {
   it("type: email using textContentType", () => {
     const instance = renderer.create(<Input type="email" />).getInstance();
     const tree = renderer.create(<Input type="email" />).toTree();
-    // console.log("component", component.toTree());
     expect(instance.props.type).toEqual("email");
     expect(tree.rendered.props.textContentType).toEqual("emailAddress");
   });
