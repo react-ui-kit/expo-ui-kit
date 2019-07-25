@@ -70,6 +70,7 @@ class Input extends PureComponent {
       type,
       style,
       theme,
+      internalRef,
       ...props
     } = this.props;
     const { SIZES, COLORS } = mergeTheme({ ...expoTheme }, theme);
@@ -101,7 +102,7 @@ class Input extends PureComponent {
     };
 
     return (
-      <TextInput {...internalProps} {...props}>
+      <TextInput ref={internalRef} {...internalProps} {...props}>
         {children}
       </TextInput>
     );
@@ -119,6 +120,7 @@ Input.defaultProps = {
   autoCorrect: false,
   autoCapitalize: "none",
   color: null,
+  internalRef: null,
   theme: {},
   style: {}
 };
