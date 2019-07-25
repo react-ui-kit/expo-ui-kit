@@ -42,122 +42,122 @@ describe("<Input />", () => {
       .create(<Input onFocus={onFocus} onBlur={onBlur} />)
       .getInstance();
 
-    instance.onFocus();
+    instance.handleFocus();
     expect(instance.state.focused).toEqual(true);
     expect(onFocus).toHaveBeenCalled();
     expect(onFocus).toHaveBeenCalledTimes(1);
 
-    instance.onBlur();
+    instance.handleBlur();
     expect(instance.state.focused).toEqual(false);
     expect(instance.state.blurred).toEqual(true);
     expect(onBlur).toHaveBeenCalled();
     expect(onBlur).toHaveBeenCalledTimes(1);
   });
 
-  it("onChange", () => {
-    const onChange = jest.fn().mockImplementation(value => value);
-    const component = renderer.create(<Input onChange={onChange} />);
+  it("onChangeText", () => {
+    const onChangeText = jest.fn().mockImplementation(value => value);
+    const component = renderer.create(<Input onChangeText={onChangeText} />);
     const instance = component.getInstance();
 
-    instance.onChange("new value");
+    instance.handleChange("new value");
     expect(instance.state.value).toEqual("new value");
-    expect(onChange).toHaveBeenCalled();
-    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChangeText).toHaveBeenCalled();
+    expect(onChangeText).toHaveBeenCalledTimes(1);
   });
 
   it('single pattern="(?=.*\\d)"', () => {
-    const onChange = jest.fn().mockImplementation(value => value);
+    const onChangeText = jest.fn().mockImplementation(value => value);
     const onValidation = jest.fn().mockImplementation(value => value);
     const instance = renderer
       .create(
         <Input
           pattern="(?=.*\d)"
-          onChange={value => onChange(value)}
+          onChangeText={value => onChangeText(value)}
           onValidation={value => onValidation(value)}
         />
       )
       .getInstance();
 
     // non valid digit pattern
-    instance.onChange("non-digit");
+    instance.handleChange("non-digit");
     expect(instance.state.value).toEqual("non-digit");
-    expect(onChange).toHaveBeenCalled();
-    expect(onChange).toHaveBeenCalledTimes(1);
-    expect(onChange).toHaveBeenCalledWith("non-digit");
+    expect(onChangeText).toHaveBeenCalled();
+    expect(onChangeText).toHaveBeenCalledTimes(1);
+    expect(onChangeText).toHaveBeenCalledWith("non-digit");
     expect(onValidation).toHaveBeenCalledWith(false);
 
     // valid digit pattern
-    instance.onChange("number5");
+    instance.handleChange("number5");
     expect(instance.state.value).toEqual("number5");
-    expect(onChange).toHaveBeenCalled();
-    expect(onChange).toHaveBeenCalledTimes(2);
-    expect(onChange).toHaveBeenCalledWith("number5");
+    expect(onChangeText).toHaveBeenCalled();
+    expect(onChangeText).toHaveBeenCalledTimes(2);
+    expect(onChangeText).toHaveBeenCalledWith("number5");
     expect(onValidation).toHaveBeenCalledWith(true);
   });
 
   it("multiple patterns, validation=[false, false, false]", () => {
-    const onChange = jest.fn().mockImplementation(value => value);
+    const onChangeText = jest.fn().mockImplementation(value => value);
     const onValidation = jest.fn().mockImplementation(value => value);
     const instance = renderer
       .create(
         <Input
           pattern={["^.{8,}$", "(?=.*d)", "(?=.*[A-Z])"]}
-          onChange={value => onChange(value)}
+          onChangeText={value => onChangeText(value)}
           onValidation={value => onValidation(value)}
         />
       )
       .getInstance();
 
     // invalid pattern
-    instance.onChange("test");
+    instance.handleChange("test");
     expect(instance.state.value).toEqual("test");
-    expect(onChange).toHaveBeenCalled();
-    expect(onChange).toHaveBeenCalledTimes(1);
-    expect(onChange).toHaveBeenCalledWith("test");
+    expect(onChangeText).toHaveBeenCalled();
+    expect(onChangeText).toHaveBeenCalledTimes(1);
+    expect(onChangeText).toHaveBeenCalledWith("test");
     expect(onValidation).toHaveBeenCalledWith([false, false, false]);
   });
 
   it("multiple patterns, validation=[true, true, false]", () => {
-    const onChange = jest.fn().mockImplementation(value => value);
+    const onChangeText = jest.fn().mockImplementation(value => value);
     const onValidation = jest.fn().mockImplementation(value => value);
     const instance = renderer
       .create(
         <Input
           pattern={["^.{8,}$", "(?=.*d)", "(?=.*[A-Z])"]}
-          onChange={value => onChange(value)}
+          onChangeText={value => onChangeText(value)}
           onValidation={value => onValidation(value)}
         />
       )
       .getInstance();
 
     // invalid pattern
-    instance.onChange("password1");
+    instance.handleChange("password1");
     expect(instance.state.value).toEqual("password1");
-    expect(onChange).toHaveBeenCalled();
-    expect(onChange).toHaveBeenCalledTimes(1);
-    expect(onChange).toHaveBeenCalledWith("password1");
+    expect(onChangeText).toHaveBeenCalled();
+    expect(onChangeText).toHaveBeenCalledTimes(1);
+    expect(onChangeText).toHaveBeenCalledWith("password1");
     expect(onValidation).toHaveBeenCalledWith([true, true, false]);
   });
 
   it("multiple patterns, validation=[true, true, true]", () => {
-    const onChange = jest.fn().mockImplementation(value => value);
+    const onChangeText = jest.fn().mockImplementation(value => value);
     const onValidation = jest.fn().mockImplementation(value => value);
     const instance = renderer
       .create(
         <Input
           pattern={["^.{8,}$", "(?=.*d)", "(?=.*[A-Z])"]}
-          onChange={value => onChange(value)}
+          onChangeText={value => onChangeText(value)}
           onValidation={value => onValidation(value)}
         />
       )
       .getInstance();
 
     // invalid pattern
-    instance.onChange("Password1");
+    instance.handleChange("Password1");
     expect(instance.state.value).toEqual("Password1");
-    expect(onChange).toHaveBeenCalled();
-    expect(onChange).toHaveBeenCalledTimes(1);
-    expect(onChange).toHaveBeenCalledWith("Password1");
+    expect(onChangeText).toHaveBeenCalled();
+    expect(onChangeText).toHaveBeenCalledTimes(1);
+    expect(onChangeText).toHaveBeenCalledWith("Password1");
     expect(onValidation).toHaveBeenCalledWith([true, true, true]);
   });
 

@@ -28,24 +28,24 @@ class Input extends PureComponent {
     }
   }
 
-  onChange(value) {
-    const { onChange, onValidation } = this.props;
+  handleChange(value) {
+    const { onChangeText, onValidation } = this.props;
     const isValid = this.handleValidation(value);
 
     this.setState({ value }, () => {
       onValidation && onValidation(isValid);
-      onChange && onChange(value);
+      onChangeText && onChangeText(value);
     });
   }
 
-  onFocus(event) {
+  handleFocus(event) {
     const { onFocus } = this.props;
     this.setState({ focused: true, blurred: false }, () => {
       onFocus && onFocus(event);
     });
   }
 
-  onBlur(event) {
+  handleBlur(event) {
     const { onBlur } = this.props;
     this.setState({ focused: false, blurred: true }, () => {
       onBlur && onBlur(event);
@@ -95,9 +95,9 @@ class Input extends PureComponent {
       placeholder,
       textContentType: textType,
       value: this.state.value,
-      onFocus: event => this.onFocus(event),
-      onBlur: event => this.onBlur(event),
-      onChange: value => this.onChange(value)
+      onFocus: this.handleFocus,
+      onBlur: this.handleBlur,
+      onChangeText: this.handleChange
     };
 
     return (
