@@ -110,7 +110,6 @@ class Input extends PureComponent {
 }
 
 Input.defaultProps = {
-  flex: false,
   pattern: null,
   onFocus: null,
   onBlur: null,
