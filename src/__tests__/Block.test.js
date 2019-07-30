@@ -166,6 +166,11 @@ describe("<Block />", () => {
     expect(component.instance().props.animated).toEqual(true);
   });
 
+  it("safe", () => {
+    const component = shallow(<Block safe />);
+    expect(component.instance().props.safe).toEqual(true);
+  });
+
   it("shadow", () => {
     const component = shallow(<Block shadow />);
     const style = StyleSheet.flatten(component.props().style);
