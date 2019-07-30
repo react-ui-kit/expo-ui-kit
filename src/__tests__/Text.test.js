@@ -271,4 +271,9 @@ describe("<Text />", () => {
     style = StyleSheet.flatten(component.props().style);
     expect(style.textAlign).toEqual("right");
   });
+
+  it("animated", () => {
+    const component = shallow(<Text animated />);
+    expect(component.instance().props.animated).toEqual(true);
+  });
 });

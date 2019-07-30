@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, StyleSheet } from "react-native";
+import { Animated, Text, StyleSheet } from "react-native";
 
 import expoTheme from "./theme";
 import { getMargins, getPaddings, mergeTheme } from "./utils";
@@ -42,6 +42,7 @@ class Typography extends Component {
       warning,
       success,
       info,
+      animated,
       theme,
       style,
       children,
@@ -91,6 +92,14 @@ class Typography extends Component {
       color && { color },
       style // rewrite predefined styles
     ]);
+
+    if (animated) {
+      return (
+        <Animated.Text style={textStyles} {...props}>
+          {children}
+        </Animated.Text>
+      );
+    }
 
     return (
       <Text style={textStyles} {...props}>
