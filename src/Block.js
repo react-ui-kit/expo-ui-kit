@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import { StyleSheet, View, Animated } from "react-native";
+import { Animated, SafeAreaView, StyleSheet, View } from "react-native";
 
 import expoTheme from "./theme";
 import { getMargins, getPaddings, mergeTheme } from "./utils";
@@ -38,6 +38,7 @@ class Block extends PureComponent {
       wrap,
       animated,
       theme,
+      safe,
       style,
       children,
       ...props
@@ -92,6 +93,14 @@ class Block extends PureComponent {
       );
     }
 
+    if (safe) {
+      return (
+        <SafeAreaView style={blockStyles} {...props}>
+          {children}
+        </SafeAreaView>
+      );
+    }
+
     return (
       <View style={blockStyles} {...props}>
         {children}
@@ -114,11 +123,12 @@ Block.defaultProps = {
   shadow: null,
   color: null,
   space: null,
-  margin: false,
-  padding: false,
+  margin: null,
+  padding: null,
   radius: null,
   wrap: false,
   animated: false,
+  safe: false,
   style: {},
   theme: {}
 };

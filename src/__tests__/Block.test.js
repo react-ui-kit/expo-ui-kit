@@ -96,6 +96,32 @@ describe("<Block />", () => {
     });
   });
 
+  it("padding={[2, 4]}", () => {
+    const component = shallow(<Block padding={[2, 4]} />);
+    const style = StyleSheet.flatten(component.props().style);
+    expect(component.instance().props.padding).toEqual([2, 4]);
+    expect(style).toEqual({
+      flex: 1,
+      paddingBottom: 2,
+      paddingLeft: 4,
+      paddingRight: 4,
+      paddingTop: 2
+    });
+  });
+
+  it("padding={[1, 2, 3, 4]}", () => {
+    const component = shallow(<Block padding={[1, 2, 3, 4]} />);
+    const style = StyleSheet.flatten(component.props().style);
+    expect(component.instance().props.padding).toEqual([1, 2, 3, 4]);
+    expect(style).toEqual({
+      flex: 1,
+      paddingBottom: 3,
+      paddingLeft: 4,
+      paddingRight: 2,
+      paddingTop: 1
+    });
+  });
+
   it("margin={6}", () => {
     const component = shallow(<Block margin={6} />);
     const style = StyleSheet.flatten(component.props().style);
@@ -109,9 +135,40 @@ describe("<Block />", () => {
     });
   });
 
+  it("margin={[2, 4]}", () => {
+    const component = shallow(<Block margin={[2, 4]} />);
+    const style = StyleSheet.flatten(component.props().style);
+    expect(component.instance().props.margin).toEqual([2, 4]);
+    expect(style).toEqual({
+      flex: 1,
+      marginBottom: 2,
+      marginLeft: 4,
+      marginRight: 4,
+      marginTop: 2
+    });
+  });
+
+  it("margin={[1, 2, 3, 4]}", () => {
+    const component = shallow(<Block margin={[1, 2, 3, 4]} />);
+    const style = StyleSheet.flatten(component.props().style);
+    expect(component.instance().props.margin).toEqual([1, 2, 3, 4]);
+    expect(style).toEqual({
+      flex: 1,
+      marginBottom: 3,
+      marginLeft: 4,
+      marginRight: 2,
+      marginTop: 1
+    });
+  });
+
   it("animated", () => {
     const component = shallow(<Block animated />);
     expect(component.instance().props.animated).toEqual(true);
+  });
+
+  it("safe", () => {
+    const component = shallow(<Block safe />);
+    expect(component.instance().props.safe).toEqual(true);
   });
 
   it("shadow", () => {

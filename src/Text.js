@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { Text, StyleSheet } from "react-native";
+import { Animated, Text, StyleSheet } from "react-native";
 
 import expoTheme from "./theme";
-import { mergeTheme } from "./utils";
+import { getMargins, getPaddings, mergeTheme } from "./utils";
 
 class Typography extends Component {
   render() {
@@ -16,6 +16,8 @@ class Typography extends Component {
       caption,
       small,
       size,
+      margin,
+      padding,
       // styling
       transform,
       regular,
@@ -40,6 +42,7 @@ class Typography extends Component {
       warning,
       success,
       info,
+      animated,
       theme,
       style,
       children,
@@ -62,6 +65,8 @@ class Typography extends Component {
       caption && FONTS.caption,
       small && FONTS.small,
       size && { fontSize: size },
+      margin && { ...getMargins(margin) },
+      padding && { ...getPaddings(padding) },
       transform && { textTransform: transform },
       height && { lineHeight: height },
       spacing && { letterSpacing: spacing },
@@ -88,6 +93,14 @@ class Typography extends Component {
       style // rewrite predefined styles
     ]);
 
+    if (animated) {
+      return (
+        <Animated.Text style={textStyles} {...props}>
+          {children}
+        </Animated.Text>
+      );
+    }
+
     return (
       <Text style={textStyles} {...props}>
         {children}
@@ -106,6 +119,8 @@ Typography.defaultProps = {
   caption: false,
   small: false,
   size: null,
+  margin: null,
+  padding: null,
   // styling
   transform: null,
   regular: false,

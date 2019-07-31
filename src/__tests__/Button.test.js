@@ -1,6 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import { StyleSheet } from "react-native";
+import { shallow } from "enzyme";
 
 import Button from "../Button";
 import { rgba } from "../utils";
@@ -8,14 +9,15 @@ import { COLORS, SIZES } from "../theme";
 
 describe("<Button />", () => {
   it("render default", () => {
-    const component = renderer.create(<Button />).toJSON();
-    const instance = renderer.create(<Button />).getInstance();
-    const style = StyleSheet.flatten(component.props.style);
-    expect(style.height).toEqual(SIZES.base * 2.75);
-    expect(style.borderRadius).toEqual(SIZES.border * 2);
-    expect(style.backgroundColor).toEqual(COLORS.primary);
-    expect(style.justifyContent).toEqual("center");
-    expect(instance.props.opacity).toEqual(0.8);
+    const component = shallow(<Button />);
+    const style = StyleSheet.flatten(component.props().style);
+    expect(component.instance().props.opacity).toEqual(0.8);
+    expect(style).toEqual({
+      height: SIZES.base * 5.5,
+      borderRadius: SIZES.radius,
+      backgroundColor: COLORS.primary,
+      justifyContent: "center"
+    });
   });
 
   it("transparent", () => {

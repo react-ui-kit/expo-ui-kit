@@ -28,58 +28,80 @@ class Input extends PureComponent {
     }
   }
 
-  onChange(value) {
-    const { onChange, onValidation } = this.props;
+  handleChange(value) {
+    const { onChangeText, onValidation } = this.props;
     const isValid = this.handleValidation(value);
 
     this.setState({ value }, () => {
       onValidation && onValidation(isValid);
-      onChange && onChange(value);
+      onChangeText && onChangeText(value);
     });
   }
 
-  onFocus(event) {
+  handleFocus(event) {
     const { onFocus } = this.props;
     this.setState({ focused: true, blurred: false }, () => {
       onFocus && onFocus(event);
     });
   }
 
-  onBlur(event) {
+  handleBlur(event) {
     const { onBlur } = this.props;
     this.setState({ focused: false, blurred: true }, () => {
       onBlur && onBlur(event);
     });
   }
 
+  handleTextType(type) {
+    return type === "email"
+      ? "emailAddress"
+      : type === "phone"
+      ? "telephoneNumber"
+      : type;
+  }
+
   render() {
-    const { placeholder, children, theme, style, ...props } = this.props;
+    const {
+      autoCorrect,
+      autoCapitalize,
+      placeholder,
+      children,
+      color,
+      type,
+      style,
+      theme,
+      internalRef,
+      ...props
+    } = this.props;
     const { SIZES, COLORS } = mergeTheme({ ...expoTheme }, theme);
 
     const textStyles = StyleSheet.flatten([
       {
         borderWidth: 1,
         height: SIZES.base * 5.5,
-        borderRadius: SIZES.border,
-        borderColor: rgba(COLORS.black, 0.8),
+        borderRadius: SIZES.radius,
+        borderColor: rgba(color || COLORS.primary, 0.4),
         paddingHorizontal: SIZES.base,
-        paddingVertical: SIZES.base,
         fontSize: SIZES.font
       },
       style
     ]);
+    const textType = this.handleTextType(type);
+
+    const internalProps = {
+      style: textStyles,
+      autoCorrect,
+      autoCapitalize,
+      placeholder,
+      textContentType: textType,
+      value: this.state.value,
+      onFocus: this.handleFocus,
+      onBlur: this.handleBlur,
+      onChangeText: this.handleChange
+    };
 
     return (
-      <TextInput
-        style={textStyles}
-        autoCorrect={false}
-        autoCapitalize="none"
-        placeholder={placeholder}
-        value={this.state.value}
-        onFocus={event => this.onFocus(event)}
-        onBlur={event => this.onBlur(event)}
-        onChange={value => this.onChange(value)}
-        {...props}>
+      <TextInput ref={internalRef} {...internalProps} {...props}>
         {children}
       </TextInput>
     );
@@ -87,13 +109,16 @@ class Input extends PureComponent {
 }
 
 Input.defaultProps = {
-  flex: false,
   pattern: null,
   onFocus: null,
   onBlur: null,
   onChange: null,
   onValidation: null,
   placeholder: null,
+  autoCorrect: false,
+  autoCapitalize: "none",
+  color: null,
+  internalRef: null,
   theme: {},
   style: {}
 };
