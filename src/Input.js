@@ -86,7 +86,6 @@ class Input extends PureComponent {
       },
       style
     ]);
-
     const textType = this.handleTextType(type);
 
     const internalProps = {
