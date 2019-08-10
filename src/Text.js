@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import { Text, StyleSheet } from "react-native";
+import React, { PureComponent } from "react";
+import { Animated, Text, StyleSheet } from "react-native";
 
 import expoTheme from "./theme";
-import { mergeTheme } from "./utils";
+import { getMargins, getPaddings, mergeTheme } from "./utils";
 
-class Typography extends Component {
+class Typography extends PureComponent {
   render() {
     const {
       // fonts & sizes
@@ -16,6 +16,20 @@ class Typography extends Component {
       caption,
       small,
       size,
+      margin,
+      marginTop,
+      marginRight,
+      marginBottom,
+      marginLeft,
+      marginVertical,
+      marginHorizontal,
+      padding,
+      paddingTop,
+      paddingRight,
+      paddingBottom,
+      paddingLeft,
+      paddingVertical,
+      paddingHorizontal,
       // styling
       transform,
       regular,
@@ -40,6 +54,7 @@ class Typography extends Component {
       warning,
       success,
       info,
+      animated,
       theme,
       style,
       children,
@@ -62,6 +77,20 @@ class Typography extends Component {
       caption && FONTS.caption,
       small && FONTS.small,
       size && { fontSize: size },
+      margin && { ...getMargins(margin) },
+      marginTop && { marginTop },
+      marginRight && { marginRight },
+      marginBottom && { marginBottom },
+      marginLeft && { marginLeft },
+      marginVertical && { marginVertical },
+      marginHorizontal && { marginHorizontal },
+      padding && { ...getPaddings(padding) },
+      paddingTop && { paddingTop },
+      paddingRight && { paddingRight },
+      paddingBottom && { paddingBottom },
+      paddingLeft && { paddingLeft },
+      paddingVertical && { paddingVertical },
+      paddingHorizontal && { paddingHorizontal },
       transform && { textTransform: transform },
       height && { lineHeight: height },
       spacing && { letterSpacing: spacing },
@@ -73,7 +102,6 @@ class Typography extends Component {
       light && { fontWeight: "300" },
       center && styles.center,
       right && styles.right,
-      color && { color },
       // color shortcuts
       primary && { color: COLORS.primary },
       secondary && { color: COLORS.secondary },
@@ -85,8 +113,17 @@ class Typography extends Component {
       warning && { color: COLORS.warning },
       success && { color: COLORS.success },
       info && { color: COLORS.info },
+      color && { color },
       style // rewrite predefined styles
     ]);
+
+    if (animated) {
+      return (
+        <Animated.Text style={textStyles} {...props}>
+          {children}
+        </Animated.Text>
+      );
+    }
 
     return (
       <Text style={textStyles} {...props}>
@@ -106,6 +143,8 @@ Typography.defaultProps = {
   caption: false,
   small: false,
   size: null,
+  margin: null,
+  padding: null,
   // styling
   transform: null,
   regular: false,

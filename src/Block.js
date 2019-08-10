@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import { StyleSheet, View, Animated } from "react-native";
+import { Animated, SafeAreaView, StyleSheet, View } from "react-native";
 
 import expoTheme from "./theme";
 import { getMargins, getPaddings, mergeTheme } from "./utils";
@@ -18,14 +18,39 @@ class Block extends PureComponent {
       bottom,
       card,
       shadow,
+      // colors
       color,
+      primary,
+      secondary,
+      tertiary,
+      black,
+      white,
+      gray,
+      alert,
+      warning,
+      success,
+      info,
+      // positioning
       space,
-      padding,
       margin,
+      marginTop,
+      marginRight,
+      marginBottom,
+      marginLeft,
+      marginVertical,
+      marginHorizontal,
+      padding,
+      paddingTop,
+      paddingRight,
+      paddingBottom,
+      paddingLeft,
+      paddingVertical,
+      paddingHorizontal,
       radius,
       wrap,
       animated,
       theme,
+      safe,
       style,
       children,
       ...props
@@ -46,7 +71,19 @@ class Block extends PureComponent {
       top && styles.top,
       bottom && styles.bottom,
       margin && { ...getMargins(margin) },
+      marginTop && { marginTop },
+      marginRight && { marginRight },
+      marginBottom && { marginBottom },
+      marginLeft && { marginLeft },
+      marginVertical && { marginVertical },
+      marginHorizontal && { marginHorizontal },
       padding && { ...getPaddings(padding) },
+      paddingTop && { paddingTop },
+      paddingRight && { paddingRight },
+      paddingBottom && { paddingBottom },
+      paddingLeft && { paddingLeft },
+      paddingVertical && { paddingVertical },
+      paddingHorizontal && { paddingHorizontal },
       wrap && styles.wrap,
       shadow && {
         shadowColor: COLORS.black,
@@ -57,16 +94,17 @@ class Block extends PureComponent {
       space && { justifyContent: `space-${space}` },
       card && { borderRadius: SIZES.border },
       radius && { borderRadius: radius },
-      color === "primary" && { backgroundColor: COLORS.primary },
-      color === "secondary" && { backgroundColor: COLORS.secondary },
-      color === "tertiary" && { backgroundColor: COLORS.tertiary },
-      color === "black" && { backgroundColor: COLORS.black },
-      color === "white" && { backgroundColor: COLORS.white },
-      color === "gray" && { backgroundColor: COLORS.gray },
-      color === "alert" && { backgroundColor: COLORS.alert },
-      color === "warning" && { backgroundColor: COLORS.warning },
-      color === "success" && { backgroundColor: COLORS.success },
-      color === "info" && { backgroundColor: COLORS.info },
+      // color shortcuts
+      primary && { backgroundColor: COLORS.primary },
+      secondary && { backgroundColor: COLORS.secondary },
+      tertiary && { backgroundColor: COLORS.tertiary },
+      black && { backgroundColor: COLORS.black },
+      white && { backgroundColor: COLORS.white },
+      gray && { backgroundColor: COLORS.gray },
+      alert && { backgroundColor: COLORS.alert },
+      warning && { backgroundColor: COLORS.warning },
+      success && { backgroundColor: COLORS.success },
+      info && { backgroundColor: COLORS.info },
       color && { backgroundColor: color }, // custom backgroundColor
       style // rewrite predefined styles
     ]);
@@ -76,6 +114,14 @@ class Block extends PureComponent {
         <Animated.View style={blockStyles} {...props}>
           {children}
         </Animated.View>
+      );
+    }
+
+    if (safe) {
+      return (
+        <SafeAreaView style={blockStyles} {...props}>
+          {children}
+        </SafeAreaView>
       );
     }
 
@@ -101,11 +147,12 @@ Block.defaultProps = {
   shadow: null,
   color: null,
   space: null,
-  margin: false,
-  padding: false,
+  margin: null,
+  padding: null,
   radius: null,
   wrap: false,
   animated: false,
+  safe: false,
   style: {},
   theme: {}
 };
