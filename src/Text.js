@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { Animated, Text, StyleSheet } from "react-native";
 
 import expoTheme from "./theme";
 import { getMargins, getPaddings, mergeTheme } from "./utils";
 
-class Typography extends Component {
+class Typography extends PureComponent {
   render() {
     const {
       // fonts & sizes
