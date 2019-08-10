@@ -45,7 +45,7 @@ export const FONTS = {
   h2: { fontSize: SIZES.h2, letterSpacing: 0 },
   h3: { fontSize: SIZES.h3, letterSpacing: 0.15 },
   title: { fontSize: SIZES.title, letterSpacing: 0.15 },
-  subtitle: { fontSize: SIZES.body },
+  subtitle: { fontSize: SIZES.subtitle },
   caption: { fontSize: SIZES.caption, letterSpacing: 0.4 },
   small: { fontSize: SIZES.small, letterSpacing: 1.5 }
 };

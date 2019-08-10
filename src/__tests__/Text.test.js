@@ -96,18 +96,39 @@ describe("<Text />", () => {
     });
   });
 
-  it("margin={6}", () => {
-    const component = shallow(<Text margin={6} />);
+  it("paddingTop={6}, paddingRight={5}, paddingBottom={4}, paddingLeft={3}", () => {
+    const component = shallow(
+      <Text paddingTop={6} paddingRight={5} paddingBottom={4} paddingLeft={3} />
+    );
     const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.margin).toEqual(6);
+    expect(component.instance().props.paddingTop).toEqual(6);
+    expect(component.instance().props.paddingRight).toEqual(5);
+    expect(component.instance().props.paddingBottom).toEqual(4);
+    expect(component.instance().props.paddingLeft).toEqual(3);
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
       color: COLORS.black,
-      marginBottom: 6,
-      marginLeft: 6,
-      marginRight: 6,
-      marginTop: 6
+      paddingLeft: 3,
+      paddingBottom: 4,
+      paddingRight: 5,
+      paddingTop: 6
+    });
+  });
+
+  it("paddingHorizontal={6}, paddingVertical={8}", () => {
+    const component = shallow(
+      <Text paddingHorizontal={6} paddingVertical={8} />
+    );
+    const style = StyleSheet.flatten(component.props().style);
+    expect(component.instance().props.paddingHorizontal).toEqual(6);
+    expect(component.instance().props.paddingVertical).toEqual(8);
+    expect(style).toEqual({
+      fontWeight: "normal",
+      fontSize: SIZES.font,
+      color: COLORS.black,
+      paddingVertical: 8,
+      paddingHorizontal: 6
     });
   });
 
@@ -153,6 +174,40 @@ describe("<Text />", () => {
       marginLeft: 4,
       marginRight: 2,
       marginTop: 1
+    });
+  });
+
+  it("marginTop={6}, marginRight={5}, marginBottom={4}, marginLeft={3}", () => {
+    const component = shallow(
+      <Text marginTop={6} marginRight={5} marginBottom={4} marginLeft={3} />
+    );
+    const style = StyleSheet.flatten(component.props().style);
+    expect(component.instance().props.marginTop).toEqual(6);
+    expect(component.instance().props.marginRight).toEqual(5);
+    expect(component.instance().props.marginBottom).toEqual(4);
+    expect(component.instance().props.marginLeft).toEqual(3);
+    expect(style).toEqual({
+      fontWeight: "normal",
+      fontSize: SIZES.font,
+      color: COLORS.black,
+      marginLeft: 3,
+      marginBottom: 4,
+      marginRight: 5,
+      marginTop: 6
+    });
+  });
+
+  it("marginHorizontal={6}, marginVertical={8}", () => {
+    const component = shallow(<Text marginHorizontal={6} marginVertical={8} />);
+    const style = StyleSheet.flatten(component.props().style);
+    expect(component.instance().props.marginHorizontal).toEqual(6);
+    expect(component.instance().props.marginVertical).toEqual(8);
+    expect(style).toEqual({
+      fontWeight: "normal",
+      fontSize: SIZES.font,
+      color: COLORS.black,
+      marginVertical: 8,
+      marginHorizontal: 6
     });
   });
 

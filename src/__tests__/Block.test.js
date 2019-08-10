@@ -122,6 +122,43 @@ describe("<Block />", () => {
     });
   });
 
+  it("paddingTop={6}, paddingRight={5}, paddingBottom={4}, paddingLeft={3}", () => {
+    const component = shallow(
+      <Block
+        paddingTop={6}
+        paddingRight={5}
+        paddingBottom={4}
+        paddingLeft={3}
+      />
+    );
+    const style = StyleSheet.flatten(component.props().style);
+    expect(component.instance().props.paddingTop).toEqual(6);
+    expect(component.instance().props.paddingRight).toEqual(5);
+    expect(component.instance().props.paddingBottom).toEqual(4);
+    expect(component.instance().props.paddingLeft).toEqual(3);
+    expect(style).toEqual({
+      flex: 1,
+      paddingLeft: 3,
+      paddingBottom: 4,
+      paddingRight: 5,
+      paddingTop: 6
+    });
+  });
+
+  it("paddingHorizontal={6}, paddingVertical={8}", () => {
+    const component = shallow(
+      <Block paddingHorizontal={6} paddingVertical={8} />
+    );
+    const style = StyleSheet.flatten(component.props().style);
+    expect(component.instance().props.paddingHorizontal).toEqual(6);
+    expect(component.instance().props.paddingVertical).toEqual(8);
+    expect(style).toEqual({
+      flex: 1,
+      paddingVertical: 8,
+      paddingHorizontal: 6
+    });
+  });
+
   it("margin={6}", () => {
     const component = shallow(<Block margin={6} />);
     const style = StyleSheet.flatten(component.props().style);
@@ -158,6 +195,38 @@ describe("<Block />", () => {
       marginLeft: 4,
       marginRight: 2,
       marginTop: 1
+    });
+  });
+
+  it("marginTop={6}, marginRight={5}, marginBottom={4}, marginLeft={3}", () => {
+    const component = shallow(
+      <Block marginTop={6} marginRight={5} marginBottom={4} marginLeft={3} />
+    );
+    const style = StyleSheet.flatten(component.props().style);
+    expect(component.instance().props.marginTop).toEqual(6);
+    expect(component.instance().props.marginRight).toEqual(5);
+    expect(component.instance().props.marginBottom).toEqual(4);
+    expect(component.instance().props.marginLeft).toEqual(3);
+    expect(style).toEqual({
+      flex: 1,
+      marginLeft: 3,
+      marginBottom: 4,
+      marginRight: 5,
+      marginTop: 6
+    });
+  });
+
+  it("marginHorizontal={6}, marginVertical={8}", () => {
+    const component = shallow(
+      <Block marginHorizontal={6} marginVertical={8} />
+    );
+    const style = StyleSheet.flatten(component.props().style);
+    expect(component.instance().props.marginHorizontal).toEqual(6);
+    expect(component.instance().props.marginVertical).toEqual(8);
+    expect(style).toEqual({
+      flex: 1,
+      marginVertical: 8,
+      marginHorizontal: 6
     });
   });
 
