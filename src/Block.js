@@ -18,6 +18,7 @@ class Block extends PureComponent {
       bottom,
       card,
       shadow,
+      elevation,
       // colors
       color,
       primary,
@@ -26,7 +27,7 @@ class Block extends PureComponent {
       black,
       white,
       gray,
-      alert,
+      error,
       warning,
       success,
       info,
@@ -86,10 +87,11 @@ class Block extends PureComponent {
       paddingHorizontal && { paddingHorizontal },
       wrap && styles.wrap,
       shadow && {
+        elevation,
         shadowColor: COLORS.black,
-        shadowOffset: { width: 0, height: 2 },
+        shadowOffset: { width: 0, height: elevation - 1 },
         shadowOpacity: 0.1,
-        shadowRadius: SIZES.radius * 3
+        shadowRadius: elevation
       },
       space && { justifyContent: `space-${space}` },
       card && { borderRadius: SIZES.border },
@@ -101,7 +103,7 @@ class Block extends PureComponent {
       black && { backgroundColor: COLORS.black },
       white && { backgroundColor: COLORS.white },
       gray && { backgroundColor: COLORS.gray },
-      alert && { backgroundColor: COLORS.alert },
+      error && { backgroundColor: COLORS.error },
       warning && { backgroundColor: COLORS.warning },
       success && { backgroundColor: COLORS.success },
       info && { backgroundColor: COLORS.info },
@@ -145,6 +147,7 @@ Block.defaultProps = {
   bottom: false,
   card: false,
   shadow: null,
+  elevation: 3,
   color: null,
   space: null,
   margin: null,

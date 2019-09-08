@@ -18,7 +18,7 @@ describe("<Card />", () => {
     const instance = renderer.create(<Card shadow />).getInstance();
     const style = StyleSheet.flatten(component.props.style);
     expect(instance.props.shadow).toEqual(true);
-    expect(style.shadowColor).toEqual(COLORS.black);
+    expect(style.shadowColor).toEqual("#000020");
   });
 
   it("outlined", () => {
@@ -26,6 +26,6 @@ describe("<Card />", () => {
     const instance = renderer.create(<Card outlined />).getInstance();
     const style = StyleSheet.flatten(component.props.style);
     expect(instance.props.outlined).toEqual(true);
-    expect(style.borderColor).toEqual(rgba(COLORS.black, 0.16));
+    expect(style.borderColor).toEqual(rgba("#000020", 0.16));
   });
 });

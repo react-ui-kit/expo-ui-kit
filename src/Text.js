@@ -50,7 +50,7 @@ class Typography extends PureComponent {
       black,
       white,
       gray,
-      alert,
+      error,
       warning,
       success,
       info,
@@ -61,11 +61,14 @@ class Typography extends PureComponent {
       ...props
     } = this.props;
 
-    const { SIZES, COLORS, FONTS } = mergeTheme({ ...expoTheme }, theme);
+    const { SIZES, COLORS, FONTS, WEIGHTS } = mergeTheme(
+      { ...expoTheme },
+      theme
+    );
 
     const textStyles = StyleSheet.flatten([
       {
-        fontWeight: "normal",
+        fontWeight: WEIGHTS.regular,
         fontSize: SIZES.font,
         color: COLORS.black
       },
@@ -95,11 +98,11 @@ class Typography extends PureComponent {
       height && { lineHeight: height },
       spacing && { letterSpacing: spacing },
       weight && { fontWeight: weight },
-      regular && { fontWeight: "normal" },
-      bold && { fontWeight: "bold" },
-      semibold && { fontWeight: "500" },
-      medium && { fontWeight: "400" },
-      light && { fontWeight: "300" },
+      regular && { fontWeight: WEIGHTS.regular },
+      bold && { fontWeight: WEIGHTS.bold },
+      semibold && { fontWeight: WEIGHTS.semibold },
+      medium && { fontWeight: WEIGHTS.medium },
+      light && { fontWeight: WEIGHTS.light },
       center && styles.center,
       right && styles.right,
       // color shortcuts
@@ -109,7 +112,7 @@ class Typography extends PureComponent {
       black && { color: COLORS.black },
       white && { color: COLORS.white },
       gray && { color: COLORS.gray },
-      alert && { color: COLORS.alert },
+      error && { color: COLORS.error },
       warning && { color: COLORS.warning },
       success && { color: COLORS.success },
       info && { color: COLORS.info },
@@ -165,7 +168,7 @@ Typography.defaultProps = {
   black: false,
   white: false,
   gray: false,
-  alert: false,
+  error: false,
   warning: false,
   success: false,
   info: false,

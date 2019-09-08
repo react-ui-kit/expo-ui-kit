@@ -244,7 +244,11 @@ describe("<Block />", () => {
     const component = shallow(<Block shadow />);
     const style = StyleSheet.flatten(component.props().style);
     expect(component.instance().props.shadow).toEqual(true);
-    expect(style.shadowColor).toEqual(COLORS.black);
+    expect(style.elevation).toEqual(3);
+    expect(style.shadowColor).toEqual("#000020");
+    expect(style.shadowOffset).toEqual({ width: 0, height: 2 });
+    expect(style.shadowOpacity).toEqual(0.1);
+    expect(style.shadowRadius).toEqual(3);
   });
 
   it('space="between"', () => {
@@ -275,43 +279,43 @@ describe("<Block />", () => {
 
     component.setProps({ primary: true });
     style = StyleSheet.flatten(component.props().style);
-    expect(style.backgroundColor).toEqual(COLORS.primary);
+    expect(style.backgroundColor).toEqual("#4630EB");
 
     component.setProps({ secondary: true });
     style = StyleSheet.flatten(component.props().style);
-    expect(style.backgroundColor).toEqual(COLORS.secondary);
+    expect(style.backgroundColor).toEqual("#A3A1F7");
 
     component.setProps({ tertiary: true });
     style = StyleSheet.flatten(component.props().style);
-    expect(style.backgroundColor).toEqual(COLORS.tertiary);
+    expect(style.backgroundColor).toEqual("#FFE358");
 
     component.setProps({ black: true });
     style = StyleSheet.flatten(component.props().style);
-    expect(style.backgroundColor).toEqual(COLORS.black);
+    expect(style.backgroundColor).toEqual("#000020");
 
     component.setProps({ white: true });
     style = StyleSheet.flatten(component.props().style);
-    expect(style.backgroundColor).toEqual(COLORS.white);
+    expect(style.backgroundColor).toEqual("#FFFFFF");
 
     component.setProps({ gray: true });
     style = StyleSheet.flatten(component.props().style);
-    expect(style.backgroundColor).toEqual(COLORS.gray);
+    expect(style.backgroundColor).toEqual("#535453");
 
-    component.setProps({ alert: true });
+    component.setProps({ error: true });
     style = StyleSheet.flatten(component.props().style);
-    expect(style.backgroundColor).toEqual(COLORS.alert);
+    expect(style.backgroundColor).toEqual("#DC3545");
 
     component.setProps({ warning: true });
     style = StyleSheet.flatten(component.props().style);
-    expect(style.backgroundColor).toEqual(COLORS.warning);
+    expect(style.backgroundColor).toEqual("#FFE358");
 
     component.setProps({ success: true });
     style = StyleSheet.flatten(component.props().style);
-    expect(style.backgroundColor).toEqual(COLORS.success);
+    expect(style.backgroundColor).toEqual("#4CD964");
 
     component.setProps({ info: true });
     style = StyleSheet.flatten(component.props().style);
-    expect(style.backgroundColor).toEqual(COLORS.info);
+    expect(style.backgroundColor).toEqual("#4DA1FF");
 
     component.setProps({ color: "#88B04B" });
     style = StyleSheet.flatten(component.props().style);

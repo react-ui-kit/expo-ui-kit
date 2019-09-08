@@ -50,4 +50,12 @@ export const FONTS = {
   small: { fontSize: SIZES.small, letterSpacing: 1.5 }
 };
 
-export default { COLORS, SIZES, FONTS };
+export const WEIGHTS = {
+  regular: "normal",
+  bold: "bold",
+  semibold: "500",
+  medium: "400",
+  light: "300"
+};
+
+export default { COLORS, SIZES, FONTS, WEIGHTS };
