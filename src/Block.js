@@ -1,10 +1,10 @@
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 import { Animated, SafeAreaView, StyleSheet, View } from "react-native";
 
 import expoTheme from "./theme";
 import { getMargins, getPaddings, mergeTheme } from "./utils";
 
-class Block extends PureComponent {
+class Block extends Component {
   render() {
     const {
       flex,

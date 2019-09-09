@@ -1,10 +1,10 @@
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 import { StyleSheet, TextInput } from "react-native";
 
 import expoTheme from "./theme";
 import { rgba, mergeTheme } from "./utils";
 
-class Input extends PureComponent {
+class Input extends Component {
   state = {
     value: null,
     focused: false,
