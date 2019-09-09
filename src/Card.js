@@ -13,6 +13,7 @@ class Card extends Component {
       radius,
       padding,
       shadow,
+      elevation,
       outlined,
       theme,
       style,
@@ -24,10 +25,11 @@ class Card extends Component {
 
     const cardStyles = StyleSheet.flatten([
       shadow && {
+        elevation,
         shadowColor: COLORS.black,
-        shadowOffset: { width: 0, height: 2 },
+        shadowOffset: { width: 0, height: elevation - 1 },
         shadowOpacity: 0.1,
-        shadowRadius: SIZES.radius * 3
+        shadowRadius: elevation
       },
       outlined && {
         borderWidth: 1,
@@ -54,6 +56,7 @@ Card.defaultProps = {
   radius: null,
   padding: null,
   shadow: false,
+  elevation: 3,
   outlined: false,
   theme: {},
   style: {}
