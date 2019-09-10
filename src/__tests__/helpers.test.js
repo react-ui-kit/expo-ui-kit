@@ -34,4 +34,20 @@ describe("Helpers", () => {
       paddingTop: 4
     });
   });
+  it("spacing: margin='0.5x' && padding='0.4x'", () => {
+    const margin = spacing("margin", "0.5x", 4);
+    const padding = spacing("padding", "4x", 4);
+    expect(margin).toEqual({
+      marginBottom: 2,
+      marginLeft: 2,
+      marginRight: 2,
+      marginTop: 2
+    });
+    expect(padding).toEqual({
+      paddingBottom: 16,
+      paddingLeft: 16,
+      paddingRight: 16,
+      paddingTop: 16
+    });
+  });
 });

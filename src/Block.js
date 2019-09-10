@@ -73,8 +73,6 @@ class Block extends Component {
         }
       ];
     }
-
-    return [];
   }
 
   render() {
@@ -103,6 +101,9 @@ class Block extends Component {
       warning,
       success,
       info,
+      // spacing
+      margin,
+      padding,
       // positioning
       space,
       radius,
