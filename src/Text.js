@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Animated, Text, StyleSheet } from "react-native";
 
 import expoTheme from "./theme";
-import { getMargins, getPaddings, mergeTheme } from "./utils";
+import { spacing, mergeTheme } from "./utils";
 
 /**
  * Usage:
@@ -68,6 +68,76 @@ import { getMargins, getPaddings, mergeTheme } from "./utils";
  */
 
 class Typography extends Component {
+  getSpacings(type) {
+    const {
+      margin,
+      marginTop,
+      marginRight,
+      marginBottom,
+      marginLeft,
+      marginVertical,
+      marginHorizontal,
+      padding,
+      paddingTop,
+      paddingRight,
+      paddingBottom,
+      paddingLeft,
+      paddingVertical,
+      paddingHorizontal,
+      theme
+    } = this.props;
+    const { SIZES } = mergeTheme(expoTheme, theme);
+
+    if (type === "margin") {
+      return [
+        margin && spacing(type, margin, SIZES.base),
+        marginTop && { marginTop: marginTop === true ? SIZES.base : marginTop },
+        marginRight && {
+          marginRight: marginRight === true ? SIZES.base : marginRight
+        },
+        marginBottom && {
+          marginBottom: marginBottom === true ? SIZES.base : marginBottom
+        },
+        marginLeft && {
+          marginLeft: marginLeft === true ? SIZES.base : marginLeft
+        },
+        marginVertical && {
+          marginVertical: marginVertical === true ? SIZES.base : marginVertical
+        },
+        marginHorizontal && {
+          marginHorizontal:
+            marginHorizontal === true ? SIZES.base : marginHorizontal
+        }
+      ];
+    }
+
+    if (type === "padding") {
+      return [
+        padding && spacing(type, padding, SIZES.base),
+        paddingTop && {
+          paddingTop: paddingTop === true ? SIZES.base : paddingTop
+        },
+        paddingRight && {
+          paddingRight: paddingRight === true ? SIZES.base : paddingRight
+        },
+        paddingBottom && {
+          paddingBottom: paddingBottom === true ? SIZES.base : paddingBottom
+        },
+        paddingLeft && {
+          paddingLeft: paddingLeft === true ? SIZES.base : paddingLeft
+        },
+        paddingVertical && {
+          paddingVertical:
+            paddingVertical === true ? SIZES.base : paddingVertical
+        },
+        paddingHorizontal && {
+          paddingHorizontal:
+            paddingHorizontal === true ? SIZES.base : paddingHorizontal
+        }
+      ];
+    }
+  }
+
   render() {
     const {
       // fonts & sizes
@@ -129,8 +199,8 @@ class Typography extends Component {
       theme
     );
 
-    const marginValue = margin === true ? SIZES.base : margin;
-    const paddingValue = padding === true ? SIZES.base : padding;
+    const marginSpacing = this.getSpacings("margin");
+    const paddingSpacing = this.getSpacings("padding");
 
     const textStyles = StyleSheet.flatten([
       {
@@ -146,20 +216,8 @@ class Typography extends Component {
       caption && FONTS.caption,
       small && FONTS.small,
       size && { fontSize: size },
-      margin && getMargins(marginValue, SIZES.base),
-      marginTop && { marginTop },
-      marginRight && { marginRight },
-      marginBottom && { marginBottom },
-      marginLeft && { marginLeft },
-      marginVertical && { marginVertical },
-      marginHorizontal && { marginHorizontal },
-      padding && getPaddings(paddingValue, SIZES.base),
-      paddingTop && { paddingTop },
-      paddingRight && { paddingRight },
-      paddingBottom && { paddingBottom },
-      paddingLeft && { paddingLeft },
-      paddingVertical && { paddingVertical },
-      paddingHorizontal && { paddingHorizontal },
+      marginSpacing,
+      paddingSpacing,
       transform && { textTransform: transform },
       height && { lineHeight: height },
       spacing && { letterSpacing: spacing },
