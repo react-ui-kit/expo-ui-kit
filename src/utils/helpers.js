@@ -1,4 +1,4 @@
-export const getMargins = value => {
+export const getMargins = (value, defaultValue = 1) => {
   if (typeof value === "number") {
     return {
       marginTop: value,
@@ -41,9 +41,21 @@ export const getMargins = value => {
         };
     }
   }
+
+  if (typeof value === "string") {
+    const marginValue = value.match(/((?=.*[1-9])\d*(?:\.\d{1,2})|(\d*))x/);
+    return (
+      marginValue && {
+        marginTop: parseFloat(marginValue) * defaultValue,
+        marginRight: parseFloat(marginValue) * defaultValue,
+        marginBottom: parseFloat(marginValue) * defaultValue,
+        marginLeft: parseFloat(marginValue) * defaultValue
+      }
+    );
+  }
 };
 
-export const getPaddings = value => {
+export const getPaddings = (value, defaultValue = 1) => {
   if (typeof value === "number") {
     return {
       paddingTop: value,
@@ -85,6 +97,18 @@ export const getPaddings = value => {
           paddingLeft: value[3]
         };
     }
+  }
+
+  if (typeof value === "string") {
+    const paddingValue = value.match(/((?=.*[1-9])\d*(?:\.\d{1,2})|(\d*))x/);
+    return (
+      paddingValue && {
+        paddingTop: parseFloat(paddingValue) * defaultValue,
+        paddingRight: parseFloat(paddingValue) * defaultValue,
+        paddingBottom: parseFloat(paddingValue) * defaultValue,
+        paddingLeft: parseFloat(paddingValue) * defaultValue
+      }
+    );
   }
 };
 

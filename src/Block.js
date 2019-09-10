@@ -58,6 +58,8 @@ class Block extends Component {
     } = this.props;
 
     const { SIZES, COLORS } = mergeTheme(expoTheme, theme);
+    const marginValue = margin === true ? SIZES.base : margin;
+    const paddingValue = padding === true ? SIZES.base : padding;
 
     const blockStyles = StyleSheet.flatten([
       styles.block,
@@ -71,14 +73,14 @@ class Block extends Component {
       right && styles.right,
       top && styles.top,
       bottom && styles.bottom,
-      margin && { ...getMargins(margin) },
+      margin && getMargins(marginValue, SIZES.base),
       marginTop && { marginTop },
       marginRight && { marginRight },
       marginBottom && { marginBottom },
       marginLeft && { marginLeft },
       marginVertical && { marginVertical },
       marginHorizontal && { marginHorizontal },
-      padding && { ...getPaddings(padding) },
+      padding && getPaddings(paddingValue, SIZES.base),
       paddingTop && { paddingTop },
       paddingRight && { paddingRight },
       paddingBottom && { paddingBottom },

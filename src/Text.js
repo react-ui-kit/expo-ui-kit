@@ -129,6 +129,9 @@ class Typography extends Component {
       theme
     );
 
+    const marginValue = margin === true ? SIZES.base : margin;
+    const paddingValue = padding === true ? SIZES.base : padding;
+
     const textStyles = StyleSheet.flatten([
       {
         fontWeight: WEIGHTS.regular,
@@ -143,14 +146,14 @@ class Typography extends Component {
       caption && FONTS.caption,
       small && FONTS.small,
       size && { fontSize: size },
-      margin && { ...getMargins(margin) },
+      margin && getMargins(marginValue, SIZES.base),
       marginTop && { marginTop },
       marginRight && { marginRight },
       marginBottom && { marginBottom },
       marginLeft && { marginLeft },
       marginVertical && { marginVertical },
       marginHorizontal && { marginHorizontal },
-      padding && { ...getPaddings(padding) },
+      padding && getPaddings(paddingValue, SIZES.base),
       paddingTop && { paddingTop },
       paddingRight && { paddingRight },
       paddingBottom && { paddingBottom },
