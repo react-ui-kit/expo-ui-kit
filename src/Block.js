@@ -60,7 +60,9 @@ class Block extends Component {
     const { SIZES, COLORS } = mergeTheme(expoTheme, theme);
 
     const blockStyles = StyleSheet.flatten([
+      styles.block,
       flex && { flex: flex === true ? 1 : flex },
+      !flex && { flex: 0 },
       row && styles.row,
       column && styles.column,
       center && styles.center,
@@ -134,7 +136,7 @@ class Block extends Component {
 }
 
 Block.defaultProps = {
-  flex: false,
+  flex: true,
   row: false,
   column: false,
   center: false,
@@ -161,6 +163,9 @@ Block.defaultProps = {
 export default Block;
 
 export const styles = StyleSheet.create({
+  block: {
+    flex: 1
+  },
   row: {
     flexDirection: "row"
   },

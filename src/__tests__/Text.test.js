@@ -330,5 +330,6 @@ describe("<Text />", () => {
   it("animated", () => {
     const component = shallow(<Text animated />);
     expect(component.instance().props.animated).toEqual(true);
+    expect(component.name()).toEqual("AnimatedComponent");
   });
 });
