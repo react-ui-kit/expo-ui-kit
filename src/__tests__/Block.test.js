@@ -16,13 +16,13 @@ describe("<Block />", () => {
   it("render default", () => {
     const component = renderer.create(<Block />).toJSON();
     const style = StyleSheet.flatten(component.props.style);
-    expect(style.flex).toEqual(1);
+    expect(style.flex).toEqual(0);
   });
 
-  it("testing flex, flex={0.5}, flex={false}", () => {
+  it("testing flex, flex={0.5}, flex={true}", () => {
     const component = shallow(<Block>flex</Block>);
     let style = StyleSheet.flatten(component.props().style);
-    expect(style.flex).toEqual(1);
+    expect(style.flex).toEqual(0);
 
     component.setProps({ flex: 0.5 });
     style = StyleSheet.flatten(component.props().style);
@@ -90,7 +90,7 @@ describe("<Block />", () => {
     const style = StyleSheet.flatten(component.props().style);
     expect(component.instance().props.padding).toEqual(4);
     expect(style).toEqual({
-      flex: 1,
+      flex: 0,
       paddingBottom: 4,
       paddingLeft: 4,
       paddingRight: 4,
@@ -103,7 +103,7 @@ describe("<Block />", () => {
     const style = StyleSheet.flatten(component.props().style);
     expect(component.instance().props.padding).toEqual([2, 4]);
     expect(style).toEqual({
-      flex: 1,
+      flex: 0,
       paddingBottom: 2,
       paddingLeft: 4,
       paddingRight: 4,
@@ -116,7 +116,7 @@ describe("<Block />", () => {
     const style = StyleSheet.flatten(component.props().style);
     expect(component.instance().props.padding).toEqual([1, 2, 3, 4]);
     expect(style).toEqual({
-      flex: 1,
+      flex: 0,
       paddingBottom: 3,
       paddingLeft: 4,
       paddingRight: 2,
@@ -139,7 +139,7 @@ describe("<Block />", () => {
     expect(component.instance().props.paddingBottom).toEqual(4);
     expect(component.instance().props.paddingLeft).toEqual(3);
     expect(style).toEqual({
-      flex: 1,
+      flex: 0,
       paddingLeft: 3,
       paddingBottom: 4,
       paddingRight: 5,
@@ -155,7 +155,7 @@ describe("<Block />", () => {
     expect(component.instance().props.paddingHorizontal).toEqual(6);
     expect(component.instance().props.paddingVertical).toEqual(8);
     expect(style).toEqual({
-      flex: 1,
+      flex: 0,
       paddingVertical: 8,
       paddingHorizontal: 6
     });
@@ -166,7 +166,7 @@ describe("<Block />", () => {
     const style = StyleSheet.flatten(component.props().style);
     expect(component.instance().props.margin).toEqual(6);
     expect(style).toEqual({
-      flex: 1,
+      flex: 0,
       marginBottom: 6,
       marginLeft: 6,
       marginRight: 6,
@@ -179,7 +179,7 @@ describe("<Block />", () => {
     const style = StyleSheet.flatten(component.props().style);
     expect(component.instance().props.margin).toEqual([2, 4]);
     expect(style).toEqual({
-      flex: 1,
+      flex: 0,
       marginBottom: 2,
       marginLeft: 4,
       marginRight: 4,
@@ -192,7 +192,7 @@ describe("<Block />", () => {
     const style = StyleSheet.flatten(component.props().style);
     expect(component.instance().props.margin).toEqual([1, 2, 3, 4]);
     expect(style).toEqual({
-      flex: 1,
+      flex: 0,
       marginBottom: 3,
       marginLeft: 4,
       marginRight: 2,
@@ -210,7 +210,7 @@ describe("<Block />", () => {
     expect(component.instance().props.marginBottom).toEqual(4);
     expect(component.instance().props.marginLeft).toEqual(3);
     expect(style).toEqual({
-      flex: 1,
+      flex: 0,
       marginLeft: 3,
       marginBottom: 4,
       marginRight: 5,
@@ -226,7 +226,7 @@ describe("<Block />", () => {
     expect(component.instance().props.marginHorizontal).toEqual(6);
     expect(component.instance().props.marginVertical).toEqual(8);
     expect(style).toEqual({
-      flex: 1,
+      flex: 0,
       marginVertical: 8,
       marginHorizontal: 6
     });

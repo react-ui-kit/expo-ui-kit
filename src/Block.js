@@ -135,7 +135,7 @@ class Block extends Component {
 }
 
 Block.defaultProps = {
-  flex: 0,
+  flex: false,
   row: false,
   column: false,
   center: false,
@@ -163,7 +163,7 @@ export default Block;
 
 export const styles = StyleSheet.create({
   block: {
-    flex: 1
+    flex: 0
   },
   row: {
     flexDirection: "row"
