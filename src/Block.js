@@ -2,9 +2,81 @@ import React, { Component } from "react";
 import { Animated, SafeAreaView, StyleSheet, View } from "react-native";
 
 import expoTheme from "./theme";
-import { getMargins, getPaddings, mergeTheme } from "./utils";
+import { spacing, mergeTheme } from "./utils";
 
 class Block extends Component {
+  getSpacings(type) {
+    const {
+      margin,
+      marginTop,
+      marginRight,
+      marginBottom,
+      marginLeft,
+      marginVertical,
+      marginHorizontal,
+      padding,
+      paddingTop,
+      paddingRight,
+      paddingBottom,
+      paddingLeft,
+      paddingVertical,
+      paddingHorizontal,
+      theme
+    } = this.props;
+    const { SIZES } = mergeTheme(expoTheme, theme);
+
+    if (type === "margin") {
+      return [
+        margin && spacing(type, margin, SIZES.base),
+        marginTop && { marginTop: marginTop === true ? SIZES.base : marginTop },
+        marginRight && {
+          marginRight: marginRight === true ? SIZES.base : marginRight
+        },
+        marginBottom && {
+          marginBottom: marginBottom === true ? SIZES.base : marginBottom
+        },
+        marginLeft && {
+          marginLeft: marginLeft === true ? SIZES.base : marginLeft
+        },
+        marginVertical && {
+          marginVertical: marginVertical === true ? SIZES.base : marginVertical
+        },
+        marginHorizontal && {
+          marginHorizontal:
+            marginHorizontal === true ? SIZES.base : marginHorizontal
+        }
+      ];
+    }
+
+    if (type === "padding") {
+      return [
+        padding && spacing(type, padding, SIZES.base),
+        paddingTop && {
+          paddingTop: paddingTop === true ? SIZES.base : paddingTop
+        },
+        paddingRight && {
+          paddingRight: paddingRight === true ? SIZES.base : paddingRight
+        },
+        paddingBottom && {
+          paddingBottom: paddingBottom === true ? SIZES.base : paddingBottom
+        },
+        paddingLeft && {
+          paddingLeft: paddingLeft === true ? SIZES.base : paddingLeft
+        },
+        paddingVertical && {
+          paddingVertical:
+            paddingVertical === true ? SIZES.base : paddingVertical
+        },
+        paddingHorizontal && {
+          paddingHorizontal:
+            paddingHorizontal === true ? SIZES.base : paddingHorizontal
+        }
+      ];
+    }
+
+    return [];
+  }
+
   render() {
     const {
       flex,
@@ -33,20 +105,6 @@ class Block extends Component {
       info,
       // positioning
       space,
-      margin,
-      marginTop,
-      marginRight,
-      marginBottom,
-      marginLeft,
-      marginVertical,
-      marginHorizontal,
-      padding,
-      paddingTop,
-      paddingRight,
-      paddingBottom,
-      paddingLeft,
-      paddingVertical,
-      paddingHorizontal,
       radius,
       wrap,
       animated,
@@ -58,8 +116,8 @@ class Block extends Component {
     } = this.props;
 
     const { SIZES, COLORS } = mergeTheme(expoTheme, theme);
-    const marginValue = margin === true ? SIZES.base : margin;
-    const paddingValue = padding === true ? SIZES.base : padding;
+    const marginSpacing = this.getSpacings("margin");
+    const paddingSpacing = this.getSpacings("padding");
 
     const blockStyles = StyleSheet.flatten([
       styles.block,
@@ -73,20 +131,8 @@ class Block extends Component {
       right && styles.right,
       top && styles.top,
       bottom && styles.bottom,
-      margin && getMargins(marginValue, SIZES.base),
-      marginTop && { marginTop },
-      marginRight && { marginRight },
-      marginBottom && { marginBottom },
-      marginLeft && { marginLeft },
-      marginVertical && { marginVertical },
-      marginHorizontal && { marginHorizontal },
-      padding && getPaddings(paddingValue, SIZES.base),
-      paddingTop && { paddingTop },
-      paddingRight && { paddingRight },
-      paddingBottom && { paddingBottom },
-      paddingLeft && { paddingLeft },
-      paddingVertical && { paddingVertical },
-      paddingHorizontal && { paddingHorizontal },
+      marginSpacing,
+      paddingSpacing,
       wrap && styles.wrap,
       shadow && {
         elevation,
