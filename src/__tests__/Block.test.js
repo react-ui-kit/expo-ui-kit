@@ -6,6 +6,12 @@ import { shallow } from "enzyme";
 import Block from "../Block";
 import { COLORS, SIZES } from "../theme";
 
+const customTheme = {
+  COLORS: {
+    primary: "red"
+  }
+};
+
 describe("<Block />", () => {
   it("render default", () => {
     const component = renderer.create(<Block />).toJSON();
@@ -25,10 +31,6 @@ describe("<Block />", () => {
     component.setProps({ flex: true });
     style = StyleSheet.flatten(component.props().style);
     expect(style.flex).toEqual(1);
-
-    component.setProps({ flex: false });
-    style = StyleSheet.flatten(component.props().style);
-    expect(style.flex).toEqual(0);
   });
 
   it("testing flexDirection, row & column", () => {
@@ -320,5 +322,18 @@ describe("<Block />", () => {
     component.setProps({ color: "#88B04B" });
     style = StyleSheet.flatten(component.props().style);
     expect(style.backgroundColor).toEqual("#88B04B");
+  });
+
+  it("custom theme for primary color", () => {
+    const component = shallow(
+      <Block primary theme={customTheme}>
+        custom theme color
+      </Block>
+    );
+    expect(component.instance().props.theme).toEqual(customTheme);
+
+    let style = StyleSheet.flatten(component.props().style);
+
+    expect(style.backgroundColor).toEqual("red");
   });
 });

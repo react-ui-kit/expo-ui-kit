@@ -62,7 +62,6 @@ class Block extends Component {
     const blockStyles = StyleSheet.flatten([
       styles.block,
       flex && { flex: flex === true ? 1 : flex },
-      flex === false && { flex: 0 }, // reset / disable flex
       row && styles.row,
       column && styles.column,
       center && styles.center,
@@ -136,7 +135,7 @@ class Block extends Component {
 }
 
 Block.defaultProps = {
-  flex: 1,
+  flex: 0,
   row: false,
   column: false,
   center: false,
