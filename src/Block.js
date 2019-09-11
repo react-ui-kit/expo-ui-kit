@@ -4,6 +4,117 @@ import { Animated, SafeAreaView, StyleSheet, View } from "react-native";
 import expoTheme from "./theme";
 import { spacing, mergeTheme } from "./utils";
 
+/**
+ * https://facebook.github.io/react-native/docs/flexbox
+ *
+ * Usage:
+ * - default Block has flex: 1
+ *
+ * <Block>components</Block>
+ * - disable flex
+ * <Block flex={0}>flex: 0</Block>
+ *
+ * - flex for half of the size
+ * <Block flex={0.5}>flex: 0.5</Block>
+ *
+ * - row will render flexDirection: row
+ * <Block row>
+ *   <Text>text 1</Text>
+ *   <Text>text 2</Text>
+ * </Block>
+ *
+ * - vertical centering the content
+ * <Block center>
+ *   <Text>text 1</Text>
+ *   <Text>text 2</Text>
+ * </Block>
+ * *
+ * - horizontal centering the content
+ * <Block middle>
+ *   <Text>text 1</Text>
+ *   <Text>text 2</Text>
+ * </Block>
+ *
+ * - vertical & horizontal centering the content
+ * <Block center middle>
+ *   <Text>text 1</Text>
+ *   <Text>text 2</Text>
+ * </Block>
+ *
+ * - vertical & horizontal centering the content
+ * <Block center middle>
+ *   <Text>text 1</Text>
+ *   <Text>text 2</Text>
+ * </Block>
+ *
+ * Colors
+ * - will render backgroundColor using predefined colors from theme.js COLORS array
+ * - predefined colors: primary, secondary, tertiary, black, white, gray, error, warning, success, info
+ *
+ * <Block primary><Text>backgroundColor: COLORS.primary</Text></Block>
+ * <Block secondary><Text>backgroundColor:  COLORS.secondary</Text></Block>
+ *
+ * - custom color using hex color
+ * <Block color="#DDDDDD"><Text>backgroundColor: #DDDDDD</Text></Block>
+ *
+ * Arrange content using justifyContent
+ * https://facebook.github.io/react-native/docs/layout-props#justifycontent
+ * - space between the content
+ * <Block space="between">
+ *  <Text>1st text</Text>
+ *  <Text>2nd text</Text>
+ * </Block>
+ *
+ * - space evenly the content
+ * <Block space="evenly">
+ *  <Text>1st text</Text>
+ *  <Text>2nd text</Text>
+ * </Block>
+ *
+ * - space around the content
+ * <Block space="around">
+ *  <Text>1st text</Text>
+ *  <Text>2nd text</Text>
+ * </Block>
+ *
+ * Border radius
+ * - round the corners using borderRadius: 6
+ * <Block radius={6}>
+ *  <Text>1st text</Text>
+ *  <Text>2nd text</Text>
+ * </Block>
+ *
+ * Border radius
+ * - round the corners using borderRadius: 6
+ * <Block radius={6}>
+ *  <Text>1st text</Text>
+ *  <Text>2nd text</Text>
+ * </Block>
+ *
+ * Wrap content using flexWrap
+ * by default flexWrap: 'nowrap'
+ * https://facebook.github.io/react-native/docs/flexbox#flex-wrap
+ *
+ * - flexWrap: 'wrap'
+ * <Block wrap>
+ *  <Text>1st text</Text>
+ *  <Text>2nd text</Text>
+ *  <Text>3rd text</Text>
+ * </Block>
+ *
+ * For animations animate props can be use to render Animated.View component
+ * - animated will render Animated.View
+ * <Block animated>
+ *   <Text>animated block</Text>
+ * </Block>
+ *
+ * For safe area views, safe props can be use to render SafeAreaView component
+ * - safe will render SafeAreaView
+ * <Block animated>
+ *   <Text>animated block</Text>
+ * </Block>
+ */
+
 class Block extends Component {
   getSpacings(type) {
     const {
