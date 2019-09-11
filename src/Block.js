@@ -5,6 +5,7 @@ import expoTheme from "./theme";
 import { spacing, mergeTheme } from "./utils";
 
 /**
+ * https://facebook.github.io/react-native/docs/view
  * https://facebook.github.io/react-native/docs/flexbox
  *
  * Usage:
