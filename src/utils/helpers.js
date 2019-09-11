@@ -1,3 +1,21 @@
+/**
+ * Generate stylesheets for margin or padding
+ * type: string - margin or padding
+ * value: boolean (true), number, array or string ("2x", "0.5x")
+ * defaultValue: integer
+ *
+ * Usage:
+ * const marginSpacing = spacing("margin", true);
+ * const paddingSpacing = spacing("padding", true, 10);
+ * const marginSpacing = spacing("margin", 6);
+ * const marginSpacing = spacing("margin", [4]); // vertical & horizontal => 4
+ * const marginSpacing = spacing("margin", [4, 8]); // vertical => 4, horizontal => 8
+ * const marginSpacing = spacing("margin", [4, 8, 2]); // top => 4, right & left => 8, bottom => 2
+ * const marginSpacing = spacing("margin", [4, 8, 2, 6]); // top => 4, right => 8, bottom => 2, left => 6
+ * const marginSpacing = spacing("margin", "2x", 10); // multiply 2 * 10 => margin 20
+ * const marginSpacing = spacing("margin", "0.5x", 12); // multiply 0.5 * 10 => margin 6
+ */
+
 export const spacing = (type, value, defaultValue = 1) => {
   // accept only 2 types: margin & padding
   const accepted = ["margin", "padding"];
@@ -187,6 +205,41 @@ export const getPaddings = (value, defaultValue = 1) => {
     );
   }
 };
+
+/**
+ * Merge 2 theme with a default theme and extra theme
+ * to rewrite the default values with new values
+ * using ES6 spread operator
+ * Theme accepted data structure format:
+ * const theme1 = {
+ *   COLORS: {
+ *     primary: "red",
+ *     secondary: "green",
+ *     // see theme.js
+ *   },
+ *   SIZES: {
+ *     // see theme.js
+ *   },
+ *   FONTS: {
+ *     // see theme.js
+ *   },
+ *   WEIGHTS: {
+ *     // see theme.js
+ *   }
+ * }
+ *
+ * const theme2 = {
+ *   COLORS: {
+ *     primary: "blue",
+ *   }
+ * }
+ *
+ * Usage
+ * const appTheme = mergeTheme(theme1, theme2);
+ * const { COLORS } = appTheme;
+ * COLORS.primary will return value "blue"
+ * COLORS.secondary will return value "green"
+ */
 
 export const mergeTheme = (theme = {}, extra = {}) => {
   const { COLORS, SIZES, FONTS, WEIGHTS, ...REST } = extra;
