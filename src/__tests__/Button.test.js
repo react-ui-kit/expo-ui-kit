@@ -8,7 +8,7 @@ import { rgba } from "../utils";
 import { SIZES } from "../theme";
 
 describe("<Button />", () => {
-  it("render default", () => {
+  it("render default TouchableOpacity", () => {
     const component = shallow(<Button />);
     const style = StyleSheet.flatten(component.props().style);
     expect(component.instance().props.opacity).toEqual(0.8);
@@ -19,6 +19,7 @@ describe("<Button />", () => {
       justifyContent: "center",
       alignItems: "center"
     });
+    expect(component.name()).toEqual("TouchableOpacity");
   });
 
   it("transparent", () => {
@@ -190,5 +191,29 @@ describe("<Button />", () => {
   it("opacity={0.5}", () => {
     const instance = renderer.create(<Button opacity={0.5} />).getInstance();
     expect(instance.props.opacity).toEqual(0.5);
+  });
+
+  it("ButtonType: highlight", () => {
+    const component = shallow(<Button highlight />);
+    expect(component.instance().props.highlight).toEqual(true);
+    expect(component.name()).toEqual("TouchableHighlight");
+  });
+
+  it("ButtonType: highlight", () => {
+    const component = shallow(<Button highlight />);
+    expect(component.instance().props.highlight).toEqual(true);
+    expect(component.name()).toEqual("TouchableHighlight");
+  });
+
+  it("ButtonType: nativeFeedback", () => {
+    const component = shallow(<Button nativeFeedback />);
+    expect(component.instance().props.nativeFeedback).toEqual(true);
+    expect(component.name()).toEqual("DummyTouchableNativeFeedback");
+  });
+
+  it("ButtonType: withoutFeedback", () => {
+    const component = shallow(<Button withoutFeedback />);
+    expect(component.instance().props.withoutFeedback).toEqual(true);
+    expect(component.name()).toEqual("TouchableWithoutFeedback");
   });
 });

@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native";
 import { shallow } from "enzyme";
 
 import Text from "../Text";
-import { SIZES, COLORS, FONTS } from "../theme";
+import { SIZES, FONTS } from "../theme";
 
 describe("<Text />", () => {
   it("render default", () => {

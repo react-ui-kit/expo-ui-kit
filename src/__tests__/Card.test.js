@@ -4,7 +4,6 @@ import { StyleSheet } from "react-native";
 
 import Card from "../Card";
 import { rgba } from "../utils";
-import { COLORS } from "../theme";
 
 describe("<Card />", () => {
   it("render default", () => {

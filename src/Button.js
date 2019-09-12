@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  TouchableOpacity,
+  TouchableHighlight,
+  TouchableNativeFeedback,
+  TouchableWithoutFeedback
+} from "react-native";
 
 import expoTheme from "./theme";
 import { getMargins, getPaddings, rgba, mergeTheme } from "./utils";
@@ -63,6 +69,10 @@ class Button extends Component {
       warning,
       success,
       info,
+      // support for touchables
+      highlight,
+      nativeFeedback,
+      withoutFeedback,
       theme,
       style,
       children,
@@ -114,14 +124,22 @@ class Button extends Component {
       buttonStyles.backgroundColor = "transparent";
     }
 
+    const ButtonType = highlight
+      ? TouchableHighlight
+      : nativeFeedback
+      ? TouchableNativeFeedback
+      : withoutFeedback
+      ? TouchableWithoutFeedback
+      : TouchableOpacity;
+
     return (
-      <TouchableOpacity
+      <ButtonType
         disabled={disabled}
         style={buttonStyles}
         activeOpacity={opacity}
         {...props}>
         {children}
-      </TouchableOpacity>
+      </ButtonType>
     );
   }
 }

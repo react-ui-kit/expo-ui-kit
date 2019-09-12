@@ -5,7 +5,7 @@ import { shallow } from "enzyme";
 
 import Input from "../Input";
 import { rgba } from "../utils";
-import { COLORS, SIZES } from "../theme";
+import { SIZES } from "../theme";
 
 describe("<Input />", () => {
   it("render default", () => {
