@@ -8,7 +8,7 @@ import {
 } from "react-native";
 
 import expoTheme from "./theme";
-import { getMargins, getPaddings, rgba, mergeTheme } from "./utils";
+import { spacing, rgba, mergeTheme } from "./utils";
 
 /**
  * https://facebook.github.io/react-native/docs/touchableopacity
@@ -58,20 +58,85 @@ import { getMargins, getPaddings, rgba, mergeTheme } from "./utils";
  */
 
 class Button extends Component {
-  render() {
+  getSpacings(type) {
     const {
-      color,
-      disabled,
-      opacity,
-      outlined,
       margin,
+      marginTop,
+      marginRight,
+      marginBottom,
+      marginLeft,
       marginVertical,
       marginHorizontal,
       padding,
+      paddingTop,
+      paddingRight,
+      paddingBottom,
+      paddingLeft,
       paddingVertical,
       paddingHorizontal,
+      theme
+    } = this.props;
+    const { SIZES } = mergeTheme(expoTheme, theme);
+
+    if (type === "margin") {
+      return [
+        margin && spacing(type, margin, SIZES.base),
+        marginTop && { marginTop: marginTop === true ? SIZES.base : marginTop },
+        marginRight && {
+          marginRight: marginRight === true ? SIZES.base : marginRight
+        },
+        marginBottom && {
+          marginBottom: marginBottom === true ? SIZES.base : marginBottom
+        },
+        marginLeft && {
+          marginLeft: marginLeft === true ? SIZES.base : marginLeft
+        },
+        marginVertical && {
+          marginVertical: marginVertical === true ? SIZES.base : marginVertical
+        },
+        marginHorizontal && {
+          marginHorizontal:
+            marginHorizontal === true ? SIZES.base : marginHorizontal
+        }
+      ];
+    }
+
+    if (type === "padding") {
+      return [
+        padding && spacing(type, padding, SIZES.base),
+        paddingTop && {
+          paddingTop: paddingTop === true ? SIZES.base : paddingTop
+        },
+        paddingRight && {
+          paddingRight: paddingRight === true ? SIZES.base : paddingRight
+        },
+        paddingBottom && {
+          paddingBottom: paddingBottom === true ? SIZES.base : paddingBottom
+        },
+        paddingLeft && {
+          paddingLeft: paddingLeft === true ? SIZES.base : paddingLeft
+        },
+        paddingVertical && {
+          paddingVertical:
+            paddingVertical === true ? SIZES.base : paddingVertical
+        },
+        paddingHorizontal && {
+          paddingHorizontal:
+            paddingHorizontal === true ? SIZES.base : paddingHorizontal
+        }
+      ];
+    }
+  }
+
+  render() {
+    const {
+      disabled,
+      opacity,
+      outlined,
       flex,
       height,
+      // colors
+      color,
       transparent,
       primary,
       secondary,
@@ -94,6 +159,8 @@ class Button extends Component {
     } = this.props;
 
     const { SIZES, COLORS } = mergeTheme({ ...expoTheme }, theme);
+    const marginSpacing = this.getSpacings("margin");
+    const paddingSpacing = this.getSpacings("padding");
 
     const buttonStyles = StyleSheet.flatten([
       {
@@ -117,12 +184,8 @@ class Button extends Component {
       color && { backgroundColor: color }, // custom backgroundColor
       flex && { flex }, // flex width
       height && { height }, // custom height
-      margin && { ...getMargins(margin) },
-      marginVertical && { marginVertical },
-      marginHorizontal && { marginHorizontal },
-      padding && { ...getPaddings(padding) },
-      paddingVertical && { paddingVertical },
-      paddingHorizontal && { paddingHorizontal },
+      marginSpacing,
+      paddingSpacing,
       style
     ]);
 
