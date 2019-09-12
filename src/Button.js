@@ -12,6 +12,20 @@ import { getMargins, getPaddings, rgba, mergeTheme } from "./utils";
 
 /**
  * https://facebook.github.io/react-native/docs/touchableopacity
+ * https://facebook.github.io/react-native/docs/touchablehighlight
+ * https://facebook.github.io/react-native/docs/touchablenativefeedback
+ * https://facebook.github.io/react-native/docs/touchablewithoutfeedback
+ *
+ * Default render an instance of TouchableOpacity
+ *
+ * - TouchableHighlight
+ * <Button highlight><Text>instance of TouchableHighlight</Text></Button>
+ *
+ * - TouchableNativeFeedback
+ * <Button nativeFeedback><Text>instance of TouchableNativeFeedback</Text></Button>
+ *
+ * - TouchableWithoutFeedback
+ * <Button withoutFeedback><Text>instance of TouchableWithoutFeedback</Text></Button>
  *
  * Colors
  * - will render backgroundColor using predefined colors from theme.js COLORS array
