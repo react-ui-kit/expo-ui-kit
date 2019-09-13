@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 import { Animated, Text, StyleSheet } from "react-native";
 
 import expoTheme from "./theme";
