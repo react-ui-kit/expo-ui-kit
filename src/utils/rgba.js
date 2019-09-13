@@ -66,4 +66,14 @@ const hexToRgba = (hex, a) => {
   return formatRgb(decimalObject, a);
 };
 
+/**
+ * Accepts only HEX colors
+ * - 1st param: hex value
+ * - 2nd param: alpha value 0 to 1, accepted decimal
+ *
+ * Usage:
+ * cont blue10 = Utils.rgba("#4630EB", 0.5)
+ * return new hex value with alpha 0.5
+ */
+
 module.exports = hexToRgba;

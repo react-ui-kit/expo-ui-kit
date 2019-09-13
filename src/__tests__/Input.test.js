@@ -5,7 +5,7 @@ import { shallow } from "enzyme";
 
 import Input from "../Input";
 import { rgba } from "../utils";
-import { COLORS, SIZES } from "../theme";
+import { SIZES } from "../theme";
 
 describe("<Input />", () => {
   it("render default", () => {
@@ -15,7 +15,7 @@ describe("<Input />", () => {
       borderWidth: 1,
       height: SIZES.base * 5.5,
       borderRadius: SIZES.radius,
-      borderColor: rgba(COLORS.primary, 0.4),
+      borderColor: rgba("#4630EB", 0.4),
       paddingHorizontal: SIZES.base,
       fontSize: SIZES.font
     });

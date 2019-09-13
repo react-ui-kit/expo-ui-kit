@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native";
 import { shallow } from "enzyme";
 
 import Text from "../Text";
-import { SIZES, COLORS, FONTS } from "../theme";
+import { SIZES, FONTS } from "../theme";
 
 describe("<Text />", () => {
   it("render default", () => {
@@ -13,7 +13,7 @@ describe("<Text />", () => {
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
-      color: COLORS.black
+      color: "#000020"
     });
   });
 
@@ -58,7 +58,7 @@ describe("<Text />", () => {
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
-      color: COLORS.black,
+      color: "#000020",
       paddingBottom: 6,
       paddingLeft: 6,
       paddingRight: 6,
@@ -73,7 +73,7 @@ describe("<Text />", () => {
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
-      color: COLORS.black,
+      color: "#000020",
       paddingBottom: 2,
       paddingLeft: 4,
       paddingRight: 4,
@@ -88,7 +88,7 @@ describe("<Text />", () => {
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
-      color: COLORS.black,
+      color: "#000020",
       paddingBottom: 3,
       paddingLeft: 4,
       paddingRight: 2,
@@ -108,7 +108,7 @@ describe("<Text />", () => {
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
-      color: COLORS.black,
+      color: "#000020",
       paddingLeft: 3,
       paddingBottom: 4,
       paddingRight: 5,
@@ -126,7 +126,7 @@ describe("<Text />", () => {
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
-      color: COLORS.black,
+      color: "#000020",
       paddingVertical: 8,
       paddingHorizontal: 6
     });
@@ -139,7 +139,7 @@ describe("<Text />", () => {
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
-      color: COLORS.black,
+      color: "#000020",
       marginBottom: 6,
       marginLeft: 6,
       marginRight: 6,
@@ -154,7 +154,7 @@ describe("<Text />", () => {
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
-      color: COLORS.black,
+      color: "#000020",
       marginBottom: 2,
       marginLeft: 4,
       marginRight: 4,
@@ -169,7 +169,7 @@ describe("<Text />", () => {
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
-      color: COLORS.black,
+      color: "#000020",
       marginBottom: 3,
       marginLeft: 4,
       marginRight: 2,
@@ -189,7 +189,7 @@ describe("<Text />", () => {
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
-      color: COLORS.black,
+      color: "#000020",
       marginLeft: 3,
       marginBottom: 4,
       marginRight: 5,
@@ -205,7 +205,7 @@ describe("<Text />", () => {
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
-      color: COLORS.black,
+      color: "#000020",
       marginVertical: 8,
       marginHorizontal: 6
     });
@@ -263,50 +263,50 @@ describe("<Text />", () => {
     expect(style.fontWeight).toEqual("300");
   });
 
-  it("colors: primary, secondary, tertiary, black, white, gray, alert, warning, success, info, color", () => {
+  it("colors: primary, secondary, tertiary, black, white, gray, error, warning, success, info, color", () => {
     const component = shallow(<Text>default color</Text>);
     let style = StyleSheet.flatten(component.props().style);
-    expect(style.color).toEqual(COLORS.black);
+    expect(style.color).toEqual("#000020");
 
     component.setProps({ primary: true });
     style = StyleSheet.flatten(component.props().style);
-    expect(style.color).toEqual(COLORS.primary);
+    expect(style.color).toEqual("#4630EB");
 
     component.setProps({ secondary: true });
     style = StyleSheet.flatten(component.props().style);
-    expect(style.color).toEqual(COLORS.secondary);
+    expect(style.color).toEqual("#A3A1F7");
 
     component.setProps({ tertiary: true });
     style = StyleSheet.flatten(component.props().style);
-    expect(style.color).toEqual(COLORS.tertiary);
+    expect(style.color).toEqual("#FFE358");
 
     component.setProps({ black: true });
     style = StyleSheet.flatten(component.props().style);
-    expect(style.color).toEqual(COLORS.black);
+    expect(style.color).toEqual("#000020");
 
     component.setProps({ white: true });
     style = StyleSheet.flatten(component.props().style);
-    expect(style.color).toEqual(COLORS.white);
+    expect(style.color).toEqual("#FFFFFF");
 
     component.setProps({ gray: true });
     style = StyleSheet.flatten(component.props().style);
-    expect(style.color).toEqual(COLORS.gray);
+    expect(style.color).toEqual("#535453");
 
-    component.setProps({ alert: true });
+    component.setProps({ error: true });
     style = StyleSheet.flatten(component.props().style);
-    expect(style.color).toEqual(COLORS.alert);
+    expect(style.color).toEqual("#DC3545");
 
     component.setProps({ warning: true });
     style = StyleSheet.flatten(component.props().style);
-    expect(style.color).toEqual(COLORS.warning);
+    expect(style.color).toEqual("#FFE358");
 
     component.setProps({ success: true });
     style = StyleSheet.flatten(component.props().style);
-    expect(style.color).toEqual(COLORS.success);
+    expect(style.color).toEqual("#4CD964");
 
     component.setProps({ info: true });
     style = StyleSheet.flatten(component.props().style);
-    expect(style.color).toEqual(COLORS.info);
+    expect(style.color).toEqual("#4DA1FF");
 
     component.setProps({ color: "#88B04B" });
     style = StyleSheet.flatten(component.props().style);
@@ -330,5 +330,6 @@ describe("<Text />", () => {
   it("animated", () => {
     const component = shallow(<Text animated />);
     expect(component.instance().props.animated).toEqual(true);
+    expect(component.name()).toEqual("AnimatedComponent");
   });
 });

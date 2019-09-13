@@ -1,10 +1,36 @@
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 import { StyleSheet, TextInput } from "react-native";
 
 import expoTheme from "./theme";
 import { rgba, mergeTheme } from "./utils";
 
-class Input extends PureComponent {
+/**
+ * https://facebook.github.io/react-native/docs/textinput
+ *
+ * Validation
+ * onValidation return a single boolean or object with boolean values
+ * pattern using regex string for validating the value
+ *
+ * single pattern to validate the value
+ * <Input
+ *   pattern="/\d/" // validate digits
+ *   onValidation={isValid => console.log(isValid)}
+ * />
+ *
+ * multiple pattern to validate the value
+ * <Input
+ *   pattern={[ "/\d/", "/\w/"]} // validate digits and words
+ *   onValidation={isValid => console.log(isValid)}
+ * />
+ *
+ * Border color using color prop
+ * <Input color="red" />
+ *
+ * Pass ref from props using internalRef reference
+ * <Input internalRef={c => this.c} />
+ */
+
+class Input extends Component {
   state = {
     value: null,
     focused: false,

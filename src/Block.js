@@ -1,37 +1,124 @@
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 import { Animated, SafeAreaView, StyleSheet, View } from "react-native";
 
 import expoTheme from "./theme";
-import { getMargins, getPaddings, mergeTheme } from "./utils";
+import { spacing, mergeTheme } from "./utils";
 
-class Block extends PureComponent {
-  render() {
+/**
+ * https://facebook.github.io/react-native/docs/view
+ * https://facebook.github.io/react-native/docs/flexbox
+ *
+ * Usage:
+ * - default Block has flex: 1
+ *
+ * <Block>components</Block>
+ * - disable flex
+ * <Block flex={0}>flex: 0</Block>
+ *
+ * - flex for half of the size
+ * <Block flex={0.5}>flex: 0.5</Block>
+ *
+ * - row will render flexDirection: row
+ * <Block row>
+ *   <Text>text 1</Text>
+ *   <Text>text 2</Text>
+ * </Block>
+ *
+ * - vertical centering the content
+ * <Block center>
+ *   <Text>text 1</Text>
+ *   <Text>text 2</Text>
+ * </Block>
+ * *
+ * - horizontal centering the content
+ * <Block middle>
+ *   <Text>text 1</Text>
+ *   <Text>text 2</Text>
+ * </Block>
+ *
+ * - vertical & horizontal centering the content
+ * <Block center middle>
+ *   <Text>text 1</Text>
+ *   <Text>text 2</Text>
+ * </Block>
+ *
+ * - vertical & horizontal centering the content
+ * <Block center middle>
+ *   <Text>text 1</Text>
+ *   <Text>text 2</Text>
+ * </Block>
+ *
+ * Colors
+ * - will render backgroundColor using predefined colors from theme.js COLORS array
+ * - predefined colors: primary, secondary, tertiary, black, white, gray, error, warning, success, info
+ *
+ * <Block primary><Text>backgroundColor: COLORS.primary</Text></Block>
+ * <Block secondary><Text>backgroundColor:  COLORS.secondary</Text></Block>
+ *
+ * - custom color using hex color
+ * <Block color="#DDDDDD"><Text>backgroundColor: #DDDDDD</Text></Block>
+ *
+ * Arrange content using justifyContent
+ * https://facebook.github.io/react-native/docs/layout-props#justifycontent
+ * - space between the content
+ * <Block space="between">
+ *  <Text>1st text</Text>
+ *  <Text>2nd text</Text>
+ * </Block>
+ *
+ * - space evenly the content
+ * <Block space="evenly">
+ *  <Text>1st text</Text>
+ *  <Text>2nd text</Text>
+ * </Block>
+ *
+ * - space around the content
+ * <Block space="around">
+ *  <Text>1st text</Text>
+ *  <Text>2nd text</Text>
+ * </Block>
+ *
+ * Border radius
+ * - round the corners using borderRadius: 6
+ * <Block radius={6}>
+ *  <Text>1st text</Text>
+ *  <Text>2nd text</Text>
+ * </Block>
+ *
+ * Border radius
+ * - round the corners using borderRadius: 6
+ * <Block radius={6}>
+ *  <Text>1st text</Text>
+ *  <Text>2nd text</Text>
+ * </Block>
+ *
+ * Wrap content using flexWrap
+ * by default flexWrap: 'nowrap'
+ * https://facebook.github.io/react-native/docs/flexbox#flex-wrap
+ *
+ * - flexWrap: 'wrap'
+ * <Block wrap>
+ *  <Text>1st text</Text>
+ *  <Text>2nd text</Text>
+ *  <Text>3rd text</Text>
+ * </Block>
+ *
+ * For animations animate props can be use to render Animated.View component
+ * - animated will render Animated.View
+ * <Block animated>
+ *   <Text>animated block</Text>
+ * </Block>
+ *
+ * For safe area views, safe props can be use to render SafeAreaView component
+ * - safe will render SafeAreaView
+ * <Block animated>
+ *   <Text>animated block</Text>
+ * </Block>
+ */
+
+class Block extends Component {
+  getSpacings(type) {
     const {
-      flex,
-      row,
-      column,
-      center,
-      middle,
-      left,
-      right,
-      top,
-      bottom,
-      card,
-      shadow,
-      // colors
-      color,
-      primary,
-      secondary,
-      tertiary,
-      black,
-      white,
-      gray,
-      alert,
-      warning,
-      success,
-      info,
-      // positioning
-      space,
       margin,
       marginTop,
       marginRight,
@@ -46,6 +133,91 @@ class Block extends PureComponent {
       paddingLeft,
       paddingVertical,
       paddingHorizontal,
+      theme
+    } = this.props;
+    const { SIZES } = mergeTheme(expoTheme, theme);
+
+    if (type === "margin") {
+      return [
+        margin && spacing(type, margin, SIZES.base),
+        marginTop && { marginTop: marginTop === true ? SIZES.base : marginTop },
+        marginRight && {
+          marginRight: marginRight === true ? SIZES.base : marginRight
+        },
+        marginBottom && {
+          marginBottom: marginBottom === true ? SIZES.base : marginBottom
+        },
+        marginLeft && {
+          marginLeft: marginLeft === true ? SIZES.base : marginLeft
+        },
+        marginVertical && {
+          marginVertical: marginVertical === true ? SIZES.base : marginVertical
+        },
+        marginHorizontal && {
+          marginHorizontal:
+            marginHorizontal === true ? SIZES.base : marginHorizontal
+        }
+      ];
+    }
+
+    if (type === "padding") {
+      return [
+        padding && spacing(type, padding, SIZES.base),
+        paddingTop && {
+          paddingTop: paddingTop === true ? SIZES.base : paddingTop
+        },
+        paddingRight && {
+          paddingRight: paddingRight === true ? SIZES.base : paddingRight
+        },
+        paddingBottom && {
+          paddingBottom: paddingBottom === true ? SIZES.base : paddingBottom
+        },
+        paddingLeft && {
+          paddingLeft: paddingLeft === true ? SIZES.base : paddingLeft
+        },
+        paddingVertical && {
+          paddingVertical:
+            paddingVertical === true ? SIZES.base : paddingVertical
+        },
+        paddingHorizontal && {
+          paddingHorizontal:
+            paddingHorizontal === true ? SIZES.base : paddingHorizontal
+        }
+      ];
+    }
+  }
+
+  render() {
+    const {
+      flex,
+      row,
+      column,
+      center,
+      middle,
+      left,
+      right,
+      top,
+      bottom,
+      card,
+      shadow,
+      elevation,
+      // colors
+      color,
+      primary,
+      secondary,
+      tertiary,
+      black,
+      white,
+      gray,
+      error,
+      warning,
+      success,
+      info,
+      // spacing
+      margin,
+      padding,
+      // positioning
+      space,
       radius,
       wrap,
       animated,
@@ -57,11 +229,13 @@ class Block extends PureComponent {
     } = this.props;
 
     const { SIZES, COLORS } = mergeTheme(expoTheme, theme);
+    const marginSpacing = this.getSpacings("margin");
+    const paddingSpacing = this.getSpacings("padding");
 
     const blockStyles = StyleSheet.flatten([
       styles.block,
       flex && { flex: flex === true ? 1 : flex },
-      flex === false && { flex: 0 }, // reset / disable flex
+      !flex && { flex: 0 },
       row && styles.row,
       column && styles.column,
       center && styles.center,
@@ -70,26 +244,15 @@ class Block extends PureComponent {
       right && styles.right,
       top && styles.top,
       bottom && styles.bottom,
-      margin && { ...getMargins(margin) },
-      marginTop && { marginTop },
-      marginRight && { marginRight },
-      marginBottom && { marginBottom },
-      marginLeft && { marginLeft },
-      marginVertical && { marginVertical },
-      marginHorizontal && { marginHorizontal },
-      padding && { ...getPaddings(padding) },
-      paddingTop && { paddingTop },
-      paddingRight && { paddingRight },
-      paddingBottom && { paddingBottom },
-      paddingLeft && { paddingLeft },
-      paddingVertical && { paddingVertical },
-      paddingHorizontal && { paddingHorizontal },
+      marginSpacing,
+      paddingSpacing,
       wrap && styles.wrap,
       shadow && {
+        elevation,
         shadowColor: COLORS.black,
-        shadowOffset: { width: 0, height: 2 },
+        shadowOffset: { width: 0, height: elevation - 1 },
         shadowOpacity: 0.1,
-        shadowRadius: SIZES.radius * 3
+        shadowRadius: elevation
       },
       space && { justifyContent: `space-${space}` },
       card && { borderRadius: SIZES.border },
@@ -101,7 +264,7 @@ class Block extends PureComponent {
       black && { backgroundColor: COLORS.black },
       white && { backgroundColor: COLORS.white },
       gray && { backgroundColor: COLORS.gray },
-      alert && { backgroundColor: COLORS.alert },
+      error && { backgroundColor: COLORS.error },
       warning && { backgroundColor: COLORS.warning },
       success && { backgroundColor: COLORS.success },
       info && { backgroundColor: COLORS.info },
@@ -134,7 +297,7 @@ class Block extends PureComponent {
 }
 
 Block.defaultProps = {
-  flex: 1,
+  flex: true,
   row: false,
   column: false,
   center: false,
@@ -145,6 +308,7 @@ Block.defaultProps = {
   bottom: false,
   card: false,
   shadow: null,
+  elevation: 3,
   color: null,
   space: null,
   margin: null,
