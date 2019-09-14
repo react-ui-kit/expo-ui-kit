@@ -167,7 +167,7 @@ class Button extends Component {
         height: SIZES.base * 5.5,
         borderRadius: SIZES.radius,
         backgroundColor: COLORS.primary,
-        alignItems: "center"
+        justifyContent: "center"
       },
       transparent && { backgroundColor: "transparent" },
       primary && { backgroundColor: COLORS.primary },
