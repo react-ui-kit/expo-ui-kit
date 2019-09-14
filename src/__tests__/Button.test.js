@@ -16,7 +16,6 @@ describe("<Button />", () => {
       height: SIZES.base * 5.5,
       borderRadius: SIZES.radius,
       backgroundColor: "#4630EB",
-      justifyContent: "center",
       alignItems: "center"
     });
     expect(component.name()).toEqual("TouchableOpacity");
