@@ -16,19 +16,17 @@
     "lint": "eslint src",
     "test": "jest"
   },
-  "dependencies": {
-    "react": "16.8.3",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-34.0.0.tar.gz"
-  },
   "devDependencies": {
-    "enzyme": "^3.9.0",
-    "enzyme-adapter-react-16": "^1.13.2",
-    "eslint": "^5.16.0",
-    "eslint-config-universe": "^1.0.7",
-    "jest": "^24.8.0",
-    "prettier": "^1.17.1",
-    "react-dom": "^16.8.6",
-    "react-test-renderer": "^16.8.6"
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "eslint": "^6.5.0",
+    "eslint-config-universe": "^2.0.0",
+    "jest": "^24.9.0",
+    "prettier": "^1.18.2",
+    "react": "^16.10.1",
+    "react-dom": "^16.10.1",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
+    "react-test-renderer": "^16.10.1"
   },
   "eslintConfig": {
     "extends": "universe/native"
