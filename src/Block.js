@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Animated, SafeAreaView, StyleSheet, View } from "react-native";
 
 import expoTheme from "./theme";
-import { spacing, mergeTheme } from "./utils";
+import { spacing, parseSpacing, mergeTheme } from "./utils";
 
 /**
  * https://facebook.github.io/react-native/docs/view
@@ -134,49 +134,28 @@ class Block extends Component {
     if (type === "margin") {
       return [
         margin && spacing(type, margin, SIZES.base),
-        marginTop && { marginTop: marginTop === true ? SIZES.base : marginTop },
-        marginRight && {
-          marginRight: marginRight === true ? SIZES.base : marginRight
-        },
-        marginBottom && {
-          marginBottom: marginBottom === true ? SIZES.base : marginBottom
-        },
-        marginLeft && {
-          marginLeft: marginLeft === true ? SIZES.base : marginLeft
-        },
-        marginVertical && {
-          marginVertical: marginVertical === true ? SIZES.base : marginVertical
-        },
-        marginHorizontal && {
-          marginHorizontal:
-            marginHorizontal === true ? SIZES.base : marginHorizontal
-        }
+        marginTop && parseSpacing("marginTop", marginTop, SIZES.base),
+        marginRight && parseSpacing("marginRight", marginRight, SIZES.base),
+        marginBottom && parseSpacing("marginBottom", marginBottom, SIZES.base),
+        marginLeft && parseSpacing("marginLeft", marginLeft, SIZES.base),
+        marginVertical &&
+          parseSpacing("marginVertical", marginVertical, SIZES.base),
+        marginHorizontal &&
+          parseSpacing("marginHorizontal", marginHorizontal, SIZES.base)
       ];
     }
 
     if (type === "padding") {
       return [
         padding && spacing(type, padding, SIZES.base),
-        paddingTop && {
-          paddingTop: paddingTop === true ? SIZES.base : paddingTop
-        },
-        paddingRight && {
-          paddingRight: paddingRight === true ? SIZES.base : paddingRight
-        },
-        paddingBottom && {
-          paddingBottom: paddingBottom === true ? SIZES.base : paddingBottom
-        },
-        paddingLeft && {
-          paddingLeft: paddingLeft === true ? SIZES.base : paddingLeft
-        },
-        paddingVertical && {
-          paddingVertical:
-            paddingVertical === true ? SIZES.base : paddingVertical
-        },
-        paddingHorizontal && {
-          paddingHorizontal:
-            paddingHorizontal === true ? SIZES.base : paddingHorizontal
-        }
+        paddingTop && parseSpacing("paddingTop", paddingTop, SIZES.base),
+        paddingRight && parseSpacing("paddingRight", paddingRight, SIZES.base),
+        paddingBottom && parseSpacing("paddingBottom", paddingBottom, SIZES.base),
+        paddingLeft && parseSpacing("paddingLeft", paddingLeft, SIZES.base),
+        paddingVertical &&
+          parseSpacing("paddingVertical", paddingVertical, SIZES.base),
+        paddingHorizontal &&
+          parseSpacing("paddingHorizontal", paddingHorizontal, SIZES.base)
       ];
     }
   }

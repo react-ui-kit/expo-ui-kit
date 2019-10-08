@@ -92,6 +92,49 @@ export const spacing = (type, value, defaultValue = 1) => {
   }
 };
 
+export const parseSpacing = (type, value, defaultValue = 1) => {
+  const accepted = [
+    "marginHorizontal",
+    "marginVertical",
+    "marginTop",
+    "marginBottom",
+    "marginLeft",
+    "marginRight",
+    "paddingHorizontal",
+    "paddingVertical",
+    "paddingTop",
+    "paddingBottom",
+    "paddingLeft",
+    "paddingRight"
+  ];
+  if (accepted.indexOf(type) === -1) return {};
+
+  // if the value is boolean return defaultValue
+  if (typeof value === "boolean") {
+    return {
+      [type]: defaultValue
+    };
+  }
+
+  // if the value is integer/number
+  if (typeof value === "number") {
+    return {
+      [type]: value
+    };
+  }
+
+  // if the value is string: 2x 4x
+  if (typeof value === "string") {
+    // extract decimal or integer value from value
+    const spacingValue = value.match(/((?=.*[1-9])\d*(?:\.\d{1,2})|(\d*))x/);
+    if (!spacingValue) return {};
+
+    return {
+      [type]: parseFloat(spacingValue) * defaultValue
+    };
+  }
+};
+
 export const getMargins = (value, defaultValue = 1) => {
   if (typeof value === "number") {
     return {
