@@ -186,9 +186,6 @@ class Block extends Component {
       warning,
       success,
       info,
-      // spacing
-      margin,
-      padding,
       // positioning
       space,
       radius,
@@ -200,6 +197,26 @@ class Block extends Component {
       children,
       ...props
     } = this.props;
+
+    const excludeProps = [
+      "margin",
+      "marginTop",
+      "marginRight",
+      "marginBottom",
+      "marginLeft",
+      "marginVertical",
+      "marginHorizontal",
+      "padding",
+      "paddingTop",
+      "paddingRight",
+      "paddingBottom",
+      "paddingLeft",
+      "paddingVertical",
+      "paddingHorizontal"
+    ];
+    const extraProps = Object.keys(props).filter(prop =>
+      excludeProps.includes(`${prop}`)
+    );
 
     const { SIZES, COLORS } = mergeTheme(expoTheme, theme);
     const marginSpacing = this.getSpacings("margin");
@@ -247,7 +264,7 @@ class Block extends Component {
 
     if (animated) {
       return (
-        <Animated.View style={blockStyles} {...props}>
+        <Animated.View style={blockStyles} {...extraProps}>
           {children}
         </Animated.View>
       );
@@ -255,14 +272,14 @@ class Block extends Component {
 
     if (safe) {
       return (
-        <SafeAreaView style={blockStyles} {...props}>
+        <SafeAreaView style={blockStyles} {...extraProps}>
           {children}
         </SafeAreaView>
       );
     }
 
     return (
-      <View style={blockStyles} {...props}>
+      <View style={blockStyles} {...extraProps}>
         {children}
       </View>
     );
