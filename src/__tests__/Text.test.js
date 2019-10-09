@@ -116,10 +116,14 @@ describe("<Text />", () => {
     });
   });
 
-  
   it("paddingTop='2x', paddingRight='3x', paddingBottom='4x', paddingLeft='5x'", () => {
     const component = shallow(
-      <Text paddingTop="2x" paddingRight="3x" paddingBottom="4x" paddingLeft="5x" />
+      <Text
+        paddingTop="2x"
+        paddingRight="3x"
+        paddingBottom="4x"
+        paddingLeft="5x"
+      />
     );
     const style = StyleSheet.flatten(component.props().style);
     expect(component.instance().props.paddingTop).toEqual("2x");
@@ -368,5 +372,12 @@ describe("<Text />", () => {
     const component = shallow(<Text animated />);
     expect(component.instance().props.animated).toEqual(true);
     expect(component.name()).toEqual("AnimatedComponent");
+  });
+
+  it("onPress", () => {
+    const onPress = jest.fn();
+    const component = shallow(<Text onPress={onPress} />);
+    component.dive().simulate("press");
+    expect(onPress).toHaveBeenCalledTimes(1);
   });
 });

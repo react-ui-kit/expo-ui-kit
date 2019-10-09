@@ -176,9 +176,12 @@ class Typography extends Component {
       "paddingVertical",
       "paddingHorizontal"
     ];
-    const extraProps = Object.keys(props).filter(prop =>
-      excludeProps.includes(`${prop}`)
-    );
+    const extraProps = Object.keys(props).reduce((prop, key) => {
+      if (!excludeProps.includes(`${key}`)) {
+        prop[key] = props[key];
+      }
+      return prop;
+    }, {});
 
     const { SIZES, COLORS, FONTS, WEIGHTS } = mergeTheme(
       { ...expoTheme },
