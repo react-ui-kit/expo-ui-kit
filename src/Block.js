@@ -184,6 +184,7 @@ class Block extends Component {
   render() {
     const {
       flex,
+      noflex,
       row,
       column,
       center,
@@ -241,7 +242,7 @@ class Block extends Component {
     const blockStyles = StyleSheet.flatten([
       styles.block,
       flex && { flex: flex === true ? 1 : flex },
-      !flex && { flex: 0 },
+      !flex || noflex && { flex: 0 },
       row && styles.row,
       column && styles.column,
       center && styles.center,
