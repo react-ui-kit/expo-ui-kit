@@ -37,7 +37,7 @@ class Input extends Component {
     blurred: false
   };
 
-  handleValidation(value) {
+  handleValidation = value => {
     const { pattern } = this.props;
     if (!pattern) return true;
 
@@ -52,9 +52,9 @@ class Input extends Component {
       const conditions = pattern.map(rule => new RegExp(rule, "g"));
       return conditions.map(condition => condition.test(value));
     }
-  }
+  };
 
-  handleChange(value) {
+  handleChange = value => {
     const { onChangeText, onValidation } = this.props;
     const isValid = this.handleValidation(value);
 
@@ -62,29 +62,29 @@ class Input extends Component {
       onValidation && onValidation(isValid);
       onChangeText && onChangeText(value);
     });
-  }
+  };
 
-  handleFocus(event) {
+  handleFocus = event => {
     const { onFocus } = this.props;
     this.setState({ focused: true, blurred: false }, () => {
       onFocus && onFocus(event);
     });
-  }
+  };
 
-  handleBlur(event) {
+  handleBlur = event => {
     const { onBlur } = this.props;
     this.setState({ focused: false, blurred: true }, () => {
       onBlur && onBlur(event);
     });
-  }
+  };
 
-  handleTextType(type) {
+  handleTextType = type => {
     return type === "email"
       ? "emailAddress"
       : type === "phone"
       ? "telephoneNumber"
       : type;
-  }
+  };
 
   render() {
     const {
@@ -97,6 +97,9 @@ class Input extends Component {
       style,
       theme,
       internalRef,
+      onFocus,
+      onBlur,
+      onChangeText,
       ...props
     } = this.props;
     const { SIZES, COLORS } = mergeTheme({ ...expoTheme }, theme);

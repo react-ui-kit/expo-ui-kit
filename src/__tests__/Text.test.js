@@ -116,6 +116,31 @@ describe("<Text />", () => {
     });
   });
 
+  it("paddingTop='2x', paddingRight='3x', paddingBottom='4x', paddingLeft='5x'", () => {
+    const component = shallow(
+      <Text
+        paddingTop="2x"
+        paddingRight="3x"
+        paddingBottom="4x"
+        paddingLeft="5x"
+      />
+    );
+    const style = StyleSheet.flatten(component.props().style);
+    expect(component.instance().props.paddingTop).toEqual("2x");
+    expect(component.instance().props.paddingRight).toEqual("3x");
+    expect(component.instance().props.paddingBottom).toEqual("4x");
+    expect(component.instance().props.paddingLeft).toEqual("5x");
+    expect(style).toEqual({
+      fontWeight: "normal",
+      fontSize: SIZES.font,
+      color: "#000020",
+      paddingLeft: 40,
+      paddingBottom: 32,
+      paddingRight: 24,
+      paddingTop: 16
+    });
+  });
+
   it("paddingHorizontal={6}, paddingVertical={8}", () => {
     const component = shallow(
       <Text paddingHorizontal={6} paddingVertical={8} />
@@ -129,6 +154,22 @@ describe("<Text />", () => {
       color: "#000020",
       paddingVertical: 8,
       paddingHorizontal: 6
+    });
+  });
+
+  it("paddingHorizontal='2x', paddingVertical='0.5x'", () => {
+    const component = shallow(
+      <Text paddingHorizontal="2x" paddingVertical="0.5x" />
+    );
+    const style = StyleSheet.flatten(component.props().style);
+    expect(component.instance().props.paddingHorizontal).toEqual("2x");
+    expect(component.instance().props.paddingVertical).toEqual("0.5x");
+    expect(style).toEqual({
+      fontWeight: "normal",
+      fontSize: SIZES.font,
+      color: "#000020",
+      paddingVertical: 4,
+      paddingHorizontal: 16
     });
   });
 
@@ -331,5 +372,12 @@ describe("<Text />", () => {
     const component = shallow(<Text animated />);
     expect(component.instance().props.animated).toEqual(true);
     expect(component.name()).toEqual("AnimatedComponent");
+  });
+
+  it("onPress", () => {
+    const onPress = jest.fn();
+    const component = shallow(<Text onPress={onPress} />);
+    component.dive().simulate("press");
+    expect(onPress).toHaveBeenCalledTimes(1);
   });
 });
