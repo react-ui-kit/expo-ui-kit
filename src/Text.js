@@ -195,7 +195,7 @@ class Typography extends Component {
       {
         fontWeight: WEIGHTS.regular,
         fontSize: SIZES.font,
-        color: COLORS.black
+        color: COLORS.font
       },
       h1 && FONTS.h1,
       h2 && FONTS.h2,
