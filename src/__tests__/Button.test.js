@@ -302,4 +302,11 @@ describe("<Button />", () => {
     expect(component.instance().props.withoutFeedback).toEqual(true);
     expect(component.name()).toEqual("TouchableWithoutFeedback");
   });
+
+  it("onPress", () => {
+    const onPress = jest.fn();
+    const component = shallow(<Button onPress={onPress} />);
+    component.simulate("press");
+    expect(onPress).toHaveBeenCalledTimes(1);
+  });
 });

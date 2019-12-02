@@ -151,6 +151,29 @@ describe("<Block />", () => {
     });
   });
 
+  it("paddingTop='2x', paddingRight='3x', paddingBottom='4x', paddingLeft='5x'", () => {
+    const component = shallow(
+      <Block
+        paddingTop="2x"
+        paddingRight="3x"
+        paddingBottom="4x"
+        paddingLeft="5x"
+      />
+    );
+    const style = StyleSheet.flatten(component.props().style);
+    expect(component.instance().props.paddingTop).toEqual("2x");
+    expect(component.instance().props.paddingRight).toEqual("3x");
+    expect(component.instance().props.paddingBottom).toEqual("4x");
+    expect(component.instance().props.paddingLeft).toEqual("5x");
+    expect(style).toEqual({
+      flex: 1,
+      paddingLeft: 40,
+      paddingBottom: 32,
+      paddingRight: 24,
+      paddingTop: 16
+    });
+  });
+
   it("paddingHorizontal={6}, paddingVertical={8}", () => {
     const component = shallow(
       <Block paddingHorizontal={6} paddingVertical={8} />
@@ -162,6 +185,20 @@ describe("<Block />", () => {
       flex: 1,
       paddingVertical: 8,
       paddingHorizontal: 6
+    });
+  });
+
+  it("paddingHorizontal='2x', paddingVertical='0.5x'", () => {
+    const component = shallow(
+      <Block paddingHorizontal="2x" paddingVertical="0.5x" />
+    );
+    const style = StyleSheet.flatten(component.props().style);
+    expect(component.instance().props.paddingHorizontal).toEqual("2x");
+    expect(component.instance().props.paddingVertical).toEqual("0.5x");
+    expect(style).toEqual({
+      flex: 1,
+      paddingVertical: 4,
+      paddingHorizontal: 16
     });
   });
 
@@ -222,6 +259,29 @@ describe("<Block />", () => {
     });
   });
 
+  it("marginTop='2x', marginRight='3x', marginBottom='4x', marginLeft='5x'", () => {
+    const component = shallow(
+      <Block
+        marginTop="2x"
+        marginRight="3x"
+        marginBottom="4x"
+        marginLeft="5x"
+      />
+    );
+    const style = StyleSheet.flatten(component.props().style);
+    expect(component.instance().props.marginTop).toEqual("2x");
+    expect(component.instance().props.marginRight).toEqual("3x");
+    expect(component.instance().props.marginBottom).toEqual("4x");
+    expect(component.instance().props.marginLeft).toEqual("5x");
+    expect(style).toEqual({
+      flex: 1,
+      marginLeft: 40,
+      marginBottom: 32,
+      marginRight: 24,
+      marginTop: 16
+    });
+  });
+
   it("marginHorizontal={6}, marginVertical={8}", () => {
     const component = shallow(
       <Block marginHorizontal={6} marginVertical={8} />
@@ -233,6 +293,20 @@ describe("<Block />", () => {
       flex: 1,
       marginVertical: 8,
       marginHorizontal: 6
+    });
+  });
+
+  it("marginHorizontal='2x', marginVertical='0.5x'", () => {
+    const component = shallow(
+      <Block marginHorizontal="2x" marginVertical="0.5x" />
+    );
+    const style = StyleSheet.flatten(component.props().style);
+    expect(component.instance().props.marginHorizontal).toEqual("2x");
+    expect(component.instance().props.marginVertical).toEqual("0.5x");
+    expect(style).toEqual({
+      flex: 1,
+      marginVertical: 4,
+      marginHorizontal: 16
     });
   });
 
