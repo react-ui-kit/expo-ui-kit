@@ -13,7 +13,7 @@ describe("<Text />", () => {
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
-      color: "#000020"
+      color: "#000000"
     });
   });
 
@@ -58,7 +58,7 @@ describe("<Text />", () => {
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
-      color: "#000020",
+      color: "#000000",
       paddingBottom: 6,
       paddingLeft: 6,
       paddingRight: 6,
@@ -73,7 +73,7 @@ describe("<Text />", () => {
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
-      color: "#000020",
+      color: "#000000",
       paddingBottom: 2,
       paddingLeft: 4,
       paddingRight: 4,
@@ -88,7 +88,7 @@ describe("<Text />", () => {
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
-      color: "#000020",
+      color: "#000000",
       paddingBottom: 3,
       paddingLeft: 4,
       paddingRight: 2,
@@ -108,7 +108,7 @@ describe("<Text />", () => {
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
-      color: "#000020",
+      color: "#000000",
       paddingLeft: 3,
       paddingBottom: 4,
       paddingRight: 5,
@@ -133,7 +133,7 @@ describe("<Text />", () => {
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
-      color: "#000020",
+      color: "#000000",
       paddingLeft: 40,
       paddingBottom: 32,
       paddingRight: 24,
@@ -151,7 +151,7 @@ describe("<Text />", () => {
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
-      color: "#000020",
+      color: "#000000",
       paddingVertical: 8,
       paddingHorizontal: 6
     });
@@ -167,7 +167,7 @@ describe("<Text />", () => {
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
-      color: "#000020",
+      color: "#000000",
       paddingVertical: 4,
       paddingHorizontal: 16
     });
@@ -180,7 +180,7 @@ describe("<Text />", () => {
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
-      color: "#000020",
+      color: "#000000",
       marginBottom: 6,
       marginLeft: 6,
       marginRight: 6,
@@ -195,7 +195,7 @@ describe("<Text />", () => {
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
-      color: "#000020",
+      color: "#000000",
       marginBottom: 2,
       marginLeft: 4,
       marginRight: 4,
@@ -210,7 +210,7 @@ describe("<Text />", () => {
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
-      color: "#000020",
+      color: "#000000",
       marginBottom: 3,
       marginLeft: 4,
       marginRight: 2,
@@ -230,7 +230,7 @@ describe("<Text />", () => {
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
-      color: "#000020",
+      color: "#000000",
       marginLeft: 3,
       marginBottom: 4,
       marginRight: 5,
@@ -246,7 +246,7 @@ describe("<Text />", () => {
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
-      color: "#000020",
+      color: "#000000",
       marginVertical: 8,
       marginHorizontal: 6
     });
@@ -307,7 +307,7 @@ describe("<Text />", () => {
   it("colors: primary, secondary, tertiary, black, white, gray, error, warning, success, info, color", () => {
     const component = shallow(<Text>default color</Text>);
     let style = StyleSheet.flatten(component.props().style);
-    expect(style.color).toEqual("#000020");
+    expect(style.color).toEqual("#000000");
 
     component.setProps({ primary: true });
     style = StyleSheet.flatten(component.props().style);
