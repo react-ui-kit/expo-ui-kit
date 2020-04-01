@@ -1,17 +1,21 @@
-import React from "react";
-import renderer from "react-test-renderer";
-import { StyleSheet } from "react-native";
 import { shallow } from "enzyme";
-
+import React from "react";
+import { StyleSheet } from "react-native";
+import renderer from "react-test-renderer";
 import Button from "../Button";
-import { rgba } from "../utils";
 import { SIZES } from "../theme";
+import { rgba } from "../utils";
 
 describe("<Button />", () => {
   it("render default TouchableOpacity", () => {
-    const component = shallow(<Button />);
+    const B = shallow(<Button />);
+
+    const component = B;
+
     const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.opacity).toEqual(0.8);
+
+    expect(component.props().opacity).toEqual(0.8);
+
     expect(style).toEqual({
       height: SIZES.base * 5.5,
       borderRadius: SIZES.radius,
@@ -88,16 +92,22 @@ describe("<Button />", () => {
   });
 
   it('color="#88B04B"', () => {
-    const component = renderer.create(<Button color="#88B04B" />).toJSON();
-    const instance = renderer.create(<Button color="#88B04B" />).getInstance();
+    const B = renderer.create(<Button color="#88B04B" />);
+
+    const component = B.toJSON();
+    const instance = B.root;
+
     const style = StyleSheet.flatten(component.props.style);
     expect(instance.props.color).toEqual("#88B04B");
     expect(style.backgroundColor).toEqual("#88B04B");
   });
 
   it("outlined", () => {
-    const component = renderer.create(<Button primary outlined />).toJSON();
-    const instance = renderer.create(<Button primary outlined />).getInstance();
+    const B = renderer.create(<Button primary outlined />);
+
+    const component = B.toJSON();
+    const instance = B.root;
+
     const style = StyleSheet.flatten(component.props.style);
     expect(instance.props.outlined).toEqual(true);
     expect(style.borderWidth).toEqual(1);
@@ -106,32 +116,44 @@ describe("<Button />", () => {
   });
 
   it("flex", () => {
-    const component = renderer.create(<Button />).toJSON();
-    const instance = renderer.create(<Button />).getInstance();
+    const B = renderer.create(<Button />);
+
+    const component = B.toJSON();
+    const instance = B.root;
+
     const style = StyleSheet.flatten(component.props.style);
     expect(instance.props.flex).toEqual(0);
     expect(style.flex).toEqual(undefined);
   });
 
   it("flex=0.5", () => {
-    const component = renderer.create(<Button flex={0.5} />).toJSON();
-    const instance = renderer.create(<Button flex={0.5} />).getInstance();
+    const B = renderer.create(<Button flex={0.5} />);
+
+    const component = B.toJSON();
+    const instance = B.root;
+
     const style = StyleSheet.flatten(component.props.style);
     expect(instance.props.flex).toEqual(0.5);
     expect(style.flex).toEqual(0.5);
   });
 
   it("height=56", () => {
-    const component = renderer.create(<Button height={56} />).toJSON();
-    const instance = renderer.create(<Button height={56} />).getInstance();
+    const B = renderer.create(<Button height={56} />);
+
+    const component = B.toJSON();
+    const instance = B.root;
+
     const style = StyleSheet.flatten(component.props.style);
     expect(instance.props.height).toEqual(56);
     expect(style.height).toEqual(56);
   });
 
   it("margin={12}", () => {
-    const component = renderer.create(<Button margin={12} />).toJSON();
-    const instance = renderer.create(<Button margin={12} />).getInstance();
+    const B = renderer.create(<Button margin={12} />);
+
+    const component = B.toJSON();
+    const instance = B.root;
+
     const style = StyleSheet.flatten(component.props.style);
     expect(instance.props.margin).toEqual(12);
     expect(style.marginBottom).toEqual(12);
@@ -141,12 +163,13 @@ describe("<Button />", () => {
   });
 
   it("marginHorizontal={6} marginVertical={8}", () => {
-    const component = renderer
-      .create(<Button marginHorizontal={6} marginVertical={8} />)
-      .toJSON();
-    const instance = renderer
-      .create(<Button marginHorizontal={6} marginVertical={8} />)
-      .getInstance();
+    const B = renderer.create(
+      <Button marginHorizontal={6} marginVertical={8} />
+    );
+
+    const component = B.toJSON();
+    const instance = B.root;
+
     const style = StyleSheet.flatten(component.props.style);
     expect(instance.props.marginHorizontal).toEqual(6);
     expect(instance.props.marginVertical).toEqual(8);
@@ -155,14 +178,18 @@ describe("<Button />", () => {
   });
 
   it("marginTop={6}, marginRight={5}, marginBottom={4}, marginLeft={3}", () => {
-    const component = shallow(
+    const B = renderer.create(
       <Button marginTop={6} marginRight={5} marginBottom={4} marginLeft={3} />
     );
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.marginTop).toEqual(6);
-    expect(component.instance().props.marginRight).toEqual(5);
-    expect(component.instance().props.marginBottom).toEqual(4);
-    expect(component.instance().props.marginLeft).toEqual(3);
+
+    const component = B.toJSON();
+    const instance = B.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.marginTop).toEqual(6);
+    expect(instance.props.marginRight).toEqual(5);
+    expect(instance.props.marginBottom).toEqual(4);
+    expect(instance.props.marginLeft).toEqual(3);
     expect(style.marginLeft).toEqual(3);
     expect(style.marginBottom).toEqual(4);
     expect(style.marginRight).toEqual(5);
@@ -170,7 +197,7 @@ describe("<Button />", () => {
   });
 
   it("marginTop, marginRight, marginBottom, marginLeft, marginVertical, marginHorizontal", () => {
-    const component = shallow(
+    const B = (
       <Button
         marginTop
         marginRight
@@ -180,13 +207,17 @@ describe("<Button />", () => {
         marginHorizontal
       />
     );
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.marginTop).toEqual(true);
-    expect(component.instance().props.marginRight).toEqual(true);
-    expect(component.instance().props.marginBottom).toEqual(true);
-    expect(component.instance().props.marginLeft).toEqual(true);
-    expect(component.instance().props.marginVertical).toEqual(true);
-    expect(component.instance().props.marginHorizontal).toEqual(true);
+
+    const component = renderer.create(B).toJSON();
+    const instance = renderer.create(B).root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.marginTop).toEqual(true);
+    expect(instance.props.marginRight).toEqual(true);
+    expect(instance.props.marginBottom).toEqual(true);
+    expect(instance.props.marginLeft).toEqual(true);
+    expect(instance.props.marginVertical).toEqual(true);
+    expect(instance.props.marginHorizontal).toEqual(true);
     expect(style.marginTop).toEqual(8);
     expect(style.marginRight).toEqual(8);
     expect(style.marginBottom).toEqual(8);
@@ -196,8 +227,11 @@ describe("<Button />", () => {
   });
 
   it("padding={12}", () => {
-    const component = renderer.create(<Button padding={12} />).toJSON();
-    const instance = renderer.create(<Button padding={12} />).getInstance();
+    const B = renderer.create(<Button padding={12} />);
+
+    const component = B.toJSON();
+    const instance = B.root;
+
     const style = StyleSheet.flatten(component.props.style);
     expect(instance.props.padding).toEqual(12);
     expect(style.paddingBottom).toEqual(12);
@@ -207,12 +241,13 @@ describe("<Button />", () => {
   });
 
   it("paddingHorizontal={6} paddingVertical={8}", () => {
-    const component = renderer
-      .create(<Button paddingHorizontal={6} paddingVertical={8} />)
-      .toJSON();
-    const instance = renderer
-      .create(<Button paddingHorizontal={6} paddingVertical={8} />)
-      .getInstance();
+    const B = renderer.create(
+      <Button paddingHorizontal={6} paddingVertical={8} />
+    );
+
+    const component = B.toJSON();
+    const instance = B.root;
+
     const style = StyleSheet.flatten(component.props.style);
     expect(instance.props.paddingHorizontal).toEqual(6);
     expect(instance.props.paddingVertical).toEqual(8);
@@ -221,7 +256,7 @@ describe("<Button />", () => {
   });
 
   it("paddingTop={6}, paddingRight={5}, paddingBottom={4}, paddingLeft={3}", () => {
-    const component = shallow(
+    const B = renderer.create(
       <Button
         paddingTop={6}
         paddingRight={5}
@@ -229,11 +264,15 @@ describe("<Button />", () => {
         paddingLeft={3}
       />
     );
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.paddingTop).toEqual(6);
-    expect(component.instance().props.paddingRight).toEqual(5);
-    expect(component.instance().props.paddingBottom).toEqual(4);
-    expect(component.instance().props.paddingLeft).toEqual(3);
+
+    const component = B.toJSON();
+    const instance = B.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.paddingTop).toEqual(6);
+    expect(instance.props.paddingRight).toEqual(5);
+    expect(instance.props.paddingBottom).toEqual(4);
+    expect(instance.props.paddingLeft).toEqual(3);
     expect(style.paddingLeft).toEqual(3);
     expect(style.paddingBottom).toEqual(4);
     expect(style.paddingRight).toEqual(5);
@@ -241,7 +280,7 @@ describe("<Button />", () => {
   });
 
   it("paddingTop, paddingRight, paddingBottom, paddingLeft, paddingVertical, paddingHorizontal", () => {
-    const component = shallow(
+    const B = renderer.create(
       <Button
         paddingTop
         paddingRight
@@ -251,13 +290,17 @@ describe("<Button />", () => {
         paddingHorizontal
       />
     );
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.paddingTop).toEqual(true);
-    expect(component.instance().props.paddingRight).toEqual(true);
-    expect(component.instance().props.paddingBottom).toEqual(true);
-    expect(component.instance().props.paddingLeft).toEqual(true);
-    expect(component.instance().props.paddingVertical).toEqual(true);
-    expect(component.instance().props.paddingHorizontal).toEqual(true);
+
+    const component = B.toJSON();
+    const instance = B.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.paddingTop).toEqual(true);
+    expect(instance.props.paddingRight).toEqual(true);
+    expect(instance.props.paddingBottom).toEqual(true);
+    expect(instance.props.paddingLeft).toEqual(true);
+    expect(instance.props.paddingVertical).toEqual(true);
+    expect(instance.props.paddingHorizontal).toEqual(true);
     expect(style.paddingTop).toEqual(8);
     expect(style.paddingRight).toEqual(8);
     expect(style.paddingBottom).toEqual(8);
@@ -267,39 +310,52 @@ describe("<Button />", () => {
   });
 
   it("disabled", () => {
-    const component = renderer.create(<Button disabled />).toJSON();
-    const instance = renderer.create(<Button disabled />).getInstance();
+    const B = renderer.create(<Button disabled />);
+
+    const component = B.toJSON();
+    const instance = B.root;
+
     const style = StyleSheet.flatten(component.props.style);
     expect(instance.props.disabled).toEqual(true);
     expect(style.backgroundColor).toEqual(rgba("#4630EB", 0.5));
   });
 
   it("opacity={0.5}", () => {
-    const instance = renderer.create(<Button opacity={0.5} />).getInstance();
+    const instance = renderer.create(<Button opacity={0.5} />).root;
     expect(instance.props.opacity).toEqual(0.5);
-  });
-
-  it("ButtonType: highlight", () => {
-    const component = shallow(<Button highlight />);
-    expect(component.instance().props.highlight).toEqual(true);
-    expect(component.name()).toEqual("TouchableHighlight");
-  });
-
-  it("ButtonType: highlight", () => {
-    const component = shallow(<Button highlight />);
-    expect(component.instance().props.highlight).toEqual(true);
-    expect(component.name()).toEqual("TouchableHighlight");
   });
 
   it("ButtonType: nativeFeedback", () => {
     const component = shallow(<Button nativeFeedback />);
-    expect(component.instance().props.nativeFeedback).toEqual(true);
+
+    expect(component.props().nativeFeedback).toEqual(true);
     expect(component.name()).toEqual("DummyTouchableNativeFeedback");
   });
 
+  /**
+   *  Apparently TouchableWithoutFeedback and TouchableHighlight needs a child to render
+   *  https://stackoverflow.com/questions/39862145/react-children-only-expected-to-receive-a-single-react-element-child-error-whe
+   */
+
+  it("ButtonType: highlight", () => {
+    const component = shallow(
+      <Button highlight>
+        <Button />
+      </Button>
+    );
+
+    expect(component.props().highlight).toEqual(true);
+    expect(component.name()).toEqual("TouchableHighlight");
+  });
+
   it("ButtonType: withoutFeedback", () => {
-    const component = shallow(<Button withoutFeedback />);
-    expect(component.instance().props.withoutFeedback).toEqual(true);
+    const component = shallow(
+      <Button withoutFeedback>
+        <Button />
+      </Button>
+    );
+
+    expect(component.props().withoutFeedback).toEqual(true);
     expect(component.name()).toEqual("TouchableWithoutFeedback");
   });
 
