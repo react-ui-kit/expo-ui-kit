@@ -3,14 +3,15 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import renderer from "react-test-renderer";
 import Button from "../Button";
+import Text from "../Text";
 import { SIZES } from "../theme";
 import { rgba } from "../utils";
 
 describe("<Button />", () => {
   it("render default TouchableOpacity", () => {
-    const B = shallow(<Button />);
+    const button = shallow(<Button />);
 
-    const component = B;
+    const component = button;
 
     const style = StyleSheet.flatten(component.props().style);
 
@@ -92,10 +93,10 @@ describe("<Button />", () => {
   });
 
   it('color="#88B04B"', () => {
-    const B = renderer.create(<Button color="#88B04B" />);
+    const button = renderer.create(<Button color="#88B04B" />);
 
-    const component = B.toJSON();
-    const instance = B.root;
+    const component = button.toJSON();
+    const instance = button.root;
 
     const style = StyleSheet.flatten(component.props.style);
     expect(instance.props.color).toEqual("#88B04B");
@@ -103,10 +104,10 @@ describe("<Button />", () => {
   });
 
   it("outlined", () => {
-    const B = renderer.create(<Button primary outlined />);
+    const button = renderer.create(<Button primary outlined />);
 
-    const component = B.toJSON();
-    const instance = B.root;
+    const component = button.toJSON();
+    const instance = button.root;
 
     const style = StyleSheet.flatten(component.props.style);
     expect(instance.props.outlined).toEqual(true);
@@ -116,10 +117,10 @@ describe("<Button />", () => {
   });
 
   it("flex", () => {
-    const B = renderer.create(<Button />);
+    const button = renderer.create(<Button />);
 
-    const component = B.toJSON();
-    const instance = B.root;
+    const component = button.toJSON();
+    const instance = button.root;
 
     const style = StyleSheet.flatten(component.props.style);
     expect(instance.props.flex).toEqual(0);
@@ -127,10 +128,10 @@ describe("<Button />", () => {
   });
 
   it("flex=0.5", () => {
-    const B = renderer.create(<Button flex={0.5} />);
+    const button = renderer.create(<Button flex={0.5} />);
 
-    const component = B.toJSON();
-    const instance = B.root;
+    const component = button.toJSON();
+    const instance = button.root;
 
     const style = StyleSheet.flatten(component.props.style);
     expect(instance.props.flex).toEqual(0.5);
@@ -138,10 +139,10 @@ describe("<Button />", () => {
   });
 
   it("height=56", () => {
-    const B = renderer.create(<Button height={56} />);
+    const button = renderer.create(<Button height={56} />);
 
-    const component = B.toJSON();
-    const instance = B.root;
+    const component = button.toJSON();
+    const instance = button.root;
 
     const style = StyleSheet.flatten(component.props.style);
     expect(instance.props.height).toEqual(56);
@@ -149,10 +150,10 @@ describe("<Button />", () => {
   });
 
   it("margin={12}", () => {
-    const B = renderer.create(<Button margin={12} />);
+    const button = renderer.create(<Button margin={12} />);
 
-    const component = B.toJSON();
-    const instance = B.root;
+    const component = button.toJSON();
+    const instance = button.root;
 
     const style = StyleSheet.flatten(component.props.style);
     expect(instance.props.margin).toEqual(12);
@@ -163,12 +164,12 @@ describe("<Button />", () => {
   });
 
   it("marginHorizontal={6} marginVertical={8}", () => {
-    const B = renderer.create(
+    const button = renderer.create(
       <Button marginHorizontal={6} marginVertical={8} />
     );
 
-    const component = B.toJSON();
-    const instance = B.root;
+    const component = button.toJSON();
+    const instance = button.root;
 
     const style = StyleSheet.flatten(component.props.style);
     expect(instance.props.marginHorizontal).toEqual(6);
@@ -178,12 +179,12 @@ describe("<Button />", () => {
   });
 
   it("marginTop={6}, marginRight={5}, marginBottom={4}, marginLeft={3}", () => {
-    const B = renderer.create(
+    const button = renderer.create(
       <Button marginTop={6} marginRight={5} marginBottom={4} marginLeft={3} />
     );
 
-    const component = B.toJSON();
-    const instance = B.root;
+    const component = button.toJSON();
+    const instance = button.root;
 
     const style = StyleSheet.flatten(component.props.style);
     expect(instance.props.marginTop).toEqual(6);
@@ -197,7 +198,7 @@ describe("<Button />", () => {
   });
 
   it("marginTop, marginRight, marginBottom, marginLeft, marginVertical, marginHorizontal", () => {
-    const B = (
+    const button = renderer.create(
       <Button
         marginTop
         marginRight
@@ -208,8 +209,8 @@ describe("<Button />", () => {
       />
     );
 
-    const component = renderer.create(B).toJSON();
-    const instance = renderer.create(B).root;
+    const component = button.toJSON();
+    const instance = button.root;
 
     const style = StyleSheet.flatten(component.props.style);
     expect(instance.props.marginTop).toEqual(true);
@@ -227,10 +228,10 @@ describe("<Button />", () => {
   });
 
   it("padding={12}", () => {
-    const B = renderer.create(<Button padding={12} />);
+    const button = renderer.create(<Button padding={12} />);
 
-    const component = B.toJSON();
-    const instance = B.root;
+    const component = button.toJSON();
+    const instance = button.root;
 
     const style = StyleSheet.flatten(component.props.style);
     expect(instance.props.padding).toEqual(12);
@@ -241,12 +242,12 @@ describe("<Button />", () => {
   });
 
   it("paddingHorizontal={6} paddingVertical={8}", () => {
-    const B = renderer.create(
+    const button = renderer.create(
       <Button paddingHorizontal={6} paddingVertical={8} />
     );
 
-    const component = B.toJSON();
-    const instance = B.root;
+    const component = button.toJSON();
+    const instance = button.root;
 
     const style = StyleSheet.flatten(component.props.style);
     expect(instance.props.paddingHorizontal).toEqual(6);
@@ -256,7 +257,7 @@ describe("<Button />", () => {
   });
 
   it("paddingTop={6}, paddingRight={5}, paddingBottom={4}, paddingLeft={3}", () => {
-    const B = renderer.create(
+    const button = renderer.create(
       <Button
         paddingTop={6}
         paddingRight={5}
@@ -265,8 +266,8 @@ describe("<Button />", () => {
       />
     );
 
-    const component = B.toJSON();
-    const instance = B.root;
+    const component = button.toJSON();
+    const instance = button.root;
 
     const style = StyleSheet.flatten(component.props.style);
     expect(instance.props.paddingTop).toEqual(6);
@@ -280,7 +281,7 @@ describe("<Button />", () => {
   });
 
   it("paddingTop, paddingRight, paddingBottom, paddingLeft, paddingVertical, paddingHorizontal", () => {
-    const B = renderer.create(
+    const button = renderer.create(
       <Button
         paddingTop
         paddingRight
@@ -291,8 +292,8 @@ describe("<Button />", () => {
       />
     );
 
-    const component = B.toJSON();
-    const instance = B.root;
+    const component = button.toJSON();
+    const instance = button.root;
 
     const style = StyleSheet.flatten(component.props.style);
     expect(instance.props.paddingTop).toEqual(true);
@@ -310,10 +311,10 @@ describe("<Button />", () => {
   });
 
   it("disabled", () => {
-    const B = renderer.create(<Button disabled />);
+    const button = renderer.create(<Button disabled />);
 
-    const component = B.toJSON();
-    const instance = B.root;
+    const component = button.toJSON();
+    const instance = button.root;
 
     const style = StyleSheet.flatten(component.props.style);
     expect(instance.props.disabled).toEqual(true);
@@ -340,7 +341,7 @@ describe("<Button />", () => {
   it("ButtonType: highlight", () => {
     const component = shallow(
       <Button highlight>
-        <Button />
+        <Text />
       </Button>
     );
 
@@ -351,7 +352,7 @@ describe("<Button />", () => {
   it("ButtonType: withoutFeedback", () => {
     const component = shallow(
       <Button withoutFeedback>
-        <Button />
+        <Text />
       </Button>
     );
 
