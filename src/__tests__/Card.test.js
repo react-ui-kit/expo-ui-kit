@@ -6,7 +6,8 @@ import { rgba } from "../utils";
 
 describe("<Card />", () => {
   it("render default", () => {
-    const component = renderer.create(<Card />).toJSON();
+    const card = renderer.create(<Card />);
+    const component = card.toJSON();
     const style = StyleSheet.flatten(component.props.style);
     expect(style.flex).toEqual(1);
   });
@@ -15,7 +16,7 @@ describe("<Card />", () => {
     const card = renderer.create(<Card shadow />);
 
     const component = card.toJSON();
-    const instance = renderer.create(<Card shadow />).root;
+    const instance = card.root;
 
     const style = StyleSheet.flatten(component.props.style);
     expect(instance.props.shadow).toEqual(true);
