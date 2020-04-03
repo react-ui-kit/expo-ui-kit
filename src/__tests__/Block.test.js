@@ -1,8 +1,7 @@
-import React from "react";
-import renderer from "react-test-renderer";
-import { StyleSheet } from "react-native";
 import { shallow } from "enzyme";
-
+import React from "react";
+import { StyleSheet } from "react-native";
+import renderer from "react-test-renderer";
 import Block from "../Block";
 import { SIZES } from "../theme";
 
@@ -39,6 +38,7 @@ describe("<Block />", () => {
 
   it("testing flexDirection, row & column", () => {
     const component = shallow(<Block row>flexDirection</Block>);
+
     let style = StyleSheet.flatten(component.props().style);
     expect(style.flexDirection).toEqual("row");
 
@@ -90,9 +90,13 @@ describe("<Block />", () => {
   });
 
   it("padding={4}", () => {
-    const component = shallow(<Block padding={4} />);
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.padding).toEqual(4);
+    const block = renderer.create(<Block padding={4} />);
+
+    const component = block.toJSON();
+    const instance = block.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.padding).toEqual(4);
     expect(style).toEqual({
       flex: 1,
       paddingBottom: 4,
@@ -103,9 +107,13 @@ describe("<Block />", () => {
   });
 
   it("padding={[2, 4]}", () => {
-    const component = shallow(<Block padding={[2, 4]} />);
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.padding).toEqual([2, 4]);
+    const block = renderer.create(<Block padding={[2, 4]} />);
+
+    const component = block.toJSON();
+    const instance = block.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.padding).toEqual([2, 4]);
     expect(style).toEqual({
       flex: 1,
       paddingBottom: 2,
@@ -116,9 +124,13 @@ describe("<Block />", () => {
   });
 
   it("padding={[1, 2, 3, 4]}", () => {
-    const component = shallow(<Block padding={[1, 2, 3, 4]} />);
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.padding).toEqual([1, 2, 3, 4]);
+    const block = renderer.create(<Block padding={[1, 2, 3, 4]} />);
+
+    const component = block.toJSON();
+    const instance = block.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.padding).toEqual([1, 2, 3, 4]);
     expect(style).toEqual({
       flex: 1,
       paddingBottom: 3,
@@ -129,7 +141,7 @@ describe("<Block />", () => {
   });
 
   it("paddingTop={6}, paddingRight={5}, paddingBottom={4}, paddingLeft={3}", () => {
-    const component = shallow(
+    const block = renderer.create(
       <Block
         paddingTop={6}
         paddingRight={5}
@@ -137,11 +149,15 @@ describe("<Block />", () => {
         paddingLeft={3}
       />
     );
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.paddingTop).toEqual(6);
-    expect(component.instance().props.paddingRight).toEqual(5);
-    expect(component.instance().props.paddingBottom).toEqual(4);
-    expect(component.instance().props.paddingLeft).toEqual(3);
+
+    const component = block.toJSON();
+    const instance = block.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.paddingTop).toEqual(6);
+    expect(instance.props.paddingRight).toEqual(5);
+    expect(instance.props.paddingBottom).toEqual(4);
+    expect(instance.props.paddingLeft).toEqual(3);
     expect(style).toEqual({
       flex: 1,
       paddingLeft: 3,
@@ -152,7 +168,7 @@ describe("<Block />", () => {
   });
 
   it("paddingTop='2x', paddingRight='3x', paddingBottom='4x', paddingLeft='5x'", () => {
-    const component = shallow(
+    const block = renderer.create(
       <Block
         paddingTop="2x"
         paddingRight="3x"
@@ -160,11 +176,15 @@ describe("<Block />", () => {
         paddingLeft="5x"
       />
     );
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.paddingTop).toEqual("2x");
-    expect(component.instance().props.paddingRight).toEqual("3x");
-    expect(component.instance().props.paddingBottom).toEqual("4x");
-    expect(component.instance().props.paddingLeft).toEqual("5x");
+
+    const component = block.toJSON();
+    const instance = block.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.paddingTop).toEqual("2x");
+    expect(instance.props.paddingRight).toEqual("3x");
+    expect(instance.props.paddingBottom).toEqual("4x");
+    expect(instance.props.paddingLeft).toEqual("5x");
     expect(style).toEqual({
       flex: 1,
       paddingLeft: 40,
@@ -175,12 +195,16 @@ describe("<Block />", () => {
   });
 
   it("paddingHorizontal={6}, paddingVertical={8}", () => {
-    const component = shallow(
+    const block = renderer.create(
       <Block paddingHorizontal={6} paddingVertical={8} />
     );
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.paddingHorizontal).toEqual(6);
-    expect(component.instance().props.paddingVertical).toEqual(8);
+
+    const component = block.toJSON();
+    const instance = block.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.paddingHorizontal).toEqual(6);
+    expect(instance.props.paddingVertical).toEqual(8);
     expect(style).toEqual({
       flex: 1,
       paddingVertical: 8,
@@ -189,12 +213,16 @@ describe("<Block />", () => {
   });
 
   it("paddingHorizontal='2x', paddingVertical='0.5x'", () => {
-    const component = shallow(
+    const block = renderer.create(
       <Block paddingHorizontal="2x" paddingVertical="0.5x" />
     );
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.paddingHorizontal).toEqual("2x");
-    expect(component.instance().props.paddingVertical).toEqual("0.5x");
+
+    const component = block.toJSON();
+    const instance = block.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.paddingHorizontal).toEqual("2x");
+    expect(instance.props.paddingVertical).toEqual("0.5x");
     expect(style).toEqual({
       flex: 1,
       paddingVertical: 4,
@@ -203,9 +231,13 @@ describe("<Block />", () => {
   });
 
   it("margin={6}", () => {
-    const component = shallow(<Block margin={6} />);
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.margin).toEqual(6);
+    const block = renderer.create(<Block margin={6} />);
+
+    const component = block.toJSON();
+    const instance = block.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.margin).toEqual(6);
     expect(style).toEqual({
       flex: 1,
       marginBottom: 6,
@@ -216,9 +248,13 @@ describe("<Block />", () => {
   });
 
   it("margin={[2, 4]}", () => {
-    const component = shallow(<Block margin={[2, 4]} />);
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.margin).toEqual([2, 4]);
+    const block = renderer.create(<Block margin={[2, 4]} />);
+
+    const component = block.toJSON();
+    const instance = block.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.margin).toEqual([2, 4]);
     expect(style).toEqual({
       flex: 1,
       marginBottom: 2,
@@ -229,9 +265,13 @@ describe("<Block />", () => {
   });
 
   it("margin={[1, 2, 3, 4]}", () => {
-    const component = shallow(<Block margin={[1, 2, 3, 4]} />);
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.margin).toEqual([1, 2, 3, 4]);
+    const block = renderer.create(<Block margin={[1, 2, 3, 4]} />);
+
+    const component = block.toJSON();
+    const instance = block.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.margin).toEqual([1, 2, 3, 4]);
     expect(style).toEqual({
       flex: 1,
       marginBottom: 3,
@@ -242,14 +282,18 @@ describe("<Block />", () => {
   });
 
   it("marginTop={6}, marginRight={5}, marginBottom={4}, marginLeft={3}", () => {
-    const component = shallow(
+    const block = renderer.create(
       <Block marginTop={6} marginRight={5} marginBottom={4} marginLeft={3} />
     );
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.marginTop).toEqual(6);
-    expect(component.instance().props.marginRight).toEqual(5);
-    expect(component.instance().props.marginBottom).toEqual(4);
-    expect(component.instance().props.marginLeft).toEqual(3);
+
+    const component = block.toJSON();
+    const instance = block.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.marginTop).toEqual(6);
+    expect(instance.props.marginRight).toEqual(5);
+    expect(instance.props.marginBottom).toEqual(4);
+    expect(instance.props.marginLeft).toEqual(3);
     expect(style).toEqual({
       flex: 1,
       marginLeft: 3,
@@ -260,7 +304,7 @@ describe("<Block />", () => {
   });
 
   it("marginTop='2x', marginRight='3x', marginBottom='4x', marginLeft='5x'", () => {
-    const component = shallow(
+    const block = renderer.create(
       <Block
         marginTop="2x"
         marginRight="3x"
@@ -268,11 +312,15 @@ describe("<Block />", () => {
         marginLeft="5x"
       />
     );
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.marginTop).toEqual("2x");
-    expect(component.instance().props.marginRight).toEqual("3x");
-    expect(component.instance().props.marginBottom).toEqual("4x");
-    expect(component.instance().props.marginLeft).toEqual("5x");
+
+    const component = block.toJSON();
+    const instance = block.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.marginTop).toEqual("2x");
+    expect(instance.props.marginRight).toEqual("3x");
+    expect(instance.props.marginBottom).toEqual("4x");
+    expect(instance.props.marginLeft).toEqual("5x");
     expect(style).toEqual({
       flex: 1,
       marginLeft: 40,
@@ -283,12 +331,16 @@ describe("<Block />", () => {
   });
 
   it("marginHorizontal={6}, marginVertical={8}", () => {
-    const component = shallow(
+    const block = renderer.create(
       <Block marginHorizontal={6} marginVertical={8} />
     );
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.marginHorizontal).toEqual(6);
-    expect(component.instance().props.marginVertical).toEqual(8);
+
+    const component = block.toJSON();
+    const instance = block.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.marginHorizontal).toEqual(6);
+    expect(instance.props.marginVertical).toEqual(8);
     expect(style).toEqual({
       flex: 1,
       marginVertical: 8,
@@ -297,12 +349,16 @@ describe("<Block />", () => {
   });
 
   it("marginHorizontal='2x', marginVertical='0.5x'", () => {
-    const component = shallow(
+    const block = renderer.create(
       <Block marginHorizontal="2x" marginVertical="0.5x" />
     );
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.marginHorizontal).toEqual("2x");
-    expect(component.instance().props.marginVertical).toEqual("0.5x");
+
+    const component = block.toJSON();
+    const instance = block.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.marginHorizontal).toEqual("2x");
+    expect(instance.props.marginVertical).toEqual("0.5x");
     expect(style).toEqual({
       flex: 1,
       marginVertical: 4,
@@ -312,20 +368,33 @@ describe("<Block />", () => {
 
   it("animated", () => {
     const component = shallow(<Block animated />);
-    expect(component.instance().props.animated).toEqual(true);
+    const block = renderer.create(<Block animated />);
+
+    const instance = block.root;
+
+    expect(instance.props.animated).toEqual(true);
     expect(component.name()).toEqual("AnimatedComponent");
   });
 
   it("safe", () => {
     const component = shallow(<Block safe />);
-    expect(component.instance().props.safe).toEqual(true);
+    const block = renderer.create(<Block safe />);
+
+    const instance = block.root;
+
+    expect(instance.props.safe).toEqual(true);
     expect(component.name()).toEqual("SafeAreaView");
   });
 
   it("shadow", () => {
-    const component = shallow(<Block shadow />);
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.shadow).toEqual(true);
+    const block = renderer.create(<Block shadow />);
+
+    const component = block.toJSON();
+    const instance = block.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+
+    expect(instance.props.shadow).toEqual(true);
     expect(style.elevation).toEqual(3);
     expect(style.shadowColor).toEqual("#000020");
     expect(style.shadowOffset).toEqual({ width: 0, height: 2 });
@@ -334,23 +403,35 @@ describe("<Block />", () => {
   });
 
   it('space="between"', () => {
-    const component = shallow(<Block space="between" />);
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.space).toEqual("between");
+    const block = renderer.create(<Block space="between" />);
+
+    const component = block.toJSON();
+    const instance = block.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.space).toEqual("between");
     expect(style.justifyContent).toEqual("space-between");
   });
 
   it("card", () => {
-    const component = shallow(<Block card />);
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.card).toEqual(true);
+    const block = renderer.create(<Block card />);
+
+    const component = block.toJSON();
+    const instance = block.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.card).toEqual(true);
     expect(style.borderRadius).toEqual(SIZES.border);
   });
 
   it("radius={4}", () => {
-    const component = shallow(<Block radius={4} />);
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.radius).toEqual(4);
+    const block = renderer.create(<Block radius={4} />);
+
+    const component = block.toJSON();
+    const instance = block.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.radius).toEqual(4);
     expect(style.borderRadius).toEqual(4);
   });
 
@@ -405,14 +486,18 @@ describe("<Block />", () => {
   });
 
   it("custom theme for primary color", () => {
-    const component = shallow(
+    const block = renderer.create(
       <Block primary theme={customTheme}>
         custom theme color
       </Block>
     );
-    expect(component.instance().props.theme).toEqual(customTheme);
 
-    let style = StyleSheet.flatten(component.props().style);
+    const component = block.toJSON();
+    const instance = block.root;
+
+    expect(instance.props.theme).toEqual(customTheme);
+
+    let style = StyleSheet.flatten(component.props.style);
 
     expect(style.backgroundColor).toEqual("red");
   });
