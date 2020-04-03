@@ -1,14 +1,13 @@
-import React, { Component } from "react";
+import React from "react";
 import {
   StyleSheet,
-  TouchableOpacity,
   TouchableHighlight,
   TouchableNativeFeedback,
+  TouchableOpacity,
   TouchableWithoutFeedback
 } from "react-native";
-
 import expoTheme from "./theme";
-import { spacing, parseSpacing, rgba, mergeTheme } from "./utils";
+import { mergeTheme, parseSpacing, rgba, spacing } from "./utils";
 
 /**
  * https://facebook.github.io/react-native/docs/touchableopacity
@@ -57,8 +56,8 @@ import { spacing, parseSpacing, rgba, mergeTheme } from "./utils";
  *
  */
 
-class Button extends Component {
-  getSpacings(type) {
+function Button(props) {
+  const getSpacings = type => {
     const {
       margin,
       marginTop,
@@ -75,7 +74,7 @@ class Button extends Component {
       paddingVertical,
       paddingHorizontal,
       theme
-    } = this.props;
+    } = props;
     const { SIZES } = mergeTheme(expoTheme, theme);
 
     if (type === "margin") {
@@ -106,122 +105,118 @@ class Button extends Component {
           parseSpacing("paddingHorizontal", paddingHorizontal, SIZES.base)
       ];
     }
+  };
+  const {
+    disabled,
+    opacity,
+    outlined,
+    flex,
+    height,
+    // colors
+    color,
+    transparent,
+    primary,
+    secondary,
+    tertiary,
+    black,
+    white,
+    gray,
+    error,
+    warning,
+    success,
+    info,
+    // support for touchables
+    highlight,
+    nativeFeedback,
+    withoutFeedback,
+    theme,
+    style,
+    children,
+    ...rest
+  } = props;
+
+  const excludeProps = [
+    "margin",
+    "marginTop",
+    "marginRight",
+    "marginBottom",
+    "marginLeft",
+    "marginVertical",
+    "marginHorizontal",
+    "padding",
+    "paddingTop",
+    "paddingRight",
+    "paddingBottom",
+    "paddingLeft",
+    "paddingVertical",
+    "paddingHorizontal"
+  ];
+  const extraProps = Object.keys(props).reduce((prop, key) => {
+    if (!excludeProps.includes(`${key}`)) {
+      prop[key] = props[key];
+    }
+    return prop;
+  }, {});
+
+  const { SIZES, COLORS } = mergeTheme({ ...expoTheme }, theme);
+  const marginSpacing = getSpacings("margin");
+  const paddingSpacing = getSpacings("padding");
+
+  const buttonStyles = StyleSheet.flatten([
+    {
+      height: SIZES.base * 5.5,
+      borderRadius: SIZES.radius,
+      backgroundColor: COLORS.primary,
+      justifyContent: "center"
+    },
+    transparent && { backgroundColor: "transparent" },
+    primary && { backgroundColor: COLORS.primary },
+    secondary && { backgroundColor: COLORS.secondary },
+    tertiary && { backgroundColor: COLORS.tertiary },
+    black && { backgroundColor: COLORS.black },
+    white && { backgroundColor: COLORS.white },
+    gray && { backgroundColor: COLORS.gray },
+    error && { backgroundColor: COLORS.error },
+    warning && { backgroundColor: COLORS.warning },
+    success && { backgroundColor: COLORS.success },
+    info && { backgroundColor: COLORS.info },
+    color && { backgroundColor: color }, // custom backgroundColor
+    flex && { flex }, // flex width
+    height && { height }, // custom height
+    marginSpacing,
+    paddingSpacing,
+    style
+  ]);
+
+  if (disabled) {
+    const backgroundColor = StyleSheet.flatten(buttonStyles).backgroundColor;
+    buttonStyles.backgroundColor = rgba(backgroundColor, 0.5);
   }
 
-  render() {
-    const {
-      disabled,
-      opacity,
-      outlined,
-      flex,
-      height,
-      // colors
-      color,
-      transparent,
-      primary,
-      secondary,
-      tertiary,
-      black,
-      white,
-      gray,
-      error,
-      warning,
-      success,
-      info,
-      // support for touchables
-      highlight,
-      nativeFeedback,
-      withoutFeedback,
-      theme,
-      style,
-      children,
-      ...props
-    } = this.props;
-
-
-    const excludeProps = [
-      "margin",
-      "marginTop",
-      "marginRight",
-      "marginBottom",
-      "marginLeft",
-      "marginVertical",
-      "marginHorizontal",
-      "padding",
-      "paddingTop",
-      "paddingRight",
-      "paddingBottom",
-      "paddingLeft",
-      "paddingVertical",
-      "paddingHorizontal"
-    ];
-    const extraProps = Object.keys(props).reduce((prop, key) => {
-      if (!excludeProps.includes(`${key}`)) {
-        prop[key] = props[key];
-      }
-      return prop;
-    }, {});
-
-    const { SIZES, COLORS } = mergeTheme({ ...expoTheme }, theme);
-    const marginSpacing = this.getSpacings("margin");
-    const paddingSpacing = this.getSpacings("padding");
-
-    const buttonStyles = StyleSheet.flatten([
-      {
-        height: SIZES.base * 5.5,
-        borderRadius: SIZES.radius,
-        backgroundColor: COLORS.primary,
-        justifyContent: "center"
-      },
-      transparent && { backgroundColor: "transparent" },
-      primary && { backgroundColor: COLORS.primary },
-      secondary && { backgroundColor: COLORS.secondary },
-      tertiary && { backgroundColor: COLORS.tertiary },
-      black && { backgroundColor: COLORS.black },
-      white && { backgroundColor: COLORS.white },
-      gray && { backgroundColor: COLORS.gray },
-      error && { backgroundColor: COLORS.error },
-      warning && { backgroundColor: COLORS.warning },
-      success && { backgroundColor: COLORS.success },
-      info && { backgroundColor: COLORS.info },
-      color && { backgroundColor: color }, // custom backgroundColor
-      flex && { flex }, // flex width
-      height && { height }, // custom height
-      marginSpacing,
-      paddingSpacing,
-      style
-    ]);
-
-    if (disabled) {
-      const backgroundColor = StyleSheet.flatten(buttonStyles).backgroundColor;
-      buttonStyles.backgroundColor = rgba(backgroundColor, 0.5);
-    }
-
-    if (outlined) {
-      const backgroundColor = StyleSheet.flatten(buttonStyles).backgroundColor;
-      buttonStyles.borderWidth = 1;
-      buttonStyles.borderColor = backgroundColor;
-      buttonStyles.backgroundColor = "transparent";
-    }
-
-    const ButtonType = highlight
-      ? TouchableHighlight
-      : nativeFeedback
-      ? TouchableNativeFeedback
-      : withoutFeedback
-      ? TouchableWithoutFeedback
-      : TouchableOpacity;
-
-    return (
-      <ButtonType
-        disabled={disabled}
-        style={buttonStyles}
-        activeOpacity={opacity}
-        {...extraProps}>
-        {children}
-      </ButtonType>
-    );
+  if (outlined) {
+    const backgroundColor = StyleSheet.flatten(buttonStyles).backgroundColor;
+    buttonStyles.borderWidth = 1;
+    buttonStyles.borderColor = backgroundColor;
+    buttonStyles.backgroundColor = "transparent";
   }
+
+  const ButtonType = highlight
+    ? TouchableHighlight
+    : nativeFeedback
+    ? TouchableNativeFeedback
+    : withoutFeedback
+    ? TouchableWithoutFeedback
+    : TouchableOpacity;
+
+  return (
+    <ButtonType
+      {...extraProps}
+      disabled={disabled}
+      activeOpacity={opacity}
+      style={buttonStyles}>
+      {children}
+    </ButtonType>
+  );
 }
 
 Button.defaultProps = {
