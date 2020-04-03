@@ -1,8 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import { Animated, SafeAreaView, StyleSheet, View } from "react-native";
-
 import expoTheme from "./theme";
-import { spacing, parseSpacing, mergeTheme } from "./utils";
+import { mergeTheme, parseSpacing, spacing } from "./utils";
 
 /**
  * https://facebook.github.io/react-native/docs/view
@@ -110,8 +109,8 @@ import { spacing, parseSpacing, mergeTheme } from "./utils";
  * </Block>
  */
 
-class Block extends Component {
-  getSpacings(type) {
+const Block = props => {
+  const getSpacings = type => {
     const {
       margin,
       marginTop,
@@ -128,7 +127,7 @@ class Block extends Component {
       paddingVertical,
       paddingHorizontal,
       theme
-    } = this.props;
+    } = props;
     const { SIZES } = mergeTheme(expoTheme, theme);
 
     if (type === "margin") {
@@ -150,7 +149,8 @@ class Block extends Component {
         padding && spacing(type, padding, SIZES.base),
         paddingTop && parseSpacing("paddingTop", paddingTop, SIZES.base),
         paddingRight && parseSpacing("paddingRight", paddingRight, SIZES.base),
-        paddingBottom && parseSpacing("paddingBottom", paddingBottom, SIZES.base),
+        paddingBottom &&
+          parseSpacing("paddingBottom", paddingBottom, SIZES.base),
         paddingLeft && parseSpacing("paddingLeft", paddingLeft, SIZES.base),
         paddingVertical &&
           parseSpacing("paddingVertical", paddingVertical, SIZES.base),
@@ -158,137 +158,136 @@ class Block extends Component {
           parseSpacing("paddingHorizontal", paddingHorizontal, SIZES.base)
       ];
     }
-  }
+  };
 
-  render() {
-    const {
-      flex,
-      noflex,
-      row,
-      column,
-      center,
-      middle,
-      left,
-      right,
-      top,
-      bottom,
-      card,
-      shadow,
+  const {
+    flex,
+    noflex,
+    row,
+    column,
+    center,
+    middle,
+    left,
+    right,
+    top,
+    bottom,
+    card,
+    shadow,
+    elevation,
+    // colors
+    color,
+    primary,
+    secondary,
+    tertiary,
+    black,
+    white,
+    gray,
+    error,
+    warning,
+    success,
+    info,
+    // positioning
+    space,
+    radius,
+    wrap,
+    animated,
+    theme,
+    safe,
+    style,
+    children,
+    ...rest
+  } = props;
+
+  const excludeProps = [
+    "margin",
+    "marginTop",
+    "marginRight",
+    "marginBottom",
+    "marginLeft",
+    "marginVertical",
+    "marginHorizontal",
+    "padding",
+    "paddingTop",
+    "paddingRight",
+    "paddingBottom",
+    "paddingLeft",
+    "paddingVertical",
+    "paddingHorizontal"
+  ];
+
+  const extraProps = Object.keys(props).reduce((prop, key) => {
+    if (!excludeProps.includes(`${key}`)) {
+      prop[key] = props[key];
+    }
+    return prop;
+  }, {});
+
+  const { SIZES, COLORS } = mergeTheme(expoTheme, theme);
+  const marginSpacing = getSpacings("margin");
+  const paddingSpacing = getSpacings("padding");
+
+  const blockStyles = StyleSheet.flatten([
+    styles.block,
+    flex && { flex: flex === true ? 1 : flex },
+    (!flex || noflex) && { flex: 0 },
+    row && styles.row,
+    column && styles.column,
+    center && styles.center,
+    middle && styles.middle,
+    left && styles.left,
+    right && styles.right,
+    top && styles.top,
+    bottom && styles.bottom,
+    marginSpacing,
+    paddingSpacing,
+    wrap && styles.wrap,
+    shadow && {
       elevation,
-      // colors
-      color,
-      primary,
-      secondary,
-      tertiary,
-      black,
-      white,
-      gray,
-      error,
-      warning,
-      success,
-      info,
-      // positioning
-      space,
-      radius,
-      wrap,
-      animated,
-      theme,
-      safe,
-      style,
-      children,
-      ...props
-    } = this.props;
+      shadowColor: COLORS.black,
+      shadowOffset: { width: 0, height: elevation - 1 },
+      shadowOpacity: 0.1,
+      shadowRadius: elevation
+    },
+    space && { justifyContent: `space-${space}` },
+    card && { borderRadius: SIZES.border },
+    radius && { borderRadius: radius },
+    // color shortcuts
+    primary && { backgroundColor: COLORS.primary },
+    secondary && { backgroundColor: COLORS.secondary },
+    tertiary && { backgroundColor: COLORS.tertiary },
+    black && { backgroundColor: COLORS.black },
+    white && { backgroundColor: COLORS.white },
+    gray && { backgroundColor: COLORS.gray },
+    error && { backgroundColor: COLORS.error },
+    warning && { backgroundColor: COLORS.warning },
+    success && { backgroundColor: COLORS.success },
+    info && { backgroundColor: COLORS.info },
+    color && { backgroundColor: color }, // custom backgroundColor
+    style // rewrite predefined styles
+  ]);
 
-    const excludeProps = [
-      "margin",
-      "marginTop",
-      "marginRight",
-      "marginBottom",
-      "marginLeft",
-      "marginVertical",
-      "marginHorizontal",
-      "padding",
-      "paddingTop",
-      "paddingRight",
-      "paddingBottom",
-      "paddingLeft",
-      "paddingVertical",
-      "paddingHorizontal"
-    ];
-    const extraProps = Object.keys(props).reduce((prop, key) => {
-      if (!excludeProps.includes(`${key}`)) {
-        prop[key] = props[key];
-      }
-      return prop;
-    }, {});
-
-    const { SIZES, COLORS } = mergeTheme(expoTheme, theme);
-    const marginSpacing = this.getSpacings("margin");
-    const paddingSpacing = this.getSpacings("padding");
-
-    const blockStyles = StyleSheet.flatten([
-      styles.block,
-      flex && { flex: flex === true ? 1 : flex },
-      (!flex || noflex) && { flex: 0 },
-      row && styles.row,
-      column && styles.column,
-      center && styles.center,
-      middle && styles.middle,
-      left && styles.left,
-      right && styles.right,
-      top && styles.top,
-      bottom && styles.bottom,
-      marginSpacing,
-      paddingSpacing,
-      wrap && styles.wrap,
-      shadow && {
-        elevation,
-        shadowColor: COLORS.black,
-        shadowOffset: { width: 0, height: elevation - 1 },
-        shadowOpacity: 0.1,
-        shadowRadius: elevation
-      },
-      space && { justifyContent: `space-${space}` },
-      card && { borderRadius: SIZES.border },
-      radius && { borderRadius: radius },
-      // color shortcuts
-      primary && { backgroundColor: COLORS.primary },
-      secondary && { backgroundColor: COLORS.secondary },
-      tertiary && { backgroundColor: COLORS.tertiary },
-      black && { backgroundColor: COLORS.black },
-      white && { backgroundColor: COLORS.white },
-      gray && { backgroundColor: COLORS.gray },
-      error && { backgroundColor: COLORS.error },
-      warning && { backgroundColor: COLORS.warning },
-      success && { backgroundColor: COLORS.success },
-      info && { backgroundColor: COLORS.info },
-      color && { backgroundColor: color }, // custom backgroundColor
-      style // rewrite predefined styles
-    ]);
-
-    if (animated) {
-      return (
-        <Animated.View style={blockStyles} {...extraProps}>
-          {children}
-        </Animated.View>
-      );
-    }
-
-    if (safe) {
-      return (
-        <SafeAreaView style={blockStyles} {...extraProps}>
-          {children}
-        </SafeAreaView>
-      );
-    }
-
+  if (animated) {
     return (
-      <View style={blockStyles} {...extraProps}>
+      <Animated.View {...extraProps} style={blockStyles}>
         {children}
-      </View>
+      </Animated.View>
     );
   }
-}
+
+  if (safe) {
+    return (
+      <SafeAreaView {...extraProps} style={blockStyles}>
+        {children}
+      </SafeAreaView>
+    );
+  }
+
+  return (
+    <View {...extraProps} style={blockStyles}>
+      {children}
+    </View>
+  );
+};
 
 Block.defaultProps = {
   flex: true,
