@@ -3,9 +3,36 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { fireEvent, render } from "react-native-testing-library";
 import renderer from "react-test-renderer";
-import Input from "../Input";
+import Input, { blur, change, focus, INITIAL_STATE, reducer } from "../Input";
 import { SIZES } from "../theme";
 import { rgba } from "../utils";
+
+describe("<Input/> - State", () => {
+  it("returns default state", () => {
+    const updatedState = reducer(INITIAL_STATE, {});
+    expect(updatedState).toEqual({ ...INITIAL_STATE });
+  });
+  it('returns new state for "change" type', () => {
+    const updatedState = reducer(INITIAL_STATE, change([1, 2, 3]));
+    expect(updatedState).toEqual({ ...INITIAL_STATE, value: [1, 2, 3] });
+  });
+  it('returns new state for "focus" type', () => {
+    const updatedState = reducer(INITIAL_STATE, focus());
+    expect(updatedState).toEqual({
+      ...INITIAL_STATE,
+      focused: true,
+      blurred: false
+    });
+  });
+  it('returns new state for "blur" type', () => {
+    const updatedState = reducer(INITIAL_STATE, blur());
+    expect(updatedState).toEqual({
+      ...INITIAL_STATE,
+      focused: false,
+      blurred: true
+    });
+  });
+});
 
 const textInput = "text-input";
 
