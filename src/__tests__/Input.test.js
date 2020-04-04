@@ -1,16 +1,46 @@
-import React from "react";
-import renderer from "react-test-renderer";
-import { StyleSheet } from "react-native";
 import { shallow } from "enzyme";
-
-import Input from "../Input";
-import { rgba } from "../utils";
+import React from "react";
+import { StyleSheet } from "react-native";
+import { fireEvent, render } from "react-native-testing-library";
+import renderer from "react-test-renderer";
+import Input, { blur, change, focus, INITIAL_STATE, reducer } from "../Input";
 import { SIZES } from "../theme";
+import { rgba } from "../utils";
+
+describe("<Input/> - State", () => {
+  it("returns default state", () => {
+    const updatedState = reducer(INITIAL_STATE, {});
+    expect(updatedState).toEqual({ ...INITIAL_STATE });
+  });
+  it('returns new state for "change" type', () => {
+    const updatedState = reducer(INITIAL_STATE, change([1, 2, 3]));
+    expect(updatedState).toEqual({ ...INITIAL_STATE, value: [1, 2, 3] });
+  });
+  it('returns new state for "focus" type', () => {
+    const updatedState = reducer(INITIAL_STATE, focus());
+    expect(updatedState).toEqual({
+      ...INITIAL_STATE,
+      focused: true,
+      blurred: false
+    });
+  });
+  it('returns new state for "blur" type', () => {
+    const updatedState = reducer(INITIAL_STATE, blur());
+    expect(updatedState).toEqual({
+      ...INITIAL_STATE,
+      focused: false,
+      blurred: true
+    });
+  });
+});
+
+const textInput = "text-input";
 
 describe("<Input />", () => {
   it("render default", () => {
     const component = renderer.create(<Input />).toJSON();
     const style = StyleSheet.flatten(component.props.style);
+
     expect(style).toEqual({
       borderWidth: 1,
       height: SIZES.base * 5.5,
@@ -22,45 +52,44 @@ describe("<Input />", () => {
   });
 
   it('placeholder="input"', () => {
-    const instance = renderer
-      .create(<Input placeholder="input" />)
-      .getInstance();
+    const instance = renderer.create(<Input placeholder="input" />).root;
     expect(instance.props.placeholder).toEqual("input");
   });
 
   it("custom color, borderColor to opacity 0.4", () => {
-    const component = shallow(<Input color="#DDDDDD" />);
-    let style = StyleSheet.flatten(component.props().style);
+    const input = renderer.create(<Input color="#DDDDDD" />);
+    const component = input.toJSON();
+    const instance = input.root;
+
+    let style = StyleSheet.flatten(component.props.style);
     expect(style.borderColor).toEqual(rgba("#DDDDDD", 0.4));
-    expect(component.instance().props.color).toEqual("#DDDDDD");
+    expect(instance.props.color).toEqual("#DDDDDD");
   });
 
   it("onFocus & onBlur", () => {
     const onFocus = jest.fn();
     const onBlur = jest.fn();
-    const instance = renderer
-      .create(<Input onFocus={onFocus} onBlur={onBlur} />)
-      .getInstance();
 
-    instance.handleFocus();
-    expect(instance.state.focused).toEqual(true);
+    const { getByTestId } = render(<Input onFocus={onFocus} onBlur={onBlur} />);
+
+    fireEvent(getByTestId(textInput), "focus");
+
     expect(onFocus).toHaveBeenCalled();
     expect(onFocus).toHaveBeenCalledTimes(1);
 
-    instance.handleBlur();
-    expect(instance.state.focused).toEqual(false);
-    expect(instance.state.blurred).toEqual(true);
+    fireEvent(getByTestId(textInput), "blur");
+
     expect(onBlur).toHaveBeenCalled();
     expect(onBlur).toHaveBeenCalledTimes(1);
   });
 
   it("onChangeText", () => {
     const onChangeText = jest.fn().mockImplementation(value => value);
-    const component = renderer.create(<Input onChangeText={onChangeText} />);
-    const instance = component.getInstance();
+    const { getByTestId } = render(<Input onChangeText={onChangeText} />);
 
-    instance.handleChange("new value");
-    expect(instance.state.value).toEqual("new value");
+    const CHANGE_TEXT = "new value";
+    fireEvent.changeText(getByTestId(textInput), CHANGE_TEXT);
+
     expect(onChangeText).toHaveBeenCalled();
     expect(onChangeText).toHaveBeenCalledTimes(1);
   });
@@ -68,118 +97,124 @@ describe("<Input />", () => {
   it('single pattern="(?=.*\\d)"', () => {
     const onChangeText = jest.fn().mockImplementation(value => value);
     const onValidation = jest.fn().mockImplementation(value => value);
-    const instance = renderer
-      .create(
-        <Input
-          pattern="(?=.*\d)"
-          onChangeText={value => onChangeText(value)}
-          onValidation={value => onValidation(value)}
-        />
-      )
-      .getInstance();
+    const { getByTestId } = render(
+      <Input
+        pattern="(?=.*\d)"
+        onChangeText={value => onChangeText(value)}
+        onValidation={value => onValidation(value)}
+      />
+    );
 
     // non valid digit pattern
-    instance.handleChange("non-digit");
-    expect(instance.state.value).toEqual("non-digit");
+    let CHANGE_TEXT = "non-digit";
+    fireEvent.changeText(getByTestId(textInput), CHANGE_TEXT);
+
     expect(onChangeText).toHaveBeenCalled();
     expect(onChangeText).toHaveBeenCalledTimes(1);
-    expect(onChangeText).toHaveBeenCalledWith("non-digit");
+    expect(onChangeText).toHaveBeenCalledWith(CHANGE_TEXT);
     expect(onValidation).toHaveBeenCalledWith(false);
 
     // valid digit pattern
-    instance.handleChange("number5");
-    expect(instance.state.value).toEqual("number5");
+    CHANGE_TEXT = "number5";
+    fireEvent.changeText(getByTestId(textInput), CHANGE_TEXT);
+
     expect(onChangeText).toHaveBeenCalled();
     expect(onChangeText).toHaveBeenCalledTimes(2);
-    expect(onChangeText).toHaveBeenCalledWith("number5");
+    expect(onChangeText).toHaveBeenCalledWith(CHANGE_TEXT);
     expect(onValidation).toHaveBeenCalledWith(true);
   });
 
   it("multiple patterns, validation=[false, false, false]", () => {
     const onChangeText = jest.fn().mockImplementation(value => value);
     const onValidation = jest.fn().mockImplementation(value => value);
-    const instance = renderer
-      .create(
-        <Input
-          pattern={["^.{8,}$", "(?=.*d)", "(?=.*[A-Z])"]}
-          onChangeText={value => onChangeText(value)}
-          onValidation={value => onValidation(value)}
-        />
-      )
-      .getInstance();
+
+    const { getByTestId } = render(
+      <Input
+        pattern={["^.{8,}$", "(?=.*d)", "(?=.*[A-Z])"]}
+        onChangeText={value => onChangeText(value)}
+        onValidation={value => onValidation(value)}
+      />
+    );
 
     // invalid pattern
-    instance.handleChange("test");
-    expect(instance.state.value).toEqual("test");
+    const CHANGE_TEXT = "test";
+    fireEvent.changeText(getByTestId(textInput), CHANGE_TEXT);
+
     expect(onChangeText).toHaveBeenCalled();
     expect(onChangeText).toHaveBeenCalledTimes(1);
-    expect(onChangeText).toHaveBeenCalledWith("test");
+    expect(onChangeText).toHaveBeenCalledWith(CHANGE_TEXT);
     expect(onValidation).toHaveBeenCalledWith([false, false, false]);
   });
 
   it("multiple patterns, validation=[true, true, false]", () => {
     const onChangeText = jest.fn().mockImplementation(value => value);
     const onValidation = jest.fn().mockImplementation(value => value);
-    const instance = renderer
-      .create(
-        <Input
-          pattern={["^.{8,}$", "(?=.*d)", "(?=.*[A-Z])"]}
-          onChangeText={value => onChangeText(value)}
-          onValidation={value => onValidation(value)}
-        />
-      )
-      .getInstance();
+
+    const { getByTestId } = render(
+      <Input
+        pattern={["^.{8,}$", "(?=.*d)", "(?=.*[A-Z])"]}
+        onChangeText={value => onChangeText(value)}
+        onValidation={value => onValidation(value)}
+      />
+    );
 
     // invalid pattern
-    instance.handleChange("password1");
-    expect(instance.state.value).toEqual("password1");
+    const CHANGE_TEXT = "password1";
+    fireEvent.changeText(getByTestId(textInput), CHANGE_TEXT);
+
     expect(onChangeText).toHaveBeenCalled();
     expect(onChangeText).toHaveBeenCalledTimes(1);
-    expect(onChangeText).toHaveBeenCalledWith("password1");
+    expect(onChangeText).toHaveBeenCalledWith(CHANGE_TEXT);
     expect(onValidation).toHaveBeenCalledWith([true, true, false]);
   });
 
   it("multiple patterns, validation=[true, true, true]", () => {
     const onChangeText = jest.fn().mockImplementation(value => value);
     const onValidation = jest.fn().mockImplementation(value => value);
-    const instance = renderer
-      .create(
-        <Input
-          pattern={["^.{8,}$", "(?=.*d)", "(?=.*[A-Z])"]}
-          onChangeText={value => onChangeText(value)}
-          onValidation={value => onValidation(value)}
-        />
-      )
-      .getInstance();
+    const { getByTestId } = render(
+      <Input
+        pattern={["^.{8,}$", "(?=.*d)", "(?=.*[A-Z])"]}
+        onChangeText={value => onChangeText(value)}
+        onValidation={value => onValidation(value)}
+      />
+    );
 
     // invalid pattern
-    instance.handleChange("Password1");
-    expect(instance.state.value).toEqual("Password1");
+    const CHANGE_TEXT = "Password1";
+    fireEvent.changeText(getByTestId(textInput), CHANGE_TEXT);
+
     expect(onChangeText).toHaveBeenCalled();
     expect(onChangeText).toHaveBeenCalledTimes(1);
-    expect(onChangeText).toHaveBeenCalledWith("Password1");
+    expect(onChangeText).toHaveBeenCalledWith(CHANGE_TEXT);
     expect(onValidation).toHaveBeenCalledWith([true, true, true]);
   });
 
   it("type: email using textContentType", () => {
-    const instance = renderer.create(<Input type="email" />).getInstance();
-    const tree = renderer.create(<Input type="email" />).toTree();
+    const input = renderer.create(<Input type="email" />);
+
+    const instance = input.root;
+    const tree = input.toTree();
+
     expect(instance.props.type).toEqual("email");
     expect(tree.rendered.props.textContentType).toEqual("emailAddress");
   });
 
   it("type: phone using textContentType", () => {
-    const instance = renderer.create(<Input type="phone" />).getInstance();
-    const tree = renderer.create(<Input type="phone" />).toTree();
+    const input = renderer.create(<Input type="phone" />);
+
+    const instance = input.root;
+    const tree = input.toTree();
+
     expect(instance.props.type).toEqual("phone");
     expect(tree.rendered.props.textContentType).toEqual("telephoneNumber");
   });
 
   it("type: custom using textContentType", () => {
-    const instance = renderer
-      .create(<Input type="organizationName" />)
-      .getInstance();
-    const tree = renderer.create(<Input type="organizationName" />).toTree();
+    const input = renderer.create(<Input type="organizationName" />);
+
+    const instance = input.root;
+    const tree = input.toTree();
+
     expect(instance.props.type).toEqual("organizationName");
     expect(tree.rendered.props.textContentType).toEqual("organizationName");
   });
