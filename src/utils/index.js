@@ -8,6 +8,6 @@ import {
 } from "./helpers";
 import rgba from "./rgba";
 
-const d = spacing;
+const getSpacing = spacing;
 
-export { rgba, getMargins, getPaddings, d, parseSpacing, mergeTheme, theme };
+export { rgba, getMargins, getPaddings, getSpacing, parseSpacing, mergeTheme, theme };
