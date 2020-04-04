@@ -1,8 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import { StyleSheet, TextInput } from "react-native";
-
 import expoTheme from "./theme";
-import { rgba, mergeTheme } from "./utils";
+import { mergeTheme, rgba } from "./utils";
 
 /**
  * https://facebook.github.io/react-native/docs/textinput
@@ -30,15 +29,9 @@ import { rgba, mergeTheme } from "./utils";
  * <Input internalRef={c => this.c} />
  */
 
-class Input extends Component {
-  state = {
-    value: null,
-    focused: false,
-    blurred: false
-  };
-
-  handleValidation = value => {
-    const { pattern } = this.props;
+const Input = props => {
+  const handleValidation = value => {
+    const { pattern } = props;
     if (!pattern) return true;
 
     // string pattern, one validation rule
@@ -54,31 +47,27 @@ class Input extends Component {
     }
   };
 
-  handleChange = value => {
-    const { onChangeText, onValidation } = this.props;
-    const isValid = this.handleValidation(value);
+  const handleChange = value => {
+    const { onChangeText, onValidation } = props;
+    const isValid = handleValidation(value);
 
-    this.setState({ value }, () => {
-      onValidation && onValidation(isValid);
-      onChangeText && onChangeText(value);
-    });
+    onValidation && onValidation(isValid);
+    onChangeText && onChangeText(value);
   };
 
-  handleFocus = event => {
-    const { onFocus } = this.props;
-    this.setState({ focused: true, blurred: false }, () => {
-      onFocus && onFocus(event);
-    });
+  const handleFocus = event => {
+    const { onFocus } = props;
+
+    onFocus && onFocus(event);
   };
 
-  handleBlur = event => {
-    const { onBlur } = this.props;
-    this.setState({ focused: false, blurred: true }, () => {
-      onBlur && onBlur(event);
-    });
+  const handleBlur = event => {
+    const { onBlur } = props;
+
+    onBlur && onBlur(event);
   };
 
-  handleTextType = type => {
+  const handleTextType = type => {
     return type === "email"
       ? "emailAddress"
       : type === "phone"
@@ -86,56 +75,58 @@ class Input extends Component {
       : type;
   };
 
-  render() {
-    const {
-      autoCorrect,
-      autoCapitalize,
-      placeholder,
-      children,
-      color,
-      type,
-      style,
-      theme,
-      internalRef,
-      onFocus,
-      onBlur,
-      onChangeText,
-      ...props
-    } = this.props;
-    const { SIZES, COLORS } = mergeTheme({ ...expoTheme }, theme);
+  const {
+    autoCorrect,
+    autoCapitalize,
+    placeholder,
+    children,
+    color,
+    type,
+    style,
+    theme,
+    internalRef,
+    onFocus,
+    onBlur,
+    onChangeText,
+    ...rest
+  } = props;
+  const { SIZES, COLORS } = mergeTheme({ ...expoTheme }, theme);
 
-    const textStyles = StyleSheet.flatten([
-      {
-        borderWidth: 1,
-        height: SIZES.base * 5.5,
-        borderRadius: SIZES.radius,
-        borderColor: rgba(color || COLORS.primary, 0.4),
-        paddingHorizontal: SIZES.base,
-        fontSize: SIZES.font
-      },
-      style
-    ]);
-    const textType = this.handleTextType(type);
+  const textStyles = StyleSheet.flatten([
+    {
+      borderWidth: 1,
+      height: SIZES.base * 5.5,
+      borderRadius: SIZES.radius,
+      borderColor: rgba(color || COLORS.primary, 0.4),
+      paddingHorizontal: SIZES.base,
+      fontSize: SIZES.font
+    },
+    style
+  ]);
+  const textType = handleTextType(type);
 
-    const internalProps = {
-      style: textStyles,
-      autoCorrect,
-      autoCapitalize,
-      placeholder,
-      textContentType: textType,
-      value: this.state.value,
-      onFocus: this.handleFocus,
-      onBlur: this.handleBlur,
-      onChangeText: this.handleChange
-    };
+  const internalProps = {
+    style: textStyles,
+    autoCorrect,
+    autoCapitalize,
+    placeholder,
+    textContentType: textType,
+    value: state.value,
+    onFocus: handleFocus,
+    onBlur: handleBlur,
+    onChangeText: handleChange
+  };
 
-    return (
-      <TextInput ref={internalRef} {...internalProps} {...props}>
-        {children}
-      </TextInput>
-    );
-  }
-}
+  return (
+    <TextInput
+      ref={internalRef}
+      {...props}
+      {...internalProps}
+      testID="text-input">
+      {children}
+    </TextInput>
+  );
+};
 
 Input.defaultProps = {
   pattern: null,
