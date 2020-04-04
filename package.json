@@ -26,6 +26,7 @@
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
+    "react-native-testing-library": "^1.13.0",
     "react-test-renderer": "^16.10.1"
   },
   "eslintConfig": {
