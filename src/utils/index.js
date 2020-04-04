@@ -1,19 +1,13 @@
-import rgba from "./rgba";
 import theme from "../theme";
 import {
   getMargins,
   getPaddings,
-  spacing,
-  parseSpacing,
-  mergeTheme
-} from "./helpers";
-
-export {
-  rgba,
-  getMargins,
-  getPaddings,
-  spacing,
-  parseSpacing,
   mergeTheme,
-  theme
-};
+  parseSpacing,
+  spacing
+} from "./helpers";
+import rgba from "./rgba";
+
+const getSpacing = spacing;
+
+export { rgba, getMargins, getPaddings, getSpacing, parseSpacing, mergeTheme, theme };

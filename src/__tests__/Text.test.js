@@ -1,10 +1,9 @@
-import React from "react";
-import renderer from "react-test-renderer";
-import { StyleSheet } from "react-native";
 import { shallow } from "enzyme";
-
+import React from "react";
+import { StyleSheet } from "react-native";
+import renderer from "react-test-renderer";
 import Text from "../Text";
-import { SIZES, FONTS } from "../theme";
+import { FONTS, SIZES } from "../theme";
 
 describe("<Text />", () => {
   it("render default", () => {
@@ -52,9 +51,13 @@ describe("<Text />", () => {
   });
 
   it("padding={6}", () => {
-    const component = shallow(<Text padding={6} />);
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.padding).toEqual(6);
+    const text = renderer.create(<Text padding={6} />);
+
+    const component = text.toJSON();
+    const instance = text.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.padding).toEqual(6);
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
@@ -67,9 +70,13 @@ describe("<Text />", () => {
   });
 
   it("padding={[2, 4]}", () => {
-    const component = shallow(<Text padding={[2, 4]} />);
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.padding).toEqual([2, 4]);
+    const text = renderer.create(<Text padding={[2, 4]} />);
+
+    const component = text.toJSON();
+    const instance = text.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.padding).toEqual([2, 4]);
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
@@ -82,9 +89,13 @@ describe("<Text />", () => {
   });
 
   it("padding={[1, 2, 3, 4]}", () => {
-    const component = shallow(<Text padding={[1, 2, 3, 4]} />);
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.padding).toEqual([1, 2, 3, 4]);
+    const text = renderer.create(<Text padding={[1, 2, 3, 4]} />);
+
+    const component = text.toJSON();
+    const instance = text.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.padding).toEqual([1, 2, 3, 4]);
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
@@ -97,14 +108,18 @@ describe("<Text />", () => {
   });
 
   it("paddingTop={6}, paddingRight={5}, paddingBottom={4}, paddingLeft={3}", () => {
-    const component = shallow(
+    const text = renderer.create(
       <Text paddingTop={6} paddingRight={5} paddingBottom={4} paddingLeft={3} />
     );
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.paddingTop).toEqual(6);
-    expect(component.instance().props.paddingRight).toEqual(5);
-    expect(component.instance().props.paddingBottom).toEqual(4);
-    expect(component.instance().props.paddingLeft).toEqual(3);
+
+    const component = text.toJSON();
+    const instance = text.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.paddingTop).toEqual(6);
+    expect(instance.props.paddingRight).toEqual(5);
+    expect(instance.props.paddingBottom).toEqual(4);
+    expect(instance.props.paddingLeft).toEqual(3);
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
@@ -117,7 +132,7 @@ describe("<Text />", () => {
   });
 
   it("paddingTop='2x', paddingRight='3x', paddingBottom='4x', paddingLeft='5x'", () => {
-    const component = shallow(
+    const text = renderer.create(
       <Text
         paddingTop="2x"
         paddingRight="3x"
@@ -125,11 +140,15 @@ describe("<Text />", () => {
         paddingLeft="5x"
       />
     );
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.paddingTop).toEqual("2x");
-    expect(component.instance().props.paddingRight).toEqual("3x");
-    expect(component.instance().props.paddingBottom).toEqual("4x");
-    expect(component.instance().props.paddingLeft).toEqual("5x");
+
+    const component = text.toJSON();
+    const instance = text.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.paddingTop).toEqual("2x");
+    expect(instance.props.paddingRight).toEqual("3x");
+    expect(instance.props.paddingBottom).toEqual("4x");
+    expect(instance.props.paddingLeft).toEqual("5x");
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
@@ -142,12 +161,16 @@ describe("<Text />", () => {
   });
 
   it("paddingHorizontal={6}, paddingVertical={8}", () => {
-    const component = shallow(
+    const text = renderer.create(
       <Text paddingHorizontal={6} paddingVertical={8} />
     );
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.paddingHorizontal).toEqual(6);
-    expect(component.instance().props.paddingVertical).toEqual(8);
+
+    const component = text.toJSON();
+    const instance = text.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.paddingHorizontal).toEqual(6);
+    expect(instance.props.paddingVertical).toEqual(8);
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
@@ -158,12 +181,16 @@ describe("<Text />", () => {
   });
 
   it("paddingHorizontal='2x', paddingVertical='0.5x'", () => {
-    const component = shallow(
+    const text = renderer.create(
       <Text paddingHorizontal="2x" paddingVertical="0.5x" />
     );
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.paddingHorizontal).toEqual("2x");
-    expect(component.instance().props.paddingVertical).toEqual("0.5x");
+
+    const component = text.toJSON();
+    const instance = text.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.paddingHorizontal).toEqual("2x");
+    expect(instance.props.paddingVertical).toEqual("0.5x");
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
@@ -174,9 +201,13 @@ describe("<Text />", () => {
   });
 
   it("margin={6}", () => {
-    const component = shallow(<Text margin={6} />);
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.margin).toEqual(6);
+    const text = renderer.create(<Text margin={6} />);
+
+    const component = text.toJSON();
+    const instance = text.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.margin).toEqual(6);
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
@@ -189,9 +220,13 @@ describe("<Text />", () => {
   });
 
   it("margin={[2, 4]}", () => {
-    const component = shallow(<Text margin={[2, 4]} />);
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.margin).toEqual([2, 4]);
+    const text = renderer.create(<Text margin={[2, 4]} />);
+
+    const component = text.toJSON();
+    const instance = text.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.margin).toEqual([2, 4]);
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
@@ -204,9 +239,13 @@ describe("<Text />", () => {
   });
 
   it("margin={[1, 2, 3, 4]}", () => {
-    const component = shallow(<Text margin={[1, 2, 3, 4]} />);
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.margin).toEqual([1, 2, 3, 4]);
+    const text = renderer.create(<Text margin={[1, 2, 3, 4]} />);
+
+    const component = text.toJSON();
+    const instance = text.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.margin).toEqual([1, 2, 3, 4]);
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
@@ -219,14 +258,18 @@ describe("<Text />", () => {
   });
 
   it("marginTop={6}, marginRight={5}, marginBottom={4}, marginLeft={3}", () => {
-    const component = shallow(
+    const text = renderer.create(
       <Text marginTop={6} marginRight={5} marginBottom={4} marginLeft={3} />
     );
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.marginTop).toEqual(6);
-    expect(component.instance().props.marginRight).toEqual(5);
-    expect(component.instance().props.marginBottom).toEqual(4);
-    expect(component.instance().props.marginLeft).toEqual(3);
+
+    const component = text.toJSON();
+    const instance = text.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.marginTop).toEqual(6);
+    expect(instance.props.marginRight).toEqual(5);
+    expect(instance.props.marginBottom).toEqual(4);
+    expect(instance.props.marginLeft).toEqual(3);
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
@@ -239,10 +282,16 @@ describe("<Text />", () => {
   });
 
   it("marginHorizontal={6}, marginVertical={8}", () => {
-    const component = shallow(<Text marginHorizontal={6} marginVertical={8} />);
-    const style = StyleSheet.flatten(component.props().style);
-    expect(component.instance().props.marginHorizontal).toEqual(6);
-    expect(component.instance().props.marginVertical).toEqual(8);
+    const text = renderer.create(
+      <Text marginHorizontal={6} marginVertical={8} />
+    );
+
+    const component = text.toJSON();
+    const instance = text.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.marginHorizontal).toEqual(6);
+    expect(instance.props.marginVertical).toEqual(8);
     expect(style).toEqual({
       fontWeight: "normal",
       fontSize: SIZES.font,
@@ -370,7 +419,9 @@ describe("<Text />", () => {
 
   it("animated", () => {
     const component = shallow(<Text animated />);
-    expect(component.instance().props.animated).toEqual(true);
+    const instance = renderer.create(<Text animated />).root;
+
+    expect(instance.props.animated).toEqual(true);
     expect(component.name()).toEqual("AnimatedComponent");
   });
 
