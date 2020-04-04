@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useReducer } from "react";
 import { StyleSheet, TextInput } from "react-native";
 import expoTheme from "./theme";
 import { mergeTheme, rgba } from "./utils";
@@ -29,7 +29,38 @@ import { mergeTheme, rgba } from "./utils";
  * <Input internalRef={c => this.c} />
  */
 
+export const INITIAL_STATE = {
+  value: null,
+  focused: false,
+  blurred: false
+};
+
+export const change = value => {
+  return { type: "change", payload: { value } };
+};
+export const focus = () => {
+  return { type: "focus" };
+};
+export const blur = () => {
+  return { type: "blur" };
+};
+
+export const reducer = (state, action) => {
+  switch (action.type) {
+    case "change":
+      return { ...state, value: action.payload.value };
+    case "focus":
+      return { ...state, focused: true, blurred: false };
+    case "blur":
+      return { ...state, focused: false, blurred: true };
+    default:
+      return state;
+  }
+};
+
 const Input = props => {
+  const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
+
   const handleValidation = value => {
     const { pattern } = props;
     if (!pattern) return true;
@@ -50,20 +81,20 @@ const Input = props => {
   const handleChange = value => {
     const { onChangeText, onValidation } = props;
     const isValid = handleValidation(value);
-
+    dispatch(change(value));
     onValidation && onValidation(isValid);
     onChangeText && onChangeText(value);
   };
 
   const handleFocus = event => {
     const { onFocus } = props;
-
+    dispatch(focus());
     onFocus && onFocus(event);
   };
 
   const handleBlur = event => {
     const { onBlur } = props;
-
+    dispatch(blur());
     onBlur && onBlur(event);
   };
 
