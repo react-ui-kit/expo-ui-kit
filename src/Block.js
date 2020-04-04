@@ -1,7 +1,7 @@
 import React from "react";
 import { Animated, SafeAreaView, StyleSheet, View } from "react-native";
 import expoTheme from "./theme";
-import { mergeTheme, parseSpacing, spacing } from "./utils";
+import { getSpacing, mergeTheme, parseSpacing } from "./utils";
 
 /**
  * https://facebook.github.io/react-native/docs/view
@@ -132,7 +132,7 @@ const Block = props => {
 
     if (type === "margin") {
       return [
-        margin && spacing(type, margin, SIZES.base),
+        margin && getSpacing(type, margin, SIZES.base),
         marginTop && parseSpacing("marginTop", marginTop, SIZES.base),
         marginRight && parseSpacing("marginRight", marginRight, SIZES.base),
         marginBottom && parseSpacing("marginBottom", marginBottom, SIZES.base),
@@ -146,7 +146,7 @@ const Block = props => {
 
     if (type === "padding") {
       return [
-        padding && spacing(type, padding, SIZES.base),
+        padding && getSpacing(type, padding, SIZES.base),
         paddingTop && parseSpacing("paddingTop", paddingTop, SIZES.base),
         paddingRight && parseSpacing("paddingRight", paddingRight, SIZES.base),
         paddingBottom &&

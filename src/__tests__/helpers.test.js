@@ -1,10 +1,10 @@
-import { spacing } from "../utils/";
+import { getSpacing } from "../utils/";
 // import { SIZES } from "../theme";
 
 describe("Helpers", () => {
   it("spacing: margin & padding", () => {
-    const margin = spacing("margin", true, 8);
-    const padding = spacing("padding", true, 8);
+    const margin = getSpacing("margin", true, 8);
+    const padding = getSpacing("padding", true, 8);
     expect(margin).toEqual({
       marginBottom: 8,
       marginLeft: 8,
@@ -19,8 +19,8 @@ describe("Helpers", () => {
     });
   });
   it("spacing: margin={4} && padding={4}", () => {
-    const margin = spacing("margin", 4);
-    const padding = spacing("padding", 4);
+    const margin = getSpacing("margin", 4);
+    const padding = getSpacing("padding", 4);
     expect(margin).toEqual({
       marginBottom: 4,
       marginLeft: 4,
@@ -35,8 +35,8 @@ describe("Helpers", () => {
     });
   });
   it("spacing: margin='0.5x' && padding='0.4x'", () => {
-    const margin = spacing("margin", "0.5x", 4);
-    const padding = spacing("padding", "4x", 4);
+    const margin = getSpacing("margin", "0.5x", 4);
+    const padding = getSpacing("padding", "4x", 4);
     expect(margin).toEqual({
       marginBottom: 2,
       marginLeft: 2,
