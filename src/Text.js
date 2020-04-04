@@ -1,7 +1,7 @@
 import React from "react";
 import { Animated, StyleSheet, Text } from "react-native";
 import expoTheme from "./theme";
-import { d, mergeTheme, parseSpacing } from "./utils";
+import { getSpacing, mergeTheme, parseSpacing } from "./utils";
 
 /**
  * Usage:
@@ -89,7 +89,7 @@ const Typography = props => {
 
     if (type === "margin") {
       return [
-        margin && d(type, margin, SIZES.base),
+        margin && getSpacing(type, margin, SIZES.base),
         marginTop && parseSpacing("marginTop", marginTop, SIZES.base),
         marginRight && parseSpacing("marginRight", marginRight, SIZES.base),
         marginBottom && parseSpacing("marginBottom", marginBottom, SIZES.base),
@@ -103,7 +103,7 @@ const Typography = props => {
 
     if (type === "padding") {
       return [
-        padding && d(type, padding, SIZES.base),
+        padding && getSpacing(type, padding, SIZES.base),
         paddingTop && parseSpacing("paddingTop", paddingTop, SIZES.base),
         paddingRight && parseSpacing("paddingRight", paddingRight, SIZES.base),
         paddingBottom &&
