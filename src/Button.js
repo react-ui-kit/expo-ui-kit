@@ -7,7 +7,7 @@ import {
   TouchableWithoutFeedback
 } from "react-native";
 import expoTheme from "./theme";
-import { mergeTheme, parseSpacing, rgba, spacing } from "./utils";
+import { getSpacing, mergeTheme, parseSpacing, rgba } from "./utils";
 
 /**
  * https://facebook.github.io/react-native/docs/touchableopacity
@@ -79,7 +79,7 @@ function Button(props) {
 
     if (type === "margin") {
       return [
-        margin && spacing(type, margin, SIZES.base),
+        margin && getSpacing(type, margin, SIZES.base),
         marginTop && parseSpacing("marginTop", marginTop, SIZES.base),
         marginRight && parseSpacing("marginRight", marginRight, SIZES.base),
         marginBottom && parseSpacing("marginBottom", marginBottom, SIZES.base),
@@ -93,7 +93,7 @@ function Button(props) {
 
     if (type === "padding") {
       return [
-        padding && spacing(type, padding, SIZES.base),
+        padding && getSpacing(type, padding, SIZES.base),
         paddingTop && parseSpacing("paddingTop", paddingTop, SIZES.base),
         paddingRight && parseSpacing("paddingRight", paddingRight, SIZES.base),
         paddingBottom &&
