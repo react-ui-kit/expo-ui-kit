@@ -264,6 +264,7 @@ const Block = props => {
     success && { backgroundColor: COLORS.success },
     info && { backgroundColor: COLORS.info },
     color && { backgroundColor: color }, // custom backgroundColor
+    scroll && { flex: 0 },
     style // rewrite predefined styles
   ]);
 
