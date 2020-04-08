@@ -501,4 +501,25 @@ describe("<Block />", () => {
 
     expect(style.backgroundColor).toEqual("red");
   });
+
+  it("render ScrollView component", () => {
+    const component = shallow(<Block scroll />);
+
+    expect(component.props().scroll).toEqual(true);
+    expect(component.name()).toEqual("ScrollViewMock");
+  });
+
+  it("width={100}", () => {
+    const component = shallow(<Block width={100} />);
+    const style = StyleSheet.flatten(component.props().style);
+
+    expect(style.width).toEqual(100);
+  });
+
+  it("height={100}", () => {
+    const component = shallow(<Block height={100} />);
+    const style = StyleSheet.flatten(component.props().style);
+
+    expect(style.height).toEqual(100);
+  });
 });
