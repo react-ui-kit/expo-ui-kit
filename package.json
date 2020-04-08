@@ -20,14 +20,15 @@
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "eslint": "^6.5.0",
-    "eslint-config-universe": "^2.0.0",
-    "jest": "^25.1.0",
-    "prettier": "^1.18.2",
-    "react": "^16.10.1",
-    "react-dom": "^16.10.1",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
+    "eslint-config-universe": "^3.0.0",
+    "jest": "^25.3.0",
+    "prettier": "^2.0.4",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz",
     "react-native-testing-library": "^1.13.0",
-    "react-test-renderer": "^16.10.1"
+    "react-test-renderer": "^16.13.1",
+    "typescript": "^3.8.3"
   },
   "eslintConfig": {
     "extends": "universe/native"
