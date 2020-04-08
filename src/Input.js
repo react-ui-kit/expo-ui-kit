@@ -1,5 +1,6 @@
 import React, { useReducer } from "react";
 import { StyleSheet, TextInput } from "react-native";
+
 import expoTheme from "./theme";
 import { mergeTheme, rgba } from "./utils";
 
@@ -35,7 +36,7 @@ export const INITIAL_STATE = {
   blurred: false
 };
 
-export const change = value => {
+export const change = (value) => {
   return { type: "change", payload: { value } };
 };
 export const focus = () => {
@@ -58,10 +59,10 @@ export const reducer = (state, action) => {
   }
 };
 
-const Input = props => {
+const Input = (props) => {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
 
-  const handleValidation = value => {
+  const handleValidation = (value) => {
     const { pattern } = props;
     if (!pattern) return true;
 
@@ -73,12 +74,12 @@ const Input = props => {
 
     // array patterns, multiple validation rules
     if (typeof pattern === "object") {
-      const conditions = pattern.map(rule => new RegExp(rule, "g"));
-      return conditions.map(condition => condition.test(value));
+      const conditions = pattern.map((rule) => new RegExp(rule, "g"));
+      return conditions.map((condition) => condition.test(value));
     }
   };
 
-  const handleChange = value => {
+  const handleChange = (value) => {
     const { onChangeText, onValidation } = props;
     const isValid = handleValidation(value);
     dispatch(change(value));
@@ -86,19 +87,19 @@ const Input = props => {
     onChangeText && onChangeText(value);
   };
 
-  const handleFocus = event => {
+  const handleFocus = (event) => {
     const { onFocus } = props;
     dispatch(focus());
     onFocus && onFocus(event);
   };
 
-  const handleBlur = event => {
+  const handleBlur = (event) => {
     const { onBlur } = props;
     dispatch(blur());
     onBlur && onBlur(event);
   };
 
-  const handleTextType = type => {
+  const handleTextType = (type) => {
     return type === "email"
       ? "emailAddress"
       : type === "phone"
@@ -112,6 +113,8 @@ const Input = props => {
     placeholder,
     children,
     color,
+    borderWidth,
+    borderColor,
     type,
     style,
     theme,
@@ -132,6 +135,8 @@ const Input = props => {
       paddingHorizontal: SIZES.base,
       fontSize: SIZES.font
     },
+    borderWidth && { borderWidth },
+    borderColor && { borderColor },
     style
   ]);
   const textType = handleTextType(type);
