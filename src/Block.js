@@ -1,5 +1,11 @@
 import React from "react";
-import { Animated, SafeAreaView, StyleSheet, View } from "react-native";
+import {
+  Animated,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View
+} from "react-native";
 import expoTheme from "./theme";
 import { getSpacing, mergeTheme, parseSpacing } from "./utils";
 
@@ -161,6 +167,8 @@ const Block = props => {
   };
 
   const {
+    width,
+    height,
     flex,
     noflex,
     row,
@@ -195,6 +203,7 @@ const Block = props => {
     safe,
     style,
     children,
+    scroll,
     ...rest
   } = props;
 
@@ -263,8 +272,19 @@ const Block = props => {
     success && { backgroundColor: COLORS.success },
     info && { backgroundColor: COLORS.info },
     color && { backgroundColor: color }, // custom backgroundColor
+    row && { flex: 0 },
+    width && { width },
+    height && { height },
     style // rewrite predefined styles
   ]);
+
+  if (scroll) {
+    return (
+      <ScrollView {...extraProps} style={blockStyles}>
+        {children}
+      </ScrollView>
+    );
+  }
 
   if (animated) {
     return (
@@ -310,6 +330,7 @@ Block.defaultProps = {
   wrap: false,
   animated: false,
   safe: false,
+  scroll: false,
   style: {},
   theme: {}
 };
