@@ -3,6 +3,7 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { fireEvent, render } from "react-native-testing-library";
 import renderer from "react-test-renderer";
+
 import Input, { blur, change, focus, INITIAL_STATE, reducer } from "../Input";
 import { SIZES } from "../theme";
 import { rgba } from "../utils";
@@ -84,7 +85,7 @@ describe("<Input />", () => {
   });
 
   it("onChangeText", () => {
-    const onChangeText = jest.fn().mockImplementation(value => value);
+    const onChangeText = jest.fn().mockImplementation((value) => value);
     const { getByTestId } = render(<Input onChangeText={onChangeText} />);
 
     const CHANGE_TEXT = "new value";
@@ -95,13 +96,13 @@ describe("<Input />", () => {
   });
 
   it('single pattern="(?=.*\\d)"', () => {
-    const onChangeText = jest.fn().mockImplementation(value => value);
-    const onValidation = jest.fn().mockImplementation(value => value);
+    const onChangeText = jest.fn().mockImplementation((value) => value);
+    const onValidation = jest.fn().mockImplementation((value) => value);
     const { getByTestId } = render(
       <Input
         pattern="(?=.*\d)"
-        onChangeText={value => onChangeText(value)}
-        onValidation={value => onValidation(value)}
+        onChangeText={(value) => onChangeText(value)}
+        onValidation={(value) => onValidation(value)}
       />
     );
 
@@ -125,14 +126,14 @@ describe("<Input />", () => {
   });
 
   it("multiple patterns, validation=[false, false, false]", () => {
-    const onChangeText = jest.fn().mockImplementation(value => value);
-    const onValidation = jest.fn().mockImplementation(value => value);
+    const onChangeText = jest.fn().mockImplementation((value) => value);
+    const onValidation = jest.fn().mockImplementation((value) => value);
 
     const { getByTestId } = render(
       <Input
         pattern={["^.{8,}$", "(?=.*d)", "(?=.*[A-Z])"]}
-        onChangeText={value => onChangeText(value)}
-        onValidation={value => onValidation(value)}
+        onChangeText={(value) => onChangeText(value)}
+        onValidation={(value) => onValidation(value)}
       />
     );
 
@@ -147,14 +148,14 @@ describe("<Input />", () => {
   });
 
   it("multiple patterns, validation=[true, true, false]", () => {
-    const onChangeText = jest.fn().mockImplementation(value => value);
-    const onValidation = jest.fn().mockImplementation(value => value);
+    const onChangeText = jest.fn().mockImplementation((value) => value);
+    const onValidation = jest.fn().mockImplementation((value) => value);
 
     const { getByTestId } = render(
       <Input
         pattern={["^.{8,}$", "(?=.*d)", "(?=.*[A-Z])"]}
-        onChangeText={value => onChangeText(value)}
-        onValidation={value => onValidation(value)}
+        onChangeText={(value) => onChangeText(value)}
+        onValidation={(value) => onValidation(value)}
       />
     );
 
@@ -169,13 +170,13 @@ describe("<Input />", () => {
   });
 
   it("multiple patterns, validation=[true, true, true]", () => {
-    const onChangeText = jest.fn().mockImplementation(value => value);
-    const onValidation = jest.fn().mockImplementation(value => value);
+    const onChangeText = jest.fn().mockImplementation((value) => value);
+    const onValidation = jest.fn().mockImplementation((value) => value);
     const { getByTestId } = render(
       <Input
         pattern={["^.{8,}$", "(?=.*d)", "(?=.*[A-Z])"]}
-        onChangeText={value => onChangeText(value)}
-        onValidation={value => onValidation(value)}
+        onChangeText={(value) => onChangeText(value)}
+        onValidation={(value) => onValidation(value)}
       />
     );
 
@@ -229,5 +230,25 @@ describe("<Input />", () => {
 
     component.setProps({ autoCapitalize: "words" });
     expect(component.props().autoCapitalize).toEqual("words");
+  });
+
+  it("borderWidth={2}", () => {
+    const input = renderer.create(<Input borderWidth={2} />);
+    const component = input.toJSON();
+    const instance = input.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(style.borderWidth).toEqual(2);
+    expect(instance.props.borderWidth).toEqual(2);
+  });
+
+  it("borderColor='#4630EB'", () => {
+    const input = renderer.create(<Input borderColor="#4630EB" />);
+    const component = input.toJSON();
+    const instance = input.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(style.borderColor).toEqual("#4630EB");
+    expect(instance.props.borderColor).toEqual("#4630EB");
   });
 });

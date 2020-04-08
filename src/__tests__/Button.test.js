@@ -2,6 +2,7 @@ import { shallow } from "enzyme";
 import React from "react";
 import { StyleSheet } from "react-native";
 import renderer from "react-test-renderer";
+
 import Button from "../Button";
 import Text from "../Text";
 import { SIZES } from "../theme";
@@ -365,5 +366,27 @@ describe("<Button />", () => {
     const component = shallow(<Button onPress={onPress} />);
     component.simulate("press");
     expect(onPress).toHaveBeenCalledTimes(1);
+  });
+
+  it("borderWidth={2}", () => {
+    const button = renderer.create(<Button borderWidth={2} />);
+
+    const component = button.toJSON();
+    const instance = button.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.borderWidth).toEqual(2);
+    expect(style.borderWidth).toEqual(2);
+  });
+
+  it("borderColor='#4630EB'", () => {
+    const button = renderer.create(<Button borderColor="#4630EB" />);
+
+    const component = button.toJSON();
+    const instance = button.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.borderColor).toEqual("#4630EB");
+    expect(style.borderColor).toEqual("#4630EB");
   });
 });

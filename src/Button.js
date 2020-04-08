@@ -57,7 +57,7 @@ import { getSpacing, mergeTheme, parseSpacing, rgba } from "./utils";
  */
 
 function Button(props) {
-  const getSpacings = type => {
+  const getSpacings = (type) => {
     const {
       margin,
       marginTop,
@@ -106,12 +106,14 @@ function Button(props) {
       ];
     }
   };
+
   const {
     disabled,
     opacity,
     outlined,
     flex,
     height,
+    borderWidth,
     // colors
     color,
     transparent,
@@ -125,6 +127,7 @@ function Button(props) {
     warning,
     success,
     info,
+    borderColor,
     // support for touchables
     highlight,
     nativeFeedback,
@@ -166,7 +169,7 @@ function Button(props) {
     {
       height: SIZES.base * 5.5,
       borderRadius: SIZES.radius,
-      backgroundColor: COLORS.primary,
+      backgroundColor: color || COLORS.primary,
       justifyContent: "center"
     },
     transparent && { backgroundColor: "transparent" },
@@ -183,18 +186,20 @@ function Button(props) {
     color && { backgroundColor: color }, // custom backgroundColor
     flex && { flex }, // flex width
     height && { height }, // custom height
+    borderWidth && { borderWidth },
+    borderColor && { borderColor },
     marginSpacing,
     paddingSpacing,
     style
   ]);
 
+  const backgroundColor = StyleSheet.flatten(buttonStyles).backgroundColor;
+
   if (disabled) {
-    const backgroundColor = StyleSheet.flatten(buttonStyles).backgroundColor;
     buttonStyles.backgroundColor = rgba(backgroundColor, 0.5);
   }
 
   if (outlined) {
-    const backgroundColor = StyleSheet.flatten(buttonStyles).backgroundColor;
     buttonStyles.borderWidth = 1;
     buttonStyles.borderColor = backgroundColor;
     buttonStyles.backgroundColor = "transparent";
