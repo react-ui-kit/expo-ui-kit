@@ -1,5 +1,5 @@
 import React from "react";
-import { Animated, SafeAreaView, StyleSheet, View } from "react-native";
+import { Animated, SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
 import expoTheme from "./theme";
 import { getSpacing, mergeTheme, parseSpacing } from "./utils";
 
@@ -138,9 +138,9 @@ const Block = props => {
         marginBottom && parseSpacing("marginBottom", marginBottom, SIZES.base),
         marginLeft && parseSpacing("marginLeft", marginLeft, SIZES.base),
         marginVertical &&
-          parseSpacing("marginVertical", marginVertical, SIZES.base),
+        parseSpacing("marginVertical", marginVertical, SIZES.base),
         marginHorizontal &&
-          parseSpacing("marginHorizontal", marginHorizontal, SIZES.base)
+        parseSpacing("marginHorizontal", marginHorizontal, SIZES.base)
       ];
     }
 
@@ -150,12 +150,12 @@ const Block = props => {
         paddingTop && parseSpacing("paddingTop", paddingTop, SIZES.base),
         paddingRight && parseSpacing("paddingRight", paddingRight, SIZES.base),
         paddingBottom &&
-          parseSpacing("paddingBottom", paddingBottom, SIZES.base),
+        parseSpacing("paddingBottom", paddingBottom, SIZES.base),
         paddingLeft && parseSpacing("paddingLeft", paddingLeft, SIZES.base),
         paddingVertical &&
-          parseSpacing("paddingVertical", paddingVertical, SIZES.base),
+        parseSpacing("paddingVertical", paddingVertical, SIZES.base),
         paddingHorizontal &&
-          parseSpacing("paddingHorizontal", paddingHorizontal, SIZES.base)
+        parseSpacing("paddingHorizontal", paddingHorizontal, SIZES.base)
       ];
     }
   };
@@ -195,6 +195,7 @@ const Block = props => {
     safe,
     style,
     children,
+    scroll,
     ...rest
   } = props;
 
@@ -265,6 +266,14 @@ const Block = props => {
     color && { backgroundColor: color }, // custom backgroundColor
     style // rewrite predefined styles
   ]);
+
+  if (scroll) {
+    return (
+      <ScrollView {...extraProps} style={blockStyles}>
+        {children}
+      </ScrollView>
+    );
+  }
 
   if (animated) {
     return (
