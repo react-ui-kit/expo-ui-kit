@@ -7,9 +7,16 @@ module.exports = {
   coveragePathIgnorePatterns: ["node_modules", "src/utils"],
   moduleDirectories: ["node_modules"],
   transform: {
-    "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
+    "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js",
+    "\\.(ts|tsx)$": "ts-jest"
   },
   setupFiles: ["<rootDir>/jest.setup.js"],
-  moduleFileExtensions: ["js", "jsx"],
-  transformIgnorePatterns: []
+  moduleFileExtensions: ["js", "jsx", "ts", "tsx"],
+  transformIgnorePatterns: [],
+  globals: {
+    "ts-jest": {
+      tsConfig: "tsconfig.jest.json"
+    }
+  },
+  testPathIgnorePatterns: ["dist/"]
 };
