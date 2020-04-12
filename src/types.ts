@@ -13,6 +13,8 @@ interface BlockOptions {
 }
 
 interface ButtonOptions {
+  disabled?: boolean;
+  activeOpacity?: number;
   outlined?: boolean;
   highlight?: boolean;
   nativeFeedback?: boolean;

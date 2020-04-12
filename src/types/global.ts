@@ -80,7 +80,7 @@ export interface ThemeProps
  * @returns Rest or difference of the operation
  */
 
-type Subtract<T, K> = Pick<T, Exclude<keyof T, keyof K>>;
+export type Subtract<T, K> = Pick<T, Exclude<keyof T, keyof K>>;
 export type ExtraProps<P> = Subtract<P, ExcludedProps>;
 
 /**

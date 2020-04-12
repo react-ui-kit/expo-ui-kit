@@ -203,46 +203,21 @@ const Button: React.FC<ButtonProps> = (props) => {
     buttonStyles.borderColor = backgroundColor;
     buttonStyles.backgroundColor = "transparent";
   }
-  if (highlight) {
-    return (
-      <TouchableHighlight
-        {...extraProps}
-        disabled={disabled}
-        activeOpacity={opacity}
-        style={buttonStyles}>
-        {children}
-      </TouchableHighlight>
-    );
-  }
-  if (nativeFeedback) {
-    return (
-      <TouchableNativeFeedback
-        {...extraProps}
-        disabled={disabled}
-        style={buttonStyles}>
-        {children}
-      </TouchableNativeFeedback>
-    );
-  }
-  if (withoutFeedback) {
-    return (
-      <TouchableWithoutFeedback
-        {...extraProps}
-        disabled={disabled}
-        style={buttonStyles}>
-        {children}
-      </TouchableWithoutFeedback>
-    );
-  }
-
+  const RenderButton: any = highlight
+    ? TouchableHighlight
+    : nativeFeedback
+    ? TouchableNativeFeedback
+    : withoutFeedback
+    ? TouchableWithoutFeedback
+    : TouchableOpacity;
   return (
-    <TouchableOpacity
+    <RenderButton
       {...extraProps}
       disabled={disabled}
       activeOpacity={opacity}
       style={buttonStyles}>
       {children}
-    </TouchableOpacity>
+    </RenderButton>
   );
 };
 
