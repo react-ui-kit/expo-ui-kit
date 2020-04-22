@@ -7,6 +7,10 @@
     "react-ui-kit",
     "expo-ui-kit"
   ],
+  "files": [
+    "dist/",
+    "index.js"
+  ],
   "homepage": "http://expo-ui-kit.com/",
   "description": "Expo.io UI Kit for React-Native",
   "main": "dist/index.js",
@@ -14,7 +18,9 @@
   "author": "React-UI-Kit <contact@react-ui-kit.com> (https://react-ui-kit.com)",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
+    "build": "yarn clean-build && tsc",
+    "clean-build": "rm -rf dist/",
+    "watch": "tsc --watch",
     "lint": "eslint src",
     "test": "jest"
   },
@@ -23,6 +29,7 @@
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/jest": "^25.2.1",
     "@types/react": "^16.9.34",
+    "@types/react-native": "^0.62.2",
     "@types/react-test-renderer": "^16.9.2",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
@@ -41,7 +48,5 @@
   "eslintConfig": {
     "extends": "universe/native"
   },
-  "dependencies": {
-    "@types/react-native": "^0.62.2"
-  }
+  "dependencies": {}
 }
