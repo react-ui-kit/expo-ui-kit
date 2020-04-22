@@ -56,7 +56,7 @@ import { getSpacing, mergeTheme, parseSpacing, rgba } from "./utils/index";
  *
  */
 
-export const RenderButton = ({
+export const ButtonInstance = ({
   Touchable = TouchableOpacity,
   children,
   ...props
@@ -209,7 +209,7 @@ const Button = (props) => {
     buttonStyles.backgroundColor = "transparent";
   }
 
-  const touch = highlight
+  const Touchable = highlight
     ? TouchableHighlight
     : nativeFeedback
     ? TouchableNativeFeedback
@@ -218,10 +218,10 @@ const Button = (props) => {
     : TouchableOpacity;
 
   return (
-    <RenderButton
+    <ButtonInstance
       {...extraProps}
       disabled={disabled}
-      Touchable={touch}
+      Touchable={Touchable}
       activeOpacity={opacity}
       style={buttonStyles}
       children={children}
