@@ -3,12 +3,13 @@ import {
   StyleSheet,
   TouchableHighlight,
   TouchableNativeFeedback,
+  TouchableNativeFeedbackProps,
   TouchableOpacity,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  TouchableWithoutFeedbackProps
 } from "react-native";
-import { ExtraProps } from "./global";
 import expoTheme from "./theme";
-import { ButtonProps } from "./types";
+import { ButtonProps, ExtraProps, RenderButtonProps } from "./types/types";
 import { getSpacing, mergeTheme, parseSpacing, rgba } from "./utils/index";
 
 /**
@@ -58,7 +59,15 @@ import { getSpacing, mergeTheme, parseSpacing, rgba } from "./utils/index";
  *
  */
 
-const Button: React.FC<ButtonProps> = (props) => {
+export const RenderButton = ({
+  Touchable = TouchableOpacity,
+  children,
+  ...props
+}: RenderButtonProps) => <Touchable {...props}>{children}</Touchable>;
+
+const Button: React.FC<
+  ButtonProps & TouchableWithoutFeedbackProps & TouchableNativeFeedbackProps
+> = (props) => {
   const getSpacings = (type: "margin" | "padding") => {
     const {
       margin,
@@ -114,6 +123,7 @@ const Button: React.FC<ButtonProps> = (props) => {
     outlined,
     flex,
     height,
+    borderWidth,
     // colors
     color,
     transparent,
@@ -127,6 +137,7 @@ const Button: React.FC<ButtonProps> = (props) => {
     warning,
     success,
     info,
+    borderColor,
     // support for touchables
     highlight,
     nativeFeedback,
@@ -170,7 +181,7 @@ const Button: React.FC<ButtonProps> = (props) => {
     {
       height: SIZES.base * 5.5,
       borderRadius: SIZES.radius,
-      backgroundColor: COLORS.primary,
+      backgroundColor: color || COLORS.primary,
       justifyContent: "center"
     },
     transparent && { backgroundColor: "transparent" },
@@ -187,37 +198,42 @@ const Button: React.FC<ButtonProps> = (props) => {
     color && { backgroundColor: color }, // custom backgroundColor
     flex && { flex }, // flex width
     height && { height }, // custom height
+    borderWidth && { borderWidth },
+    borderColor && { borderColor },
     marginSpacing,
     paddingSpacing,
     style
   ]);
 
+  const backgroundColor = StyleSheet.flatten(buttonStyles).backgroundColor;
+
   if (disabled) {
-    const backgroundColor = StyleSheet.flatten(buttonStyles).backgroundColor;
     buttonStyles.backgroundColor = rgba(backgroundColor, 0.5);
   }
 
   if (outlined) {
-    const backgroundColor = StyleSheet.flatten(buttonStyles).backgroundColor;
     buttonStyles.borderWidth = 1;
     buttonStyles.borderColor = backgroundColor;
     buttonStyles.backgroundColor = "transparent";
   }
-  const RenderButton: any = highlight
+
+  const touch = highlight
     ? TouchableHighlight
     : nativeFeedback
     ? TouchableNativeFeedback
     : withoutFeedback
     ? TouchableWithoutFeedback
     : TouchableOpacity;
+
   return (
     <RenderButton
       {...extraProps}
       disabled={disabled}
+      Touchable={touch}
       activeOpacity={opacity}
-      style={buttonStyles}>
-      {children}
-    </RenderButton>
+      style={buttonStyles}
+      children={children}
+    />
   );
 };
 

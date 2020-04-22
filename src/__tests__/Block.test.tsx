@@ -421,8 +421,8 @@ describe("<Block />", () => {
 
     const style = StyleSheet.flatten(component.props.style);
     expect(instance.props.card).toEqual(true);
-    //!TODO: border value
-    expect(style.borderRadius).toEqual(SIZES.height);
+
+    expect(style.borderRadius).toEqual(SIZES.radius);
   });
 
   it("radius={4}", () => {

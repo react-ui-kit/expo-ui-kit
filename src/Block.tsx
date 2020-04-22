@@ -6,9 +6,8 @@ import {
   StyleSheet,
   View
 } from "react-native";
-import { ExtraProps } from "./global";
 import expoTheme from "./theme";
-import { BlockProps } from "./types";
+import { BlockProps, ExtraProps } from "./types/types";
 import { getSpacing, mergeTheme, parseSpacing } from "./utils";
 
 /**
@@ -262,7 +261,7 @@ const Block: React.FC<BlockProps> = (props) => {
       shadowRadius: elevation
     },
     space && { justifyContent: `space-${space}` },
-    card && { borderRadius: 12 },
+    card && { borderRadius: SIZES.radius },
     radius && { borderRadius: radius },
     // color shortcuts
     primary && { backgroundColor: COLORS.primary },

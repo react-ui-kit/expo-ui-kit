@@ -1,16 +1,22 @@
 import { shallow } from "enzyme";
 import React from "react";
-import { StyleSheet } from "react-native";
+import {
+  StyleSheet,
+  TouchableHighlight,
+  TouchableNativeFeedback,
+  TouchableWithoutFeedback
+} from "react-native";
 import renderer from "react-test-renderer";
-import Button from "../Button";
+import Button, { RenderButton } from "../Button";
 import Text from "../Text";
 import { SIZES } from "../theme";
-import { ButtonProps } from "../types";
+import { ButtonProps } from "../types/types";
 import { rgba } from "../utils";
 
 describe("<Button />", () => {
   it("render default TouchableOpacity", () => {
     const button = shallow<ButtonProps>(<Button />);
+    const buttonType = shallow(<RenderButton />);
 
     const component = button;
 
@@ -24,7 +30,8 @@ describe("<Button />", () => {
       backgroundColor: "#4630EB",
       justifyContent: "center"
     });
-    expect(component.name()).toEqual("TouchableOpacity");
+
+    expect(buttonType.name()).toEqual("TouchableOpacity");
   });
 
   it("transparent", () => {
@@ -329,9 +336,12 @@ describe("<Button />", () => {
 
   it("ButtonType: nativeFeedback", () => {
     const component = shallow(<Button nativeFeedback />);
+    const buttonType = shallow(
+      <RenderButton Touchable={TouchableNativeFeedback} />
+    );
 
     expect(component.props().nativeFeedback).toEqual(true);
-    expect(component.name()).toEqual("DummyTouchableNativeFeedback");
+    expect(buttonType.name()).toEqual("DummyTouchableNativeFeedback");
   });
 
   /**
@@ -346,8 +356,14 @@ describe("<Button />", () => {
       </Button>
     );
 
+    const buttonType = shallow(
+      <RenderButton Touchable={TouchableHighlight}>
+        <Text />
+      </RenderButton>
+    );
+
     expect(component.props().highlight).toEqual(true);
-    expect(component.name()).toEqual("TouchableHighlight");
+    expect(buttonType.name()).toEqual("TouchableHighlight");
   });
 
   it("ButtonType: withoutFeedback", () => {
@@ -356,9 +372,14 @@ describe("<Button />", () => {
         <Text />
       </Button>
     );
+    const buttonType = shallow(
+      <RenderButton Touchable={TouchableWithoutFeedback}>
+        <Text />
+      </RenderButton>
+    );
 
     expect(component.props().withoutFeedback).toEqual(true);
-    expect(component.name()).toEqual("TouchableWithoutFeedback");
+    expect(buttonType.name()).toEqual("TouchableWithoutFeedback");
   });
 
   it("onPress", () => {
@@ -366,5 +387,27 @@ describe("<Button />", () => {
     const component = shallow(<Button onPress={onPress} />);
     component.simulate("press");
     expect(onPress).toHaveBeenCalledTimes(1);
+  });
+
+  it("borderWidth={2}", () => {
+    const button = renderer.create(<Button borderWidth={2} />);
+
+    const component = button.toJSON();
+    const instance = button.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.borderWidth).toEqual(2);
+    expect(style.borderWidth).toEqual(2);
+  });
+
+  it("borderColor='#4630EB'", () => {
+    const button = renderer.create(<Button borderColor="#4630EB" />);
+
+    const component = button.toJSON();
+    const instance = button.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.borderColor).toEqual("#4630EB");
+    expect(style.borderColor).toEqual("#4630EB");
   });
 });

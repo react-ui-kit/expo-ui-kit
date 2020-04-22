@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import Block from "./Block";
 import expoTheme from "./theme";
-import { CardProps } from "./types";
+import { CardProps } from "./types/types";
 import { mergeTheme, rgba } from "./utils/index";
 
 /**

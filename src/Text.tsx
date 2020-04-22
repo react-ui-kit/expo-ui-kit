@@ -1,8 +1,7 @@
 import React from "react";
 import { Animated, StyleSheet, Text } from "react-native";
-import { ExtraProps } from "./global";
 import expoTheme from "./theme";
-import { TextProps } from "./types";
+import { ExtraProps, TextProps } from "./types/types";
 import { getSpacing, mergeTheme, parseSpacing } from "./utils/index";
 
 /**

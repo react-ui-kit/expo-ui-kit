@@ -1,7 +1,7 @@
 import React, { useReducer } from "react";
 import { StyleSheet, TextInput } from "react-native";
 import expoTheme from "./theme";
-import { InputAction, InputProps, InputState } from "./types";
+import { InputAction, InputProps, InputState } from "./types/types";
 import { mergeTheme, rgba } from "./utils/index";
 
 /**
@@ -113,6 +113,8 @@ const Input: React.FC<InputProps> = (props) => {
     placeholder,
     children,
     color,
+    borderWidth,
+    borderColor,
     type,
     style,
     theme,
@@ -133,6 +135,8 @@ const Input: React.FC<InputProps> = (props) => {
       paddingHorizontal: SIZES.base,
       fontSize: SIZES.font
     },
+    borderWidth && { borderWidth },
+    borderColor && { borderColor },
     style
   ]);
   const textType = handleTextType(type);
