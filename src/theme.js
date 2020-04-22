@@ -1,10 +1,8 @@
 import { Dimensions } from "react-native";
-import { Colors, Fonts, Sizes, Weights } from "./global";
-
 
 const { width, height } = Dimensions.get("window");
 
-export const COLORS: Colors = {
+export const COLORS = {
   // default font color
   font: "#000000",
 
@@ -25,7 +23,7 @@ export const COLORS: Colors = {
   info: "#4DA1FF"
 };
 
-export const SIZES: Sizes = {
+export const SIZES = {
   // global sizes
   base: 8,
   font: 16,
@@ -46,7 +44,7 @@ export const SIZES: Sizes = {
   height
 };
 
-export const FONTS: Fonts = {
+export const FONTS = {
   h1: { fontSize: SIZES.h1, letterSpacing: 0.15 },
   h2: { fontSize: SIZES.h2, letterSpacing: 0 },
   h3: { fontSize: SIZES.h3, letterSpacing: 0.15 },
@@ -56,7 +54,7 @@ export const FONTS: Fonts = {
   small: { fontSize: SIZES.small, letterSpacing: 1.5 }
 };
 
-export const WEIGHTS: Weights = {
+export const WEIGHTS = {
   regular: "normal",
   bold: "bold",
   semibold: "500",

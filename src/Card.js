@@ -2,7 +2,6 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import Block from "./Block";
 import expoTheme from "./theme";
-import { CardProps } from "./types/types";
 import { mergeTheme, rgba } from "./utils/index";
 
 /**
@@ -49,7 +48,7 @@ import { mergeTheme, rgba } from "./utils/index";
  *
  */
 
-const Card: React.FC<CardProps> = (props) => {
+const Card = (props) => {
   const {
     color,
     radius,

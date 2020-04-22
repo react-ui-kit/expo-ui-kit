@@ -10,12 +10,11 @@ import renderer from "react-test-renderer";
 import Button, { RenderButton } from "../Button";
 import Text from "../Text";
 import { SIZES } from "../theme";
-import { ButtonProps } from "../types/types";
 import { rgba } from "../utils";
 
 describe("<Button />", () => {
   it("render default TouchableOpacity", () => {
-    const button = shallow<ButtonProps>(<Button />);
+    const button = shallow(<Button />);
     const buttonType = shallow(<RenderButton />);
 
     const component = button;
@@ -367,7 +366,7 @@ describe("<Button />", () => {
   });
 
   it("ButtonType: withoutFeedback", () => {
-    const component = shallow<ButtonProps>(
+    const component = shallow(
       <Button withoutFeedback>
         <Text />
       </Button>

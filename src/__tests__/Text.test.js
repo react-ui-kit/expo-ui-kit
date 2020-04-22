@@ -303,13 +303,13 @@ describe("<Text />", () => {
 
   it('transform="uppercase"', () => {
     const component = shallow(<Text transform="uppercase">uppercase</Text>);
-    let style = StyleSheet.flatten(component.props().style);
+    const style = StyleSheet.flatten(component.props().style);
     expect(style.textTransform).toEqual("uppercase");
   });
 
   it("lineHeight using height={32}", () => {
     const component = shallow(<Text height={32}>lineHeight 32</Text>);
-    let style = StyleSheet.flatten(component.props().style);
+    const style = StyleSheet.flatten(component.props().style);
     expect(style.lineHeight).toEqual(32);
   });
 

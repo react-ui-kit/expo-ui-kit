@@ -7,10 +7,6 @@
     "react-ui-kit",
     "expo-ui-kit"
   ],
-  "files": [
-    "dist/",
-    "index.js"
-  ],
   "homepage": "http://expo-ui-kit.com/",
   "description": "Expo.io UI Kit for React-Native",
   "main": "dist/index.js",
@@ -18,9 +14,6 @@
   "author": "React-UI-Kit <contact@react-ui-kit.com> (https://react-ui-kit.com)",
   "license": "MIT",
   "scripts": {
-    "build": "yarn clean-build && tsc",
-    "clean-build": "rm -rf dist/",
-    "watch": "tsc --watch",
     "lint": "eslint src",
     "test": "jest"
   },

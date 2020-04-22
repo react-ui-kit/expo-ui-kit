@@ -16,8 +16,6 @@
  * const marginSpacing = spacing("margin", "0.5x", 12); // multiply 0.5 * 10 => margin 6
  */
 
-import { CustomTheme, DefaultTheme } from "../global";
-
 export const spacing = (type, value, defaultValue = 1) => {
   // accept only 2 types: margin & padding
   const accepted = ["margin", "padding"];
@@ -194,10 +192,7 @@ export const getMargins = (value, defaultValue = 1) => {
   }
 };
 
-export const getPaddings = (
-  value: "number" | "object" | "string",
-  defaultValue = 1
-) => {
+export const getPaddings = (value, defaultValue = 1) => {
   if (typeof value === "number") {
     return {
       paddingTop: value,
@@ -289,7 +284,7 @@ export const getPaddings = (
  * COLORS.secondary will return value "green"
  */
 
-export const mergeTheme = (theme: DefaultTheme, extra: CustomTheme) => {
+export const mergeTheme = (theme, extra) => {
   const { COLORS, SIZES, FONTS, WEIGHTS, ...REST } = extra;
   return {
     COLORS: { ...theme.COLORS, ...COLORS },

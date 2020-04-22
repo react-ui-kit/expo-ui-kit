@@ -2,12 +2,9 @@
 // NPM: https://www.npmjs.com/package/hex-to-rgba
 // GitHub: https://github.com/misund/hex-to-rgba
 
-import { RGBA } from "../global";
+const removeHash = (hex) => (hex.charAt(0) === "#" ? hex.slice(1) : hex);
 
-const removeHash = (hex: string): string =>
-  hex.charAt(0) === "#" ? hex.slice(1) : hex;
-
-const parseHex = (nakedHex: string): RGBA<string> => {
+const parseHex = (nakedHex) => {
   const isShort = nakedHex.length === 3 || nakedHex.length === 4;
 
   const twoDigitHexR = isShort
@@ -34,18 +31,18 @@ const parseHex = (nakedHex: string): RGBA<string> => {
   };
 };
 
-const hexToDecimal = (hex: string) => parseInt(hex, 16);
+const hexToDecimal = (hex) => parseInt(hex, 16);
 
-const hexesToDecimals = ({ r, g, b, a }: RGBA<string>): RGBA<number> => ({
+const hexesToDecimals = ({ r, g, b, a }) => ({
   r: hexToDecimal(r),
   g: hexToDecimal(g),
   b: hexToDecimal(b),
   a: +(hexToDecimal(a) / 255).toFixed(2)
 });
 
-const isNumeric = (n: any) => !isNaN(parseFloat(n)) && isFinite(n); // eslint-disable-line no-restricted-globals, max-len
+const isNumeric = (n) => !isNaN(parseFloat(n)) && isFinite(n); // eslint-disable-line no-restricted-globals, max-len
 
-const formatRgb = (decimalObject: RGBA<number>, parameterA?: number) => {
+const formatRgb = (decimalObject, parameterA) => {
   const { r, g, b, a: parsedA } = decimalObject;
   const a = isNumeric(parameterA) ? parameterA : parsedA;
 
@@ -61,7 +58,7 @@ const formatRgb = (decimalObject: RGBA<number>, parameterA?: number) => {
  * @param a - An alpha value to apply. (optional) ('0.5', '0.25')
  * @return An rgb or rgba value. ('rgb(11, 22, 33)'. 'rgba(11, 22, 33, 0.5)')
  */
-const hexToRgba = (hex: string, a?: number) => {
+const hexToRgba = (hex, a) => {
   const hashlessHex = removeHash(hex);
   const hexObject = parseHex(hashlessHex);
   const decimalObject = hexesToDecimals(hexObject);

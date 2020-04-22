@@ -7,7 +7,6 @@ import {
   View
 } from "react-native";
 import expoTheme from "./theme";
-import { BlockProps, ExtraProps } from "./types/types";
 import { getSpacing, mergeTheme, parseSpacing } from "./utils";
 
 /**
@@ -116,8 +115,8 @@ import { getSpacing, mergeTheme, parseSpacing } from "./utils";
  * </Block>
  */
 
-const Block: React.FC<BlockProps> = (props) => {
-  const getSpacings = (type: "margin" | "padding") => {
+const Block = (props) => {
+  const getSpacings = (type) => {
     const {
       margin,
       marginTop,
@@ -224,15 +223,12 @@ const Block: React.FC<BlockProps> = (props) => {
     "paddingHorizontal"
   ];
 
-  const extraProps = Object.keys(props).reduce<ExtraProps<BlockProps>>(
-    (prop, key) => {
-      if (!excludeProps.includes(`${key}`)) {
-        prop[key] = props[key];
-      }
-      return prop;
-    },
-    {}
-  );
+  const extraProps = Object.keys(props).reduce((prop, key) => {
+    if (!excludeProps.includes(`${key}`)) {
+      prop[key] = props[key];
+    }
+    return prop;
+  }, {});
 
   const { SIZES, COLORS } = mergeTheme(expoTheme, theme);
   const marginSpacing = getSpacings("margin");

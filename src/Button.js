@@ -3,13 +3,10 @@ import {
   StyleSheet,
   TouchableHighlight,
   TouchableNativeFeedback,
-  TouchableNativeFeedbackProps,
   TouchableOpacity,
-  TouchableWithoutFeedback,
-  TouchableWithoutFeedbackProps
+  TouchableWithoutFeedback
 } from "react-native";
 import expoTheme from "./theme";
-import { ButtonProps, ExtraProps, RenderButtonProps } from "./types/types";
 import { getSpacing, mergeTheme, parseSpacing, rgba } from "./utils/index";
 
 /**
@@ -63,12 +60,10 @@ export const RenderButton = ({
   Touchable = TouchableOpacity,
   children,
   ...props
-}: RenderButtonProps) => <Touchable {...props}>{children}</Touchable>;
+}) => <Touchable {...props}>{children}</Touchable>;
 
-const Button: React.FC<
-  ButtonProps & TouchableWithoutFeedbackProps & TouchableNativeFeedbackProps
-> = (props) => {
-  const getSpacings = (type: "margin" | "padding") => {
+const Button = (props) => {
+  const getSpacings = (type) => {
     const {
       margin,
       marginTop,
@@ -163,15 +158,12 @@ const Button: React.FC<
     "paddingVertical",
     "paddingHorizontal"
   ];
-  const extraProps = Object.keys(props).reduce<ExtraProps<ButtonProps>>(
-    (prop, key) => {
-      if (!excludeProps.includes(`${key}`)) {
-        prop[key] = props[key];
-      }
-      return prop;
-    },
-    {}
-  );
+  const extraProps = Object.keys(props).reduce((prop, key) => {
+    if (!excludeProps.includes(`${key}`)) {
+      prop[key] = props[key];
+    }
+    return prop;
+  }, {});
 
   const { SIZES, COLORS } = mergeTheme({ ...expoTheme }, theme);
   const marginSpacing = getSpacings("margin");

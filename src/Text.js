@@ -1,7 +1,6 @@
 import React from "react";
 import { Animated, StyleSheet, Text } from "react-native";
 import expoTheme from "./theme";
-import { ExtraProps, TextProps } from "./types/types";
 import { getSpacing, mergeTheme, parseSpacing } from "./utils/index";
 
 /**
@@ -67,7 +66,7 @@ import { getSpacing, mergeTheme, parseSpacing } from "./utils/index";
  * - <Text animated>will render Animated.Text</Text>
  */
 
-const Typography: React.FC<TextProps> = (props) => {
+const Typography = (props) => {
   const getSpacings = (type) => {
     const {
       margin,
@@ -175,15 +174,12 @@ const Typography: React.FC<TextProps> = (props) => {
     "paddingVertical",
     "paddingHorizontal"
   ];
-  const extraProps = Object.keys(props).reduce<ExtraProps<TextProps>>(
-    (prop, key) => {
-      if (!excludeProps.includes(`${key}`)) {
-        prop[key] = props[key];
-      }
-      return prop;
-    },
-    {}
-  );
+  const extraProps = Object.keys(props).reduce((prop, key) => {
+    if (!excludeProps.includes(`${key}`)) {
+      prop[key] = props[key];
+    }
+    return prop;
+  }, {});
 
   const { SIZES, COLORS, FONTS, WEIGHTS } = mergeTheme({ ...expoTheme }, theme);
 

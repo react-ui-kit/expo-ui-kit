@@ -1,7 +1,4 @@
-/**
- * Component Types
- */
-
+import React from "react";
 import {
   NativeSyntheticEvent,
   TextInputFocusEventData,
@@ -187,3 +184,70 @@ export interface CardProps extends CardOptions, ThemeProps {
 }
 
 export interface InputProps extends InputOptions, ThemeProps {}
+
+export declare const Block: React.FC<BlockProps>;
+export declare const styles: {
+  block: {
+    flex: number;
+  };
+  row: {
+    flexDirection: "row";
+  };
+  column: {
+    flexDirection: "column";
+  };
+  center: {
+    alignItems: "center";
+  };
+  middle: {
+    justifyContent: "center";
+  };
+  left: {
+    justifyContent: "flex-start";
+  };
+  right: {
+    justifyContent: "flex-end";
+  };
+  top: {
+    justifyContent: "flex-start";
+  };
+  bottom: {
+    justifyContent: "flex-end";
+  };
+  wrap: {
+    flexWrap: "wrap";
+  };
+};
+export declare const RenderButton: ({
+  Touchable,
+  children,
+  ...props
+}: RenderButtonProps) => JSX.Element;
+export declare const Button: React.FC<
+  ButtonProps & TouchableWithoutFeedbackProps & TouchableNativeFeedbackProps
+>;
+
+export declare const Card: React.FC<CardProps>;
+
+export declare const INITIAL_STATE: InputState;
+export declare const change: (
+  value: any
+) => {
+  type: string;
+  payload: {
+    value: any;
+  };
+};
+export declare const focus: () => {
+  type: string;
+};
+export declare const blur: () => {
+  type: string;
+};
+export declare const reducer: (
+  state: InputState,
+  action: InputAction
+) => InputState;
+export declare const Input: React.FC<InputProps>;
+
+export declare const Typography: React.FC<TextProps>;

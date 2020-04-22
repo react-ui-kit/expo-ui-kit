@@ -1,7 +1,6 @@
 import React, { useReducer } from "react";
 import { StyleSheet, TextInput } from "react-native";
 import expoTheme from "./theme";
-import { InputAction, InputProps, InputState } from "./types/types";
 import { mergeTheme, rgba } from "./utils/index";
 
 /**
@@ -30,13 +29,13 @@ import { mergeTheme, rgba } from "./utils/index";
  * <Input internalRef={c => this.c} />
  */
 
-export const INITIAL_STATE: InputState = {
+export const INITIAL_STATE = {
   value: null,
   focused: false,
   blurred: false
 };
 
-export const change = (value: any) => {
+export const change = (value) => {
   return { type: "change", payload: { value } };
 };
 export const focus = () => {
@@ -46,7 +45,7 @@ export const blur = () => {
   return { type: "blur" };
 };
 
-export const reducer = (state: InputState, action: InputAction) => {
+export const reducer = (state, action) => {
   switch (action.type) {
     case "change":
       return { ...state, value: action.payload.value };
@@ -59,7 +58,7 @@ export const reducer = (state: InputState, action: InputAction) => {
   }
 };
 
-const Input: React.FC<InputProps> = (props) => {
+const Input = (props) => {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
 
   const handleValidation = (value) => {
