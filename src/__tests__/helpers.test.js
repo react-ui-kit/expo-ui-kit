@@ -1,5 +1,4 @@
-import { getSpacing } from "../utils/";
-// import { SIZES } from "../theme";
+import { getSpacing } from "../utils/index";
 
 describe("Helpers", () => {
   it("spacing: margin & padding", () => {

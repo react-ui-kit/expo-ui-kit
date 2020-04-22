@@ -7,7 +7,7 @@ import {
   TouchableWithoutFeedback
 } from "react-native";
 import expoTheme from "./theme";
-import { getSpacing, mergeTheme, parseSpacing, rgba } from "./utils";
+import { getSpacing, mergeTheme, parseSpacing, rgba } from "./utils/index";
 
 /**
  * https://facebook.github.io/react-native/docs/touchableopacity
@@ -56,7 +56,13 @@ import { getSpacing, mergeTheme, parseSpacing, rgba } from "./utils";
  *
  */
 
-function Button(props) {
+export const ButtonInstance = ({
+  Touchable = TouchableOpacity,
+  children,
+  ...props
+}) => <Touchable {...props}>{children}</Touchable>;
+
+const Button = (props) => {
   const getSpacings = (type) => {
     const {
       margin,
@@ -106,7 +112,6 @@ function Button(props) {
       ];
     }
   };
-
   const {
     disabled,
     opacity,
@@ -134,8 +139,7 @@ function Button(props) {
     withoutFeedback,
     theme,
     style,
-    children,
-    ...rest
+    children
   } = props;
 
   const excludeProps = [
@@ -205,7 +209,7 @@ function Button(props) {
     buttonStyles.backgroundColor = "transparent";
   }
 
-  const ButtonType = highlight
+  const Touchable = highlight
     ? TouchableHighlight
     : nativeFeedback
     ? TouchableNativeFeedback
@@ -214,15 +218,16 @@ function Button(props) {
     : TouchableOpacity;
 
   return (
-    <ButtonType
+    <ButtonInstance
       {...extraProps}
       disabled={disabled}
+      Touchable={Touchable}
       activeOpacity={opacity}
-      style={buttonStyles}>
-      {children}
-    </ButtonType>
+      style={buttonStyles}
+      children={children}
+    />
   );
-}
+};
 
 Button.defaultProps = {
   color: null,
@@ -232,7 +237,6 @@ Button.defaultProps = {
   margin: null,
   padding: null,
   flex: 0,
-  height: false,
   transparent: false,
   primary: false,
   secondary: false,

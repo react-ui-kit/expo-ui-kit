@@ -2,9 +2,9 @@
 // NPM: https://www.npmjs.com/package/hex-to-rgba
 // GitHub: https://github.com/misund/hex-to-rgba
 
-const removeHash = hex => (hex.charAt(0) === "#" ? hex.slice(1) : hex);
+const removeHash = (hex) => (hex.charAt(0) === "#" ? hex.slice(1) : hex);
 
-const parseHex = nakedHex => {
+const parseHex = (nakedHex) => {
   const isShort = nakedHex.length === 3 || nakedHex.length === 4;
 
   const twoDigitHexR = isShort
@@ -31,7 +31,7 @@ const parseHex = nakedHex => {
   };
 };
 
-const hexToDecimal = hex => parseInt(hex, 16);
+const hexToDecimal = (hex) => parseInt(hex, 16);
 
 const hexesToDecimals = ({ r, g, b, a }) => ({
   r: hexToDecimal(r),
@@ -40,7 +40,7 @@ const hexesToDecimals = ({ r, g, b, a }) => ({
   a: +(hexToDecimal(a) / 255).toFixed(2)
 });
 
-const isNumeric = n => !isNaN(parseFloat(n)) && isFinite(n); // eslint-disable-line no-restricted-globals, max-len
+const isNumeric = (n) => !isNaN(parseFloat(n)) && isFinite(n); // eslint-disable-line no-restricted-globals, max-len
 
 const formatRgb = (decimalObject, parameterA) => {
   const { r, g, b, a: parsedA } = decimalObject;
@@ -54,8 +54,8 @@ const formatRgb = (decimalObject, parameterA) => {
  *
  * If you specify an alpha value, you'll get a rgba() value instead.
  *
- * @param The hex value to convert. ('123456'. '#123456', ''123', '#123')
- * @param An alpha value to apply. (optional) ('0.5', '0.25')
+ * @param hex - The hex value to convert. ('123456'. '#123456', ''123', '#123')
+ * @param a - An alpha value to apply. (optional) ('0.5', '0.25')
  * @return An rgb or rgba value. ('rgb(11, 22, 33)'. 'rgba(11, 22, 33, 0.5)')
  */
 const hexToRgba = (hex, a) => {
@@ -76,4 +76,4 @@ const hexToRgba = (hex, a) => {
  * return new hex value with alpha 0.5
  */
 
-module.exports = hexToRgba;
+export default hexToRgba;

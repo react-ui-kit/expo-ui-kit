@@ -115,8 +115,8 @@ import { getSpacing, mergeTheme, parseSpacing } from "./utils";
  * </Block>
  */
 
-const Block = props => {
-  const getSpacings = type => {
+const Block = (props) => {
+  const getSpacings = (type) => {
     const {
       margin,
       marginTop,
@@ -203,8 +203,7 @@ const Block = props => {
     safe,
     style,
     children,
-    scroll,
-    ...rest
+    scroll
   } = props;
 
   const excludeProps = [
@@ -258,7 +257,7 @@ const Block = props => {
       shadowRadius: elevation
     },
     space && { justifyContent: `space-${space}` },
-    card && { borderRadius: SIZES.border },
+    card && { borderRadius: SIZES.radius },
     radius && { borderRadius: radius },
     // color shortcuts
     primary && { backgroundColor: COLORS.primary },

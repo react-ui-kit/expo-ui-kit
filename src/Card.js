@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import Block from "./Block";
 import expoTheme from "./theme";
-import { mergeTheme, rgba } from "./utils";
+import { mergeTheme, rgba } from "./utils/index";
 
 /**
  * https://facebook.github.io/react-native/docs/view
@@ -48,7 +48,7 @@ import { mergeTheme, rgba } from "./utils";
  *
  */
 
-const Card = props => {
+const Card = (props) => {
   const {
     color,
     radius,

@@ -1,7 +1,7 @@
 import React from "react";
 import { Animated, StyleSheet, Text } from "react-native";
 import expoTheme from "./theme";
-import { getSpacing, mergeTheme, parseSpacing } from "./utils";
+import { getSpacing, mergeTheme, parseSpacing } from "./utils/index";
 
 /**
  * Usage:
@@ -66,8 +66,8 @@ import { getSpacing, mergeTheme, parseSpacing } from "./utils";
  * - <Text animated>will render Animated.Text</Text>
  */
 
-const Typography = props => {
-  const getSpacings = type => {
+const Typography = (props) => {
+  const getSpacings = (type) => {
     const {
       margin,
       marginTop,

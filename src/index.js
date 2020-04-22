@@ -1,7 +1,7 @@
 import Block from "./Block";
-import Card from "./Card";
 import Button from "./Button";
-import Text from "./Text";
+import Card from "./Card";
 import Input from "./Input";
+import Text from "./Text";
 
 export { Block, Card, Button, Text, Input };

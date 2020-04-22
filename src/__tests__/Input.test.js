@@ -3,10 +3,9 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { fireEvent, render } from "react-native-testing-library";
 import renderer from "react-test-renderer";
-
 import Input, { blur, change, focus, INITIAL_STATE, reducer } from "../Input";
 import { SIZES } from "../theme";
-import { rgba } from "../utils";
+import { rgba } from "../utils/index";
 
 describe("<Input/> - State", () => {
   it("returns default state", () => {
@@ -62,7 +61,7 @@ describe("<Input />", () => {
     const component = input.toJSON();
     const instance = input.root;
 
-    let style = StyleSheet.flatten(component.props.style);
+    const style = StyleSheet.flatten(component.props.style);
     expect(style.borderColor).toEqual(rgba("#DDDDDD", 0.4));
     expect(instance.props.color).toEqual("#DDDDDD");
   });
@@ -231,24 +230,23 @@ describe("<Input />", () => {
     component.setProps({ autoCapitalize: "words" });
     expect(component.props().autoCapitalize).toEqual("words");
   });
+});
+it("borderWidth={2}", () => {
+  const input = renderer.create(<Input borderWidth={2} />);
+  const component = input.toJSON();
+  const instance = input.root;
 
-  it("borderWidth={2}", () => {
-    const input = renderer.create(<Input borderWidth={2} />);
-    const component = input.toJSON();
-    const instance = input.root;
+  const style = StyleSheet.flatten(component.props.style);
+  expect(style.borderWidth).toEqual(2);
+  expect(instance.props.borderWidth).toEqual(2);
+});
 
-    const style = StyleSheet.flatten(component.props.style);
-    expect(style.borderWidth).toEqual(2);
-    expect(instance.props.borderWidth).toEqual(2);
-  });
+it("borderColor='#4630EB'", () => {
+  const input = renderer.create(<Input borderColor="#4630EB" />);
+  const component = input.toJSON();
+  const instance = input.root;
 
-  it("borderColor='#4630EB'", () => {
-    const input = renderer.create(<Input borderColor="#4630EB" />);
-    const component = input.toJSON();
-    const instance = input.root;
-
-    const style = StyleSheet.flatten(component.props.style);
-    expect(style.borderColor).toEqual("#4630EB");
-    expect(instance.props.borderColor).toEqual("#4630EB");
-  });
+  const style = StyleSheet.flatten(component.props.style);
+  expect(style.borderColor).toEqual("#4630EB");
+  expect(instance.props.borderColor).toEqual("#4630EB");
 });

@@ -1,8 +1,7 @@
 import React, { useReducer } from "react";
 import { StyleSheet, TextInput } from "react-native";
-
 import expoTheme from "./theme";
-import { mergeTheme, rgba } from "./utils";
+import { mergeTheme, rgba } from "./utils/index";
 
 /**
  * https://facebook.github.io/react-native/docs/textinput
@@ -168,7 +167,7 @@ Input.defaultProps = {
   pattern: null,
   onFocus: null,
   onBlur: null,
-  onChange: null,
+  onChangeText: null,
   onValidation: null,
   placeholder: null,
   autoCorrect: false,

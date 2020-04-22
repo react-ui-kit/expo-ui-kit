@@ -80,7 +80,7 @@ export const spacing = (type, value, defaultValue = 1) => {
   // if the value is string: 2x 4x
   if (typeof value === "string") {
     // extract decimal or integer value from value
-    const spacingValue = value.match(/((?=.*[1-9])\d*(?:\.\d{1,2})|(\d*))x/);
+    const spacingValue = value.match(/((?=.*[1-9])\d*(?:\.\d{1,2})|(\d*))x/)[0];
     if (!spacingValue) return {};
 
     return {
@@ -126,7 +126,7 @@ export const parseSpacing = (type, value, defaultValue = 1) => {
   // if the value is string: 2x 4x
   if (typeof value === "string") {
     // extract decimal or integer value from value
-    const spacingValue = value.match(/((?=.*[1-9])\d*(?:\.\d{1,2})|(\d*))x/);
+    const spacingValue = value.match(/((?=.*[1-9])\d*(?:\.\d{1,2})|(\d*))x/)[0];
     if (!spacingValue) return {};
 
     return {
@@ -180,7 +180,7 @@ export const getMargins = (value, defaultValue = 1) => {
   }
 
   if (typeof value === "string") {
-    const marginValue = value.match(/((?=.*[1-9])\d*(?:\.\d{1,2})|(\d*))x/);
+    const marginValue = value.match(/((?=.*[1-9])\d*(?:\.\d{1,2})|(\d*))/)[0];
     return (
       marginValue && {
         marginTop: parseFloat(marginValue) * defaultValue,
@@ -237,7 +237,7 @@ export const getPaddings = (value, defaultValue = 1) => {
   }
 
   if (typeof value === "string") {
-    const paddingValue = value.match(/((?=.*[1-9])\d*(?:\.\d{1,2})|(\d*))x/);
+    const paddingValue = value.match(/((?=.*[1-9])\d*(?:\.\d{1,2})|(\d*))/)[0];
     return (
       paddingValue && {
         paddingTop: parseFloat(paddingValue) * defaultValue,
@@ -284,7 +284,7 @@ export const getPaddings = (value, defaultValue = 1) => {
  * COLORS.secondary will return value "green"
  */
 
-export const mergeTheme = (theme = {}, extra = {}) => {
+export const mergeTheme = (theme, extra) => {
   const { COLORS, SIZES, FONTS, WEIGHTS, ...REST } = extra;
   return {
     COLORS: { ...theme.COLORS, ...COLORS },
