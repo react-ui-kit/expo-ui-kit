@@ -35,7 +35,7 @@ interface ColorsProps {
 interface PositioningProps {
   flex?: number | boolean;
   noflex?: boolean;
-  space?: string;
+  space?: 'between' | 'around' | 'evenly';
   row?: boolean;
   column?: boolean;
   center?: boolean;
