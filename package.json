@@ -9,8 +9,8 @@
   ],
   "homepage": "http://expo-ui-kit.com/",
   "description": "Expo.io UI Kit for React-Native",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "index.js",
+  "types": "src/index.d.ts",
   "author": "React-UI-Kit <contact@react-ui-kit.com> (https://react-ui-kit.com)",
   "license": "MIT",
   "scripts": {
