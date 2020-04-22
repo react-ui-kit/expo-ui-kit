@@ -2,9 +2,100 @@
  * Component Types
  */
 
-import { NativeSyntheticEvent, TextInputFocusEventData } from "react-native";
-import { ThemeProps } from "./global";
+import {
+  NativeSyntheticEvent,
+  TextInputFocusEventData,
+  TouchableHighlightProps,
+  TouchableNativeFeedbackProps,
+  TouchableWithoutFeedbackProps
+} from "react-native";
 
+/**
+ * Global Component Types
+ */
+
+interface SizingProps {
+  width?: number | string;
+  height?: number | string;
+  borderWidth?: number;
+}
+
+interface ColorsProps {
+  color?: string;
+  primary?: boolean;
+  secondary?: boolean;
+  tertiary?: boolean;
+  black?: boolean;
+  white?: boolean;
+  gray?: boolean;
+  error?: boolean;
+  warning?: boolean;
+  success?: boolean;
+  info?: boolean;
+  borderColor?: string;
+}
+
+interface PositioningProps {
+  flex?: number | boolean;
+  noflex?: boolean;
+  space?: string;
+  row?: boolean;
+  column?: boolean;
+  center?: boolean;
+  middle?: boolean;
+  top?: boolean;
+  right?: boolean;
+  bottom?: boolean;
+  left?: boolean;
+}
+
+interface StylingProps {
+  opacity?: number;
+  color?: string;
+  shadow?: boolean;
+  elevation?: number;
+  radius?: number;
+  wrap?: boolean;
+  style?: Record<string, any>;
+  theme?: Record<string, any>;
+}
+
+declare type StringNumberBoolean = string | number | boolean;
+declare type SNB = StringNumberBoolean;
+
+interface ExcludedProps {
+  margin?: SNB | number[];
+  marginTop?: SNB;
+  marginRight?: SNB;
+  marginBottom?: SNB;
+  marginLeft?: SNB;
+  marginVertical?: SNB;
+  marginHorizontal?: SNB;
+  padding?: SNB | number[];
+  paddingTop?: SNB;
+  paddingRight?: SNB;
+  paddingBottom?: SNB;
+  paddingLeft?: SNB;
+  paddingVertical?: SNB;
+  paddingHorizontal?: SNB;
+}
+
+export interface ThemeProps
+  extends SizingProps,
+    PositioningProps,
+    StylingProps,
+    ColorsProps,
+    ExcludedProps {}
+
+/**
+ * The Subtract type is a difference operator as it does T - K and return the difference.
+ * @param T - Minuend, base value
+ * @param K - Subtraend, the props you want to discard
+ * @returns Rest or difference of the operation
+ */
+
+type Subtract<T, K> = Pick<T, Exclude<keyof T, keyof K>>;
+export type ExtraProps<P> = Subtract<P, ExcludedProps>;
 interface BlockOptions {
   animated?: boolean;
   safe?: boolean;
@@ -81,6 +172,12 @@ export interface ButtonProps extends ButtonOptions, ThemeProps {
   [key: string]: any;
 }
 
+export type RenderButtonProps = ButtonProps &
+  TouchableWithoutFeedbackProps &
+  TouchableHighlightProps &
+  TouchableNativeFeedbackProps & {
+    Touchable?: any;
+  };
 export interface TextProps extends TextOptions, ThemeProps {
   [key: string]: any;
 }
