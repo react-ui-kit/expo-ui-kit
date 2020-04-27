@@ -1,33 +1,8 @@
 import React, { useReducer } from "react";
 import { StyleSheet, TextInput } from "react-native";
+
 import expoTheme from "./theme";
 import { mergeTheme, rgba } from "./utils/index";
-
-/**
- * https://facebook.github.io/react-native/docs/textinput
- *
- * Validation
- * onValidation return a single boolean or object with boolean values
- * pattern using regex string for validating the value
- *
- * single pattern to validate the value
- * <Input
- *   pattern="/\d/" // validate digits
- *   onValidation={isValid => console.log(isValid)}
- * />
- *
- * multiple pattern to validate the value
- * <Input
- *   pattern={[ "/\d/", "/\w/"]} // validate digits and words
- *   onValidation={isValid => console.log(isValid)}
- * />
- *
- * Border color using color prop
- * <Input color="red" />
- *
- * Pass ref from props using internalRef reference
- * <Input internalRef={c => this.c} />
- */
 
 export const INITIAL_STATE = {
   value: null,
