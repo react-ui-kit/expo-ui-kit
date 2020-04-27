@@ -503,10 +503,13 @@ describe("<Block />", () => {
     expect(style.backgroundColor).toEqual("red");
   });
 
-  it("render ScrollView component", () => {
+  it("scroll", () => {
     const component = shallow(<Block scroll />);
+    const scroll = renderer.create(<Block scroll />);
 
-    expect(component.props().scroll).toEqual(true);
+    const instance = scroll.root;
+
+    expect(instance.props.scroll).toEqual(true);
     expect(component.name()).toEqual("ScrollViewMock");
   });
 

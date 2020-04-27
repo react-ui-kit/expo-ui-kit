@@ -287,10 +287,10 @@ export const getPaddings = (value, defaultValue = 1) => {
 export const mergeTheme = (theme, extra) => {
   const { COLORS, SIZES, FONTS, WEIGHTS, ...REST } = extra;
   return {
-    COLORS: { ...theme.COLORS, ...COLORS },
-    SIZES: { ...theme.SIZES, ...SIZES },
-    FONTS: { ...theme.FONTS, ...FONTS },
-    WEIGHTS: { ...theme.WEIGHTS, ...WEIGHTS },
+    COLORS: { ...theme?.COLORS, ...COLORS },
+    SIZES: { ...theme?.SIZES, ...SIZES },
+    FONTS: { ...theme?.FONTS, ...FONTS },
+    WEIGHTS: { ...theme?.WEIGHTS, ...WEIGHTS },
     ...REST
   };
 };

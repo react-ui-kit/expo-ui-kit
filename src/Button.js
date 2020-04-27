@@ -6,55 +6,9 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback
 } from "react-native";
+
 import expoTheme from "./theme";
 import { getSpacing, mergeTheme, parseSpacing, rgba } from "./utils/index";
-
-/**
- * https://facebook.github.io/react-native/docs/touchableopacity
- * https://facebook.github.io/react-native/docs/touchablehighlight
- * https://facebook.github.io/react-native/docs/touchablenativefeedback
- * https://facebook.github.io/react-native/docs/touchablewithoutfeedback
- *
- * Default render an instance of TouchableOpacity
- *
- * - TouchableHighlight
- * <Button highlight><Text>instance of TouchableHighlight</Text></Button>
- *
- * - TouchableNativeFeedback
- * <Button nativeFeedback><Text>instance of TouchableNativeFeedback</Text></Button>
- *
- * - TouchableWithoutFeedback
- * <Button withoutFeedback><Text>instance of TouchableWithoutFeedback</Text></Button>
- *
- * Colors
- * - will render backgroundColor using predefined colors from theme.js COLORS array
- * - predefined colors: primary, secondary, tertiary, black, white, gray, error, warning, success, info
- *
- * <Button primary><Text>backgroundColor: COLORS.primary</Text></Button>
- * <Button transparent><Text>backgroundColor: "transparent"</Text></Button>
- *
- * - custom color using hex color
- * <Button color="#DDDDDD"><Text>backgroundColor: #DDDDDD</Text></Button>
- *
- * Set activeOpacity using opacity prop
- * default activeOpacity=0.8
- * <Button opacity={0.5}><Text>opacity={0.5}</Text></Button>
- *
- * Outlined and add borderColor equal with backgroundColor
- * <Button primary outlined><Text>outlined</Text></Button>
- *
- * Disabling the button
- * <Button disabled><Text>disabled</Text></Button>
- * <Button disabled={false}><Text>false</Text></Button>
- *
- * Add flex to button style
- * <Button flex><Text>flex=1</Text></Button>
- * <Button flex={2}><Text>flex=2</Text></Button>
- *
- * Add height to button style
- * <Button height={58}><Text>height=58</Text></Button>
- *
- */
 
 export const ButtonInstance = ({
   Touchable = TouchableOpacity,

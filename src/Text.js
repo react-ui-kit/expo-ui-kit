@@ -1,5 +1,6 @@
 import React from "react";
 import { Animated, StyleSheet, Text } from "react-native";
+
 import expoTheme from "./theme";
 import { getSpacing, mergeTheme, parseSpacing } from "./utils/index";
 
