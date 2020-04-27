@@ -1,6 +1,7 @@
 # Block
 
 https://reactnative.dev/docs/view
+
 https://reactnative.dev/docs/flexbox
 
 Usage:
@@ -91,6 +92,7 @@ Colors
 ```
 
 Arrange content using justifyContent
+
 https://reactnative.dev/docs/layout-props#justifycontent
 
 - space between the content
@@ -132,6 +134,7 @@ Border radius
 ```
 
 Wrap content using flexWrap, default flexWrap: 'nowrap'
+
 https://reactnative.dev/docs/flexbox#flex-wrap
 
 - flexWrap: 'wrap'
@@ -167,8 +170,11 @@ For safe area views, safe props can be use to render SafeAreaView component
 # Button
 
 https://reactnative.dev/docs/touchableopacity
+
 https://reactnative.dev/docs/touchablehighlight
+
 https://reactnative.dev/docs/touchablenativefeedback
+
 https://reactnative.dev/docs/touchablewithoutfeedback
 
 Default render an instance of TouchableOpacity
@@ -269,6 +275,7 @@ Add height to button style
 # Card
 
 https://reactnative.dev/docs/view
+
 https://reactnative.dev/docs/flexbox
 
 Using Block component with predefined props: color, radius and padding
