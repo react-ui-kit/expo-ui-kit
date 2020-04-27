@@ -1,0 +1,7 @@
+/coverage
+/examples
+/docs
+yarn.lock
+.expo
+jest*
+/src/__tests__
