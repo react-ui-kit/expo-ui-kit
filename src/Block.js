@@ -10,124 +10,102 @@ import {
 import expoTheme from "./theme";
 import { getSpacing, mergeTheme, parseSpacing } from "./utils";
 
+const getSpacings = ({
+  type,
+  margin,
+  marginTop,
+  marginRight,
+  marginBottom,
+  marginLeft,
+  marginVertical,
+  marginHorizontal,
+  padding,
+  paddingTop,
+  paddingRight,
+  paddingBottom,
+  paddingLeft,
+  paddingVertical,
+  paddingHorizontal,
+  theme = expoTheme
+}) => {
+  const { SIZES } = mergeTheme(expoTheme, theme);
+
+  if (type === "margin") {
+    return [
+      margin && getSpacing(type, margin, SIZES?.base),
+      marginTop && parseSpacing("marginTop", marginTop, SIZES?.base),
+      marginRight && parseSpacing("marginRight", marginRight, SIZES?.base),
+      marginBottom && parseSpacing("marginBottom", marginBottom, SIZES?.base),
+      marginLeft && parseSpacing("marginLeft", marginLeft, SIZES?.base),
+      marginVertical &&
+        parseSpacing("marginVertical", marginVertical, SIZES?.base),
+      marginHorizontal &&
+        parseSpacing("marginHorizontal", marginHorizontal, SIZES?.base)
+    ];
+  }
+
+  if (type === "padding") {
+    return [
+      padding && getSpacing(type, padding, SIZES?.base),
+      paddingTop && parseSpacing("paddingTop", paddingTop, SIZES?.base),
+      paddingRight && parseSpacing("paddingRight", paddingRight, SIZES?.base),
+      paddingBottom &&
+        parseSpacing("paddingBottom", paddingBottom, SIZES?.base),
+      paddingLeft && parseSpacing("paddingLeft", paddingLeft, SIZES?.base),
+      paddingVertical &&
+        parseSpacing("paddingVertical", paddingVertical, SIZES?.base),
+      paddingHorizontal &&
+        parseSpacing("paddingHorizontal", paddingHorizontal, SIZES?.base)
+    ];
+  }
+};
+
 const Block = (props) => {
-  const getSpacings = (type) => {
-    const {
-      margin,
-      marginTop,
-      marginRight,
-      marginBottom,
-      marginLeft,
-      marginVertical,
-      marginHorizontal,
-      padding,
-      paddingTop,
-      paddingRight,
-      paddingBottom,
-      paddingLeft,
-      paddingVertical,
-      paddingHorizontal,
-      theme
-    } = props;
-    const { SIZES } = mergeTheme(expoTheme, theme);
-
-    if (type === "margin") {
-      return [
-        margin && getSpacing(type, margin, SIZES.base),
-        marginTop && parseSpacing("marginTop", marginTop, SIZES.base),
-        marginRight && parseSpacing("marginRight", marginRight, SIZES.base),
-        marginBottom && parseSpacing("marginBottom", marginBottom, SIZES.base),
-        marginLeft && parseSpacing("marginLeft", marginLeft, SIZES.base),
-        marginVertical &&
-          parseSpacing("marginVertical", marginVertical, SIZES.base),
-        marginHorizontal &&
-          parseSpacing("marginHorizontal", marginHorizontal, SIZES.base)
-      ];
-    }
-
-    if (type === "padding") {
-      return [
-        padding && getSpacing(type, padding, SIZES.base),
-        paddingTop && parseSpacing("paddingTop", paddingTop, SIZES.base),
-        paddingRight && parseSpacing("paddingRight", paddingRight, SIZES.base),
-        paddingBottom &&
-          parseSpacing("paddingBottom", paddingBottom, SIZES.base),
-        paddingLeft && parseSpacing("paddingLeft", paddingLeft, SIZES.base),
-        paddingVertical &&
-          parseSpacing("paddingVertical", paddingVertical, SIZES.base),
-        paddingHorizontal &&
-          parseSpacing("paddingHorizontal", paddingHorizontal, SIZES.base)
-      ];
-    }
-  };
-
   const {
-    width,
-    height,
-    flex,
-    noflex,
-    row,
-    column,
-    center,
-    middle,
-    left,
-    right,
-    top,
-    bottom,
-    card,
-    shadow,
-    elevation,
+    flex = true,
+    noflex = false,
+    row = false,
+    column = false,
+    center = false,
+    middle = false,
+    left = false,
+    right = false,
+    top = false,
+    bottom = false,
+    card = false,
+    shadow = null,
+    elevation = 3,
     // colors
-    color,
-    primary,
-    secondary,
-    tertiary,
-    black,
-    white,
-    gray,
-    error,
-    warning,
-    success,
-    info,
-    // positioning
-    space,
-    radius,
-    wrap,
-    animated,
-    theme,
-    safe,
-    style,
-    children,
-    scroll
+    color = null,
+    primary = false,
+    secondary = false,
+    tertiary = false,
+    black = false,
+    white = false,
+    gray = false,
+    error = false,
+    warning = false,
+    success = false,
+    info = false,
+    // size & positioning
+    width = null,
+    height = null,
+    space = null,
+    radius = null,
+    wrap = false,
+    // custom styling
+    style = {},
+    theme = {},
+    // variations
+    animated = false,
+    safe = false,
+    scroll = false,
+    children = null,
+    ...rest
   } = props;
-
-  const excludeProps = [
-    "margin",
-    "marginTop",
-    "marginRight",
-    "marginBottom",
-    "marginLeft",
-    "marginVertical",
-    "marginHorizontal",
-    "padding",
-    "paddingTop",
-    "paddingRight",
-    "paddingBottom",
-    "paddingLeft",
-    "paddingVertical",
-    "paddingHorizontal"
-  ];
-
-  const extraProps = Object.keys(props).reduce((prop, key) => {
-    if (!excludeProps.includes(`${key}`)) {
-      prop[key] = props[key];
-    }
-    return prop;
-  }, {});
-
   const { SIZES, COLORS } = mergeTheme(expoTheme, theme);
-  const marginSpacing = getSpacings("margin");
-  const paddingSpacing = getSpacings("padding");
+  const marginSpacing = getSpacings({ type: "margin", ...props });
+  const paddingSpacing = getSpacings({ type: "padding", ...props });
 
   const blockStyles = StyleSheet.flatten([
     styles.block,
@@ -174,7 +152,7 @@ const Block = (props) => {
 
   if (scroll) {
     return (
-      <ScrollView {...extraProps} style={blockStyles}>
+      <ScrollView {...rest} style={blockStyles}>
         {children}
       </ScrollView>
     );
@@ -182,7 +160,7 @@ const Block = (props) => {
 
   if (animated) {
     return (
-      <Animated.View {...extraProps} style={blockStyles}>
+      <Animated.View {...rest} style={blockStyles}>
         {children}
       </Animated.View>
     );
@@ -190,43 +168,17 @@ const Block = (props) => {
 
   if (safe) {
     return (
-      <SafeAreaView {...extraProps} style={blockStyles}>
+      <SafeAreaView {...rest} style={blockStyles}>
         {children}
       </SafeAreaView>
     );
   }
 
   return (
-    <View {...extraProps} style={blockStyles}>
+    <View {...rest} style={blockStyles}>
       {children}
     </View>
   );
-};
-
-Block.defaultProps = {
-  flex: true,
-  row: false,
-  column: false,
-  center: false,
-  middle: false,
-  left: false,
-  right: false,
-  top: false,
-  bottom: false,
-  card: false,
-  shadow: null,
-  elevation: 3,
-  color: null,
-  space: null,
-  margin: null,
-  padding: null,
-  radius: null,
-  wrap: false,
-  animated: false,
-  safe: false,
-  scroll: false,
-  style: {},
-  theme: {}
 };
 
 export default Block;
