@@ -106,7 +106,7 @@ const Button = (props) => {
     success && { backgroundColor: COLORS.success },
     info && { backgroundColor: COLORS.info },
     color && { backgroundColor: color }, // custom backgroundColor
-    flex && { flex }, // flex width
+    flex && { flex: flex === true ? 1 : flex }, // flex width
     height && { height }, // custom height
     width && { width }, // custom width
     borderWidth && { borderWidth },
