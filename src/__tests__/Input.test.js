@@ -56,16 +56,6 @@ describe("<Input />", () => {
     expect(instance.props.placeholder).toEqual("input");
   });
 
-  it("custom color, borderColor to opacity 0.4", () => {
-    const input = renderer.create(<Input color="#DDDDDD" />);
-    const component = input.toJSON();
-    const instance = input.root;
-
-    const style = StyleSheet.flatten(component.props.style);
-    expect(style.borderColor).toEqual(rgba("#DDDDDD", 0.4));
-    expect(instance.props.color).toEqual("#DDDDDD");
-  });
-
   it("onFocus & onBlur", () => {
     const onFocus = jest.fn();
     const onBlur = jest.fn();
