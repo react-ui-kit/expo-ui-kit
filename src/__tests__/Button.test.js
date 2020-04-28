@@ -181,8 +181,11 @@ describe("<Button />", () => {
     const style = StyleSheet.flatten(component.props.style);
     expect(instance.props.marginHorizontal).toEqual(6);
     expect(instance.props.marginVertical).toEqual(8);
-    expect(style.marginHorizontal).toEqual(6);
-    expect(style.marginVertical).toEqual(8);
+
+    expect(style.marginLeft).toEqual(6);
+    expect(style.marginRight).toEqual(6);
+    expect(style.marginBottom).toEqual(8);
+    expect(style.marginTop).toEqual(8);
   });
 
   it("marginTop={6}, marginRight={5}, marginBottom={4}, marginLeft={3}", () => {
@@ -230,8 +233,6 @@ describe("<Button />", () => {
     expect(style.marginRight).toEqual(8);
     expect(style.marginBottom).toEqual(8);
     expect(style.marginLeft).toEqual(8);
-    expect(style.marginVertical).toEqual(8);
-    expect(style.marginHorizontal).toEqual(8);
   });
 
   it("padding={12}", () => {
@@ -259,8 +260,10 @@ describe("<Button />", () => {
     const style = StyleSheet.flatten(component.props.style);
     expect(instance.props.paddingHorizontal).toEqual(6);
     expect(instance.props.paddingVertical).toEqual(8);
-    expect(style.paddingHorizontal).toEqual(6);
-    expect(style.paddingVertical).toEqual(8);
+    expect(style.paddingLeft).toEqual(6);
+    expect(style.paddingRight).toEqual(6);
+    expect(style.paddingTop).toEqual(8);
+    expect(style.paddingBottom).toEqual(8);
   });
 
   it("paddingTop={6}, paddingRight={5}, paddingBottom={4}, paddingLeft={3}", () => {
@@ -313,8 +316,6 @@ describe("<Button />", () => {
     expect(style.paddingRight).toEqual(8);
     expect(style.paddingBottom).toEqual(8);
     expect(style.paddingLeft).toEqual(8);
-    expect(style.paddingVertical).toEqual(8);
-    expect(style.paddingHorizontal).toEqual(8);
   });
 
   it("disabled", () => {

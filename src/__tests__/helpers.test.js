@@ -1,9 +1,9 @@
-import { getSpacing } from "../utils/index";
+import { getMargins, getPaddings } from "../utils/";
 
 describe("Helpers", () => {
   it("spacing: margin & padding", () => {
-    const margin = getSpacing("margin", true, 8);
-    const padding = getSpacing("padding", true, 8);
+    const margin = getMargins({ margin: true, defaultValue: 8 });
+    const padding = getPaddings({ padding: true, defaultValue: 8 });
     expect(margin).toEqual({
       marginBottom: 8,
       marginLeft: 8,
@@ -18,8 +18,8 @@ describe("Helpers", () => {
     });
   });
   it("spacing: margin={4} && padding={4}", () => {
-    const margin = getSpacing("margin", 4);
-    const padding = getSpacing("padding", 4);
+    const margin = getMargins({ margin: 4 });
+    const padding = getPaddings({ padding: 4 });
     expect(margin).toEqual({
       marginBottom: 4,
       marginLeft: 4,
@@ -34,8 +34,8 @@ describe("Helpers", () => {
     });
   });
   it("spacing: margin='0.5x' && padding='0.4x'", () => {
-    const margin = getSpacing("margin", "0.5x", 4);
-    const padding = getSpacing("padding", "4x", 4);
+    const margin = getMargins({ margin: "0.5x", defaultValue: 4 });
+    const padding = getPaddings({ padding: "4x", defaultValue: 4 });
     expect(margin).toEqual({
       marginBottom: 2,
       marginLeft: 2,

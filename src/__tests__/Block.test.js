@@ -2,6 +2,7 @@ import { shallow } from "enzyme";
 import React from "react";
 import { StyleSheet } from "react-native";
 import renderer from "react-test-renderer";
+
 import Block from "../Block";
 import { SIZES } from "../theme";
 
@@ -207,8 +208,10 @@ describe("<Block />", () => {
     expect(instance.props.paddingVertical).toEqual(8);
     expect(style).toEqual({
       flex: 1,
-      paddingVertical: 8,
-      paddingHorizontal: 6
+      paddingTop: 8,
+      paddingBottom: 8,
+      paddingLeft: 6,
+      paddingRight: 6
     });
   });
 
@@ -225,8 +228,10 @@ describe("<Block />", () => {
     expect(instance.props.paddingVertical).toEqual("0.5x");
     expect(style).toEqual({
       flex: 1,
-      paddingVertical: 4,
-      paddingHorizontal: 16
+      paddingTop: 4,
+      paddingBottom: 4,
+      paddingLeft: 16,
+      paddingRight: 16
     });
   });
 
@@ -343,8 +348,10 @@ describe("<Block />", () => {
     expect(instance.props.marginVertical).toEqual(8);
     expect(style).toEqual({
       flex: 1,
-      marginVertical: 8,
-      marginHorizontal: 6
+      marginBottom: 8,
+      marginTop: 8,
+      marginLeft: 6,
+      marginRight: 6
     });
   });
 
@@ -361,8 +368,10 @@ describe("<Block />", () => {
     expect(instance.props.marginVertical).toEqual("0.5x");
     expect(style).toEqual({
       flex: 1,
-      marginVertical: 4,
-      marginHorizontal: 16
+      marginBottom: 4,
+      marginTop: 4,
+      marginLeft: 16,
+      marginRight: 16
     });
   });
 

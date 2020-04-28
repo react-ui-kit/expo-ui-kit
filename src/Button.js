@@ -8,7 +8,7 @@ import {
 } from "react-native";
 
 import expoTheme from "./theme";
-import { getSpacing, mergeTheme, parseSpacing, rgba } from "./utils/index";
+import { mergeTheme, rgba, getMargins, getPaddings } from "./utils/";
 
 export const ButtonInstance = ({
   Touchable = TouchableOpacity,
@@ -17,61 +17,13 @@ export const ButtonInstance = ({
 }) => <Touchable {...props}>{children}</Touchable>;
 
 const Button = (props) => {
-  const getSpacings = (type) => {
-    const {
-      margin,
-      marginTop,
-      marginRight,
-      marginBottom,
-      marginLeft,
-      marginVertical,
-      marginHorizontal,
-      padding,
-      paddingTop,
-      paddingRight,
-      paddingBottom,
-      paddingLeft,
-      paddingVertical,
-      paddingHorizontal,
-      theme
-    } = props;
-    const { SIZES } = mergeTheme(expoTheme, theme);
-
-    if (type === "margin") {
-      return [
-        margin && getSpacing(type, margin, SIZES.base),
-        marginTop && parseSpacing("marginTop", marginTop, SIZES.base),
-        marginRight && parseSpacing("marginRight", marginRight, SIZES.base),
-        marginBottom && parseSpacing("marginBottom", marginBottom, SIZES.base),
-        marginLeft && parseSpacing("marginLeft", marginLeft, SIZES.base),
-        marginVertical &&
-          parseSpacing("marginVertical", marginVertical, SIZES.base),
-        marginHorizontal &&
-          parseSpacing("marginHorizontal", marginHorizontal, SIZES.base)
-      ];
-    }
-
-    if (type === "padding") {
-      return [
-        padding && getSpacing(type, padding, SIZES.base),
-        paddingTop && parseSpacing("paddingTop", paddingTop, SIZES.base),
-        paddingRight && parseSpacing("paddingRight", paddingRight, SIZES.base),
-        paddingBottom &&
-          parseSpacing("paddingBottom", paddingBottom, SIZES.base),
-        paddingLeft && parseSpacing("paddingLeft", paddingLeft, SIZES.base),
-        paddingVertical &&
-          parseSpacing("paddingVertical", paddingVertical, SIZES.base),
-        paddingHorizontal &&
-          parseSpacing("paddingHorizontal", paddingHorizontal, SIZES.base)
-      ];
-    }
-  };
   const {
     disabled,
     opacity,
     outlined,
     flex,
     height,
+    width,
     borderWidth,
     // colors
     color,
@@ -93,39 +45,51 @@ const Button = (props) => {
     withoutFeedback,
     theme,
     style,
-    children
+    children,
+    // sizing props
+    margin,
+    marginHorizontal,
+    marginVertical,
+    marginTop,
+    marginBottom,
+    marginLeft,
+    marginRight,
+    padding,
+    paddingHorizontal,
+    paddingVertical,
+    paddingTop,
+    paddingBottom,
+    paddingLeft,
+    paddingRight,
+    ...rest
   } = props;
 
-  const excludeProps = [
-    "margin",
-    "marginTop",
-    "marginRight",
-    "marginBottom",
-    "marginLeft",
-    "marginVertical",
-    "marginHorizontal",
-    "padding",
-    "paddingTop",
-    "paddingRight",
-    "paddingBottom",
-    "paddingLeft",
-    "paddingVertical",
-    "paddingHorizontal"
-  ];
-  const extraProps = Object.keys(props).reduce((prop, key) => {
-    if (!excludeProps.includes(`${key}`)) {
-      prop[key] = props[key];
-    }
-    return prop;
-  }, {});
-
   const { SIZES, COLORS } = mergeTheme({ ...expoTheme }, theme);
-  const marginSpacing = getSpacings("margin");
-  const paddingSpacing = getSpacings("padding");
+
+  const marginSpacing = getMargins({
+    margin,
+    marginHorizontal,
+    marginVertical,
+    marginTop,
+    marginBottom,
+    marginLeft,
+    marginRight,
+    defaultValue: SIZES.base
+  });
+  const paddingSpacing = getPaddings({
+    padding,
+    paddingHorizontal,
+    paddingVertical,
+    paddingTop,
+    paddingBottom,
+    paddingLeft,
+    paddingRight,
+    defaultValue: SIZES.base
+  });
 
   const buttonStyles = StyleSheet.flatten([
     {
-      height: SIZES.base * 5.5,
+      minHeight: SIZES.base * 5.5,
       borderRadius: SIZES.radius,
       backgroundColor: color || COLORS.primary,
       justifyContent: "center"
@@ -144,6 +108,7 @@ const Button = (props) => {
     color && { backgroundColor: color }, // custom backgroundColor
     flex && { flex }, // flex width
     height && { height }, // custom height
+    width && { width }, // custom width
     borderWidth && { borderWidth },
     borderColor && { borderColor },
     marginSpacing,
@@ -173,7 +138,7 @@ const Button = (props) => {
 
   return (
     <ButtonInstance
-      {...extraProps}
+      {...rest}
       disabled={disabled}
       Touchable={Touchable}
       activeOpacity={opacity}
