@@ -86,7 +86,6 @@ const Input = (props) => {
     autoCapitalize,
     placeholder,
     children,
-    color,
     borderWidth,
     borderColor,
     type,
@@ -105,7 +104,7 @@ const Input = (props) => {
       borderWidth: 1,
       height: SIZES.base * 5.5,
       borderRadius: SIZES.radius,
-      borderColor: rgba(color || COLORS.primary, 0.4),
+      borderColor: rgba(COLORS.primary, 0.4),
       paddingHorizontal: SIZES.base,
       fontSize: SIZES.font
     },
@@ -147,7 +146,6 @@ Input.defaultProps = {
   placeholder: null,
   autoCorrect: false,
   autoCapitalize: "none",
-  color: null,
   internalRef: null,
   theme: {},
   style: {}

@@ -123,7 +123,7 @@ describe("<Button />", () => {
     expect(style.backgroundColor).toEqual("transparent");
   });
 
-  it("flex", () => {
+  it("default flex", () => {
     const button = renderer.create(<Button />);
 
     const component = button.toJSON();
@@ -132,6 +132,17 @@ describe("<Button />", () => {
     const style = StyleSheet.flatten(component.props.style);
     expect(instance.props.flex).toEqual(0);
     expect(style.flex).toEqual(undefined);
+  });
+
+  it("flex", () => {
+    const button = renderer.create(<Button flex />);
+
+    const component = button.toJSON();
+    const instance = button.root;
+
+    const style = StyleSheet.flatten(component.props.style);
+    expect(instance.props.flex).toEqual(true);
+    expect(style.flex).toEqual(1);
   });
 
   it("flex=0.5", () => {
