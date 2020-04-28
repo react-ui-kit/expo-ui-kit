@@ -2,7 +2,7 @@ import React from "react";
 import { Animated, StyleSheet, Text } from "react-native";
 
 import expoTheme from "./theme";
-import { getSpacing, mergeTheme, parseSpacing } from "./utils/index";
+import { mergeTheme, getMargins, getPaddings } from "./utils/index";
 
 /**
  * Usage:
@@ -68,56 +68,6 @@ import { getSpacing, mergeTheme, parseSpacing } from "./utils/index";
  */
 
 const Typography = (props) => {
-  const getSpacings = (type) => {
-    const {
-      margin,
-      marginTop,
-      marginRight,
-      marginBottom,
-      marginLeft,
-      marginVertical,
-      marginHorizontal,
-      padding,
-      paddingTop,
-      paddingRight,
-      paddingBottom,
-      paddingLeft,
-      paddingVertical,
-      paddingHorizontal,
-      theme
-    } = props;
-    const { SIZES } = mergeTheme(expoTheme, theme);
-
-    if (type === "margin") {
-      return [
-        margin && getSpacing(type, margin, SIZES.base),
-        marginTop && parseSpacing("marginTop", marginTop, SIZES.base),
-        marginRight && parseSpacing("marginRight", marginRight, SIZES.base),
-        marginBottom && parseSpacing("marginBottom", marginBottom, SIZES.base),
-        marginLeft && parseSpacing("marginLeft", marginLeft, SIZES.base),
-        marginVertical &&
-          parseSpacing("marginVertical", marginVertical, SIZES.base),
-        marginHorizontal &&
-          parseSpacing("marginHorizontal", marginHorizontal, SIZES.base)
-      ];
-    }
-
-    if (type === "padding") {
-      return [
-        padding && getSpacing(type, padding, SIZES.base),
-        paddingTop && parseSpacing("paddingTop", paddingTop, SIZES.base),
-        paddingRight && parseSpacing("paddingRight", paddingRight, SIZES.base),
-        paddingBottom &&
-          parseSpacing("paddingBottom", paddingBottom, SIZES.base),
-        paddingLeft && parseSpacing("paddingLeft", paddingLeft, SIZES.base),
-        paddingVertical &&
-          parseSpacing("paddingVertical", paddingVertical, SIZES.base),
-        paddingHorizontal &&
-          parseSpacing("paddingHorizontal", paddingHorizontal, SIZES.base)
-      ];
-    }
-  };
-
   const {
     // fonts & sizes
     h1,
@@ -156,36 +106,46 @@ const Typography = (props) => {
     theme,
     style,
     children,
+    // sizing props
+    margin,
+    marginHorizontal,
+    marginVertical,
+    marginTop,
+    marginBottom,
+    marginLeft,
+    marginRight,
+    padding,
+    paddingHorizontal,
+    paddingVertical,
+    paddingTop,
+    paddingBottom,
+    paddingLeft,
+    paddingRight,
     ...rest
   } = props;
 
-  const excludeProps = [
-    "margin",
-    "marginTop",
-    "marginRight",
-    "marginBottom",
-    "marginLeft",
-    "marginVertical",
-    "marginHorizontal",
-    "padding",
-    "paddingTop",
-    "paddingRight",
-    "paddingBottom",
-    "paddingLeft",
-    "paddingVertical",
-    "paddingHorizontal"
-  ];
-  const extraProps = Object.keys(props).reduce((prop, key) => {
-    if (!excludeProps.includes(`${key}`)) {
-      prop[key] = props[key];
-    }
-    return prop;
-  }, {});
-
   const { SIZES, COLORS, FONTS, WEIGHTS } = mergeTheme({ ...expoTheme }, theme);
 
-  const marginSpacing = getSpacings("margin");
-  const paddingSpacing = getSpacings("padding");
+  const marginSpacing = getMargins({
+    margin,
+    marginHorizontal,
+    marginVertical,
+    marginTop,
+    marginBottom,
+    marginLeft,
+    marginRight,
+    defaultValue: SIZES.base
+  });
+  const paddingSpacing = getPaddings({
+    padding,
+    paddingHorizontal,
+    paddingVertical,
+    paddingTop,
+    paddingBottom,
+    paddingLeft,
+    paddingRight,
+    defaultValue: SIZES.base
+  });
 
   const textStyles = StyleSheet.flatten([
     {
@@ -231,14 +191,14 @@ const Typography = (props) => {
 
   if (animated) {
     return (
-      <Animated.Text {...extraProps} style={textStyles}>
+      <Animated.Text {...rest} style={textStyles}>
         {children}
       </Animated.Text>
     );
   }
 
   return (
-    <Text {...extraProps} style={textStyles}>
+    <Text {...rest} style={textStyles}>
       {children}
     </Text>
   );

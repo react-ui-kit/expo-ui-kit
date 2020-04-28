@@ -2,6 +2,7 @@ import { shallow } from "enzyme";
 import React from "react";
 import { StyleSheet } from "react-native";
 import renderer from "react-test-renderer";
+
 import Text from "../Text";
 import { FONTS, SIZES } from "../theme";
 
@@ -175,8 +176,10 @@ describe("<Text />", () => {
       fontWeight: "normal",
       fontSize: SIZES.font,
       color: "#000000",
-      paddingVertical: 8,
-      paddingHorizontal: 6
+      paddingBottom: 8,
+      paddingTop: 8,
+      paddingLeft: 6,
+      paddingRight: 6
     });
   });
 
@@ -195,8 +198,10 @@ describe("<Text />", () => {
       fontWeight: "normal",
       fontSize: SIZES.font,
       color: "#000000",
-      paddingVertical: 4,
-      paddingHorizontal: 16
+      paddingBottom: 4,
+      paddingTop: 4,
+      paddingLeft: 16,
+      paddingRight: 16
     });
   });
 
@@ -296,8 +301,10 @@ describe("<Text />", () => {
       fontWeight: "normal",
       fontSize: SIZES.font,
       color: "#000000",
-      marginVertical: 8,
-      marginHorizontal: 6
+      marginBottom: 8,
+      marginTop: 8,
+      marginLeft: 6,
+      marginRight: 6
     });
   });
 

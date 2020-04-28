@@ -16,237 +16,144 @@
  * const marginSpacing = spacing("margin", "0.5x", 12); // multiply 0.5 * 10 => margin 6
  */
 
-export const spacing = (type, value, defaultValue = 1) => {
-  // accept only 2 types: margin & padding
-  const accepted = ["margin", "padding"];
-  if (accepted.indexOf(type) === -1) return {};
-
+export const getSpacings = (value, defaultValue = 0) => {
   // if the value is boolean return defaultValue
-  if (typeof value === "boolean") {
-    return {
-      [`${type}Top`]: defaultValue, // marginTop or paddingTop
-      [`${type}Right`]: defaultValue, // marginRight or paddingRight
-      [`${type}Bottom`]: defaultValue, // marginBottom or paddingBottom
-      [`${type}Left`]: defaultValue // marginLeft or paddingLeft
-    };
-  }
+  if (typeof value === "boolean") return defaultValue;
 
   // if the value is integer/number
-  if (typeof value === "number") {
-    return {
-      [`${type}Top`]: value, // marginTop or paddingTop
-      [`${type}Right`]: value, // marginRight or paddingRight
-      [`${type}Bottom`]: value, // marginBottom or paddingBottom
-      [`${type}Left`]: value // marginLeft or paddingLeft
-    };
+  if (typeof value === "number") return value;
+
+  // if the value is a string: 2x 4x 1.5x
+  if (typeof value === "string") {
+    // extract decimal or integer value from value
+    const valueMatch = value.match(/((?=.*[1-9])\d*(?:\.\d{1,2})|(\d*))x/)[0];
+
+    if (!valueMatch) return defaultValue;
+    return parseFloat(valueMatch) * (defaultValue > 0 ? defaultValue : 1);
   }
 
   // parse array of values [1, 2, 3, 4]
   if (typeof value === "object") {
     const size = Object.keys(value).length;
-    switch (size) {
-      case 1: // [4] generate same value for all spacings
-        return {
-          [`${type}Top`]: value[0],
-          [`${type}Right`]: value[0],
-          [`${type}Bottom`]: value[0],
-          [`${type}Left`]: value[0]
-        };
-      case 2: // [4, 6] generate vertical (4) and horizontal (6) spacing
-        return {
-          [`${type}Top`]: value[0],
-          [`${type}Right`]: value[1],
-          [`${type}Bottom`]: value[0],
-          [`${type}Left`]: value[1]
-        };
-      case 3: // [4, 6, 8] generate top (4), right & left (6), bottom (8) spacing
-        return {
-          [`${type}Top`]: value[0],
-          [`${type}Right`]: value[1],
-          [`${type}Bottom`]: value[2],
-          [`${type}Left`]: value[1]
-        };
-      default:
-        // [4, 6, 8, 10] generate top (4), right (6), bottom (8), left (10) spacing
-        return {
-          [`${type}Top`]: value[0],
-          [`${type}Right`]: value[1],
-          [`${type}Bottom`]: value[2],
-          [`${type}Left`]: value[3]
-        };
-    }
-  }
 
-  // if the value is string: 2x 4x
-  if (typeof value === "string") {
-    // extract decimal or integer value from value
-    const spacingValue = value.match(/((?=.*[1-9])\d*(?:\.\d{1,2})|(\d*))x/)[0];
-    if (!spacingValue) return {};
+    // get value based on array index
+    // vertical
+    const top = 0;
+    const bottom = size === 1 || size === 2 ? 0 : 2;
+
+    // horizontal
+    const right = size === 1 ? 0 : 1;
+    const left = size === 1 ? 0 : size === 2 ? 1 : 3;
 
     return {
-      [`${type}Top`]: parseFloat(spacingValue) * defaultValue,
-      [`${type}Right`]: parseFloat(spacingValue) * defaultValue,
-      [`${type}Bottom`]: parseFloat(spacingValue) * defaultValue,
-      [`${type}Left`]: parseFloat(spacingValue) * defaultValue
+      top: value[top] || defaultValue,
+      right: value[right] || defaultValue,
+      bottom: value[bottom] || defaultValue,
+      left: value[left] || defaultValue
     };
   }
 };
 
-export const parseSpacing = (type, value, defaultValue = 1) => {
-  const accepted = [
-    "marginHorizontal",
-    "marginVertical",
-    "marginTop",
-    "marginBottom",
-    "marginLeft",
-    "marginRight",
-    "paddingHorizontal",
-    "paddingVertical",
-    "paddingTop",
-    "paddingBottom",
-    "paddingLeft",
-    "paddingRight"
-  ];
-  if (accepted.indexOf(type) === -1) return {};
+export const getMargins = ({
+  margin,
+  marginTop,
+  marginBottom,
+  marginRight,
+  marginLeft,
+  marginVertical,
+  marginHorizontal,
+  defaultValue
+}) => {
+  const styles = {};
 
-  // if the value is boolean return defaultValue
-  if (typeof value === "boolean") {
-    return {
-      [type]: defaultValue
-    };
+  if (margin) {
+    const values = getSpacings(margin, defaultValue);
+    const isArray = typeof margin === "object";
+
+    styles.marginTop = isArray ? values.top : values;
+    styles.marginRight = isArray ? values.right : values;
+    styles.marginBottom = isArray ? values.bottom : values;
+    styles.marginLeft = isArray ? values.left : values;
   }
 
-  // if the value is integer/number
-  if (typeof value === "number") {
-    return {
-      [type]: value
-    };
+  if (marginTop && typeof marginTop !== "object") {
+    styles.marginTop = getSpacings(marginTop, defaultValue);
   }
 
-  // if the value is string: 2x 4x
-  if (typeof value === "string") {
-    // extract decimal or integer value from value
-    const spacingValue = value.match(/((?=.*[1-9])\d*(?:\.\d{1,2})|(\d*))x/)[0];
-    if (!spacingValue) return {};
-
-    return {
-      [type]: parseFloat(spacingValue) * defaultValue
-    };
+  if (marginBottom && typeof marginBottom !== "object") {
+    styles.marginBottom = getSpacings(marginBottom, defaultValue);
   }
+
+  if (marginLeft && typeof marginLeft !== "object") {
+    styles.marginLeft = getSpacings(marginLeft, defaultValue);
+  }
+
+  if (marginRight && typeof marginRight !== "object") {
+    styles.marginRight = getSpacings(marginRight, defaultValue);
+  }
+
+  if (marginVertical && typeof marginVertical !== "object") {
+    styles.marginTop = getSpacings(marginVertical, defaultValue);
+    styles.marginBottom = getSpacings(marginVertical, defaultValue);
+  }
+
+  if (marginHorizontal && typeof marginHorizontal !== "object") {
+    styles.marginRight = getSpacings(marginHorizontal, defaultValue);
+    styles.marginLeft = getSpacings(marginHorizontal, defaultValue);
+  }
+
+  return styles;
 };
 
-export const getMargins = (value, defaultValue = 1) => {
-  if (typeof value === "number") {
-    return {
-      marginTop: value,
-      marginRight: value,
-      marginBottom: value,
-      marginLeft: value
-    };
+export const getPaddings = ({
+  padding,
+  paddingTop,
+  paddingBottom,
+  paddingRight,
+  paddingLeft,
+  paddingVertical,
+  paddingHorizontal,
+  defaultValue
+}) => {
+  const styles = {};
+
+  if (padding) {
+    const values = getSpacings(padding, defaultValue);
+    const isArray = typeof padding === "object";
+
+    styles.paddingTop = isArray ? values.top : values;
+    styles.paddingRight = isArray ? values.right : values;
+    styles.paddingBottom = isArray ? values.bottom : values;
+    styles.paddingLeft = isArray ? values.left : values;
   }
 
-  if (typeof value === "object") {
-    const marginSize = Object.keys(value).length;
-    switch (marginSize) {
-      case 1:
-        return {
-          marginTop: value[0],
-          marginRight: value[0],
-          marginBottom: value[0],
-          marginLeft: value[0]
-        };
-      case 2:
-        return {
-          marginTop: value[0],
-          marginRight: value[1],
-          marginBottom: value[0],
-          marginLeft: value[1]
-        };
-      case 3:
-        return {
-          marginTop: value[0],
-          marginRight: value[1],
-          marginBottom: value[2],
-          marginLeft: value[1]
-        };
-      default:
-        return {
-          marginTop: value[0],
-          marginRight: value[1],
-          marginBottom: value[2],
-          marginLeft: value[3]
-        };
-    }
+  if (paddingTop && typeof paddingTop !== "object") {
+    styles.paddingTop = getSpacings(paddingTop, defaultValue);
   }
 
-  if (typeof value === "string") {
-    const marginValue = value.match(/((?=.*[1-9])\d*(?:\.\d{1,2})|(\d*))/)[0];
-    return (
-      marginValue && {
-        marginTop: parseFloat(marginValue) * defaultValue,
-        marginRight: parseFloat(marginValue) * defaultValue,
-        marginBottom: parseFloat(marginValue) * defaultValue,
-        marginLeft: parseFloat(marginValue) * defaultValue
-      }
-    );
-  }
-};
-
-export const getPaddings = (value, defaultValue = 1) => {
-  if (typeof value === "number") {
-    return {
-      paddingTop: value,
-      paddingRight: value,
-      paddingBottom: value,
-      paddingLeft: value
-    };
+  if (paddingBottom && typeof paddingBottom !== "object") {
+    styles.paddingBottom = getSpacings(paddingBottom, defaultValue);
   }
 
-  if (typeof value === "object") {
-    const paddingSize = Object.keys(value).length;
-    switch (paddingSize) {
-      case 1:
-        return {
-          paddingTop: value[0],
-          paddingRight: value[0],
-          paddingBottom: value[0],
-          paddingLeft: value[0]
-        };
-      case 2:
-        return {
-          paddingTop: value[0],
-          paddingRight: value[1],
-          paddingBottom: value[0],
-          paddingLeft: value[1]
-        };
-      case 3:
-        return {
-          paddingTop: value[0],
-          paddingRight: value[1],
-          paddingBottom: value[2],
-          paddingLeft: value[1]
-        };
-      default:
-        return {
-          paddingTop: value[0],
-          paddingRight: value[1],
-          paddingBottom: value[2],
-          paddingLeft: value[3]
-        };
-    }
+  if (paddingLeft && typeof paddingLeft !== "object") {
+    styles.paddingLeft = getSpacings(paddingLeft, defaultValue);
   }
 
-  if (typeof value === "string") {
-    const paddingValue = value.match(/((?=.*[1-9])\d*(?:\.\d{1,2})|(\d*))/)[0];
-    return (
-      paddingValue && {
-        paddingTop: parseFloat(paddingValue) * defaultValue,
-        paddingRight: parseFloat(paddingValue) * defaultValue,
-        paddingBottom: parseFloat(paddingValue) * defaultValue,
-        paddingLeft: parseFloat(paddingValue) * defaultValue
-      }
-    );
+  if (paddingRight && typeof paddingRight !== "object") {
+    styles.paddingRight = getSpacings(paddingRight, defaultValue);
   }
+
+  if (paddingVertical && typeof paddingVertical !== "object") {
+    styles.paddingTop = getSpacings(paddingVertical, defaultValue);
+    styles.paddingBottom = getSpacings(paddingVertical, defaultValue);
+  }
+
+  if (paddingHorizontal && typeof paddingHorizontal !== "object") {
+    styles.paddingRight = getSpacings(paddingHorizontal, defaultValue);
+    styles.paddingLeft = getSpacings(paddingHorizontal, defaultValue);
+  }
+
+  return styles;
 };
 
 /**
