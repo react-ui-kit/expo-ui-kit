@@ -35,7 +35,7 @@ interface ColorsProps {
 interface PositioningProps {
   flex?: number | boolean;
   noflex?: boolean;
-  space?: 'between' | 'around' | 'evenly';
+  space?: "between" | "around" | "evenly";
   row?: boolean;
   column?: boolean;
   center?: boolean;
@@ -169,7 +169,7 @@ export interface ButtonProps extends ButtonOptions, ThemeProps {
   [key: string]: any;
 }
 
-export type RenderButtonProps = ButtonProps &
+export type ButtonInstanceProps = ButtonProps &
   TouchableWithoutFeedbackProps &
   TouchableHighlightProps &
   TouchableNativeFeedbackProps & {
@@ -218,11 +218,11 @@ export declare const styles: {
     flexWrap: "wrap";
   };
 };
-export declare const RenderButton: ({
+export declare const ButtonInstance: ({
   Touchable,
   children,
   ...props
-}: RenderButtonProps) => JSX.Element;
+}: ButtonInstanceProps) => JSX.Element;
 export declare const Button: React.FC<
   ButtonProps & TouchableWithoutFeedbackProps & TouchableNativeFeedbackProps
 >;
@@ -250,4 +250,4 @@ export declare const reducer: (
 ) => InputState;
 export declare const Input: React.FC<InputProps>;
 
-export declare const Typography: React.FC<TextProps>;
+export declare const Text: React.FC<TextProps>;
