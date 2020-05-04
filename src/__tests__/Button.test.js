@@ -7,24 +7,25 @@ import {
   TouchableWithoutFeedback
 } from "react-native";
 import renderer from "react-test-renderer";
-import Button, { RenderButton } from "../Button";
-import Text from "../Text";
+import { Button, ButtonInstance, Text } from "../index";
 import { SIZES } from "../theme";
 import { rgba } from "../utils";
 
 describe("<Button />", () => {
   it("render default TouchableOpacity", () => {
-    const button = shallow(<Button />);
-    const buttonType = shallow(<RenderButton />);
+    const button = <Button />;
 
-    const component = button;
+    const shallowButton = shallow(button);
+    const componentTree = renderer.create(button).toTree();
 
-    const style = StyleSheet.flatten(component.props().style);
+    const buttonType = shallow(<ButtonInstance />);
 
-    expect(component.props().opacity).toEqual(0.8);
+    const style = StyleSheet.flatten(shallowButton.props().style);
+
+    expect(componentTree.props.opacity).toEqual(0.8);
 
     expect(style).toEqual({
-      height: SIZES.base * 5.5,
+      minHeight: SIZES.base * 5.5,
       borderRadius: SIZES.radius,
       backgroundColor: "#4630EB",
       justifyContent: "center"
@@ -346,12 +347,12 @@ describe("<Button />", () => {
   });
 
   it("ButtonType: nativeFeedback", () => {
-    const component = shallow(<Button nativeFeedback />);
+    const component = renderer.create(<Button nativeFeedback />).toTree();
     const buttonType = shallow(
-      <RenderButton Touchable={TouchableNativeFeedback} />
+      <ButtonInstance Touchable={TouchableNativeFeedback} />
     );
 
-    expect(component.props().nativeFeedback).toEqual(true);
+    expect(component.props.nativeFeedback).toEqual(true);
     expect(buttonType.name()).toEqual("DummyTouchableNativeFeedback");
   });
 
@@ -361,35 +362,39 @@ describe("<Button />", () => {
    */
 
   it("ButtonType: highlight", () => {
-    const component = shallow(
-      <Button highlight>
-        <Text />
-      </Button>
-    );
+    const component = renderer
+      .create(
+        <Button highlight>
+          <Text />
+        </Button>
+      )
+      .toTree();
 
     const buttonType = shallow(
-      <RenderButton Touchable={TouchableHighlight}>
+      <ButtonInstance Touchable={TouchableHighlight}>
         <Text />
-      </RenderButton>
+      </ButtonInstance>
     );
 
-    expect(component.props().highlight).toEqual(true);
+    expect(component.props.highlight).toEqual(true);
     expect(buttonType.name()).toEqual("TouchableHighlight");
   });
 
   it("ButtonType: withoutFeedback", () => {
-    const component = shallow(
-      <Button withoutFeedback>
-        <Text />
-      </Button>
-    );
+    const component = renderer
+      .create(
+        <Button withoutFeedback>
+          <Text />
+        </Button>
+      )
+      .toTree();
     const buttonType = shallow(
-      <RenderButton Touchable={TouchableWithoutFeedback}>
+      <ButtonInstance Touchable={TouchableWithoutFeedback}>
         <Text />
-      </RenderButton>
+      </ButtonInstance>
     );
 
-    expect(component.props().withoutFeedback).toEqual(true);
+    expect(component.props.withoutFeedback).toEqual(true);
     expect(buttonType.name()).toEqual("TouchableWithoutFeedback");
   });
 
