@@ -1,6 +1,6 @@
 {
   "name": "expo-ui-kit",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "keywords": [
     "expo",
     "react-native",
@@ -41,5 +41,7 @@
   "eslintConfig": {
     "extends": "universe/native"
   },
-  "dependencies": {}
+  "dependencies": {
+    "react-native": "*"
+  }
 }
