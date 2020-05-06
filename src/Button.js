@@ -6,9 +6,8 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback
 } from "react-native";
-
 import expoTheme from "./theme";
-import { mergeTheme, rgba, getMargins, getPaddings } from "./utils/";
+import { getMargins, getPaddings, mergeTheme, rgba } from "./utils/";
 
 export const ButtonInstance = ({
   Touchable = TouchableOpacity,
@@ -138,12 +137,12 @@ const Button = (props) => {
 
   return (
     <ButtonInstance
-      {...rest}
       disabled={disabled}
       Touchable={Touchable}
-      activeOpacity={opacity}
       style={buttonStyles}
+      activeOpacity={opacity}
       children={children}
+      {...rest}
     />
   );
 };
