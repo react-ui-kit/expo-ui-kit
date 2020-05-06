@@ -35,7 +35,7 @@ Usage:
 - disable flex
 
 ```html
-<Block flex={0}>
+<Block flex="{0}">
   <Text>flex: 0</Text>
 </Block>
 <Block noFlex>
@@ -46,7 +46,7 @@ Usage:
 - flex for half of the size
 
 ```html
-<Block flex={0.5}>
+<Block flex="{0.5}">
   <Text>flex: 0.5</Text>
 </Block>
 ```
@@ -145,7 +145,7 @@ Border radius
 - round the corners using borderRadius: 6
 
 ```html
-<Block radius={6}>
+<Block radius="{6}">
   <Text>1st text</Text>
   <Text>2nd text</Text>
 </Block>
@@ -247,7 +247,7 @@ Set activeOpacity using opacity prop
 default activeOpacity=0.8
 
 ```html
-<button opacity={0.5}>
+<button opacity="{0.5}">
   <Text>opacity={0.5}</Text>
 </button>
 ```
@@ -266,7 +266,7 @@ Disabling the button
 <button disabled>
   <Text>disabled</Text>
 </button>
-<button disabled={false}>
+<button disabled="{false}">
   <Text>false</Text>
 </button>
 ```
@@ -277,7 +277,7 @@ Add flex to button style
 <button flex>
   <Text>flex=1</Text>
 </button>
-<button flex={2}>
+<button flex="{2}">
   <Text>flex=2</Text>
 </button>
 ```
@@ -285,7 +285,7 @@ Add flex to button style
 Add height to button style
 
 ```html
-<button height={58}>
+<button height="{58}">
   <Text>height=58</Text>
 </button>
 ```
@@ -307,7 +307,7 @@ Using Block component with predefined props: color, radius and padding
 Border radius using radius props
 
 ```html
-<Card radius={8}>
+<Card radius="{8}">
   <Text>radius={8}</Text>
 </Card>
 ```
@@ -317,7 +317,7 @@ Padding using padding props
 - default padding={SIZES.base}
 
 ```html
-<Card padding={12}>
+<Card padding="{12}">
   <Text>padding={12}</Text>
 </Card>
 ```
@@ -333,7 +333,7 @@ Set shadow using shadow props
   <Text>shadow</Text>
 </Card>
 
-<Card shadow elevation={2}>
+<Card shadow elevation="{2}">
   <Text>shadow elevation={2}</Text>
 </Card>
 ```
@@ -403,14 +403,14 @@ Usage:
 - fontSize defined by user
 
 ```html
-<Text size={20}>fontSize of 20</Text>
+<Text size="{20}">fontSize of 20</Text>
 ```
 
 - margin & padding
 
 ```html
-<Text margin={4}>set margin 4 to: top, right, bottom & left</Text>
-<Text padding={6}>set margin 6 to: top, right, bottom & left</Text>
+<Text margin="{4}">set margin 4 to: top, right, bottom & left</Text>
+<Text padding="{6}">set margin 6 to: top, right, bottom & left</Text>
 ```
 
 - text styling
@@ -464,7 +464,7 @@ custom theme using the src/theme.js data structure
 - include the custom theme to the component props
 
 ```html
-<Text primary theme={customTheme}>primary using new color: #8A00D4</Text>
+<Text primary theme="{customTheme}">primary using new color: #8A00D4</Text>
 ```
 
 - animating text can be used using the "animated" props
