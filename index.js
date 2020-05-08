@@ -1,4 +1,4 @@
-import { Block, Button, Card, Input, Text } from "./src";
+import { Block, Button, Card, Input, Text } from "./src/index";
 import * as theme from "./src/theme";
 import * as Utils from "./src/utils";
 
