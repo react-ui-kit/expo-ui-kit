@@ -161,27 +161,20 @@ export type InputAction = {
  * Props
  */
 
-export interface BlockProps extends BlockOptions, ThemeProps {
-  [key: string]: any;
-}
+export interface BlockProps extends BlockOptions, ThemeProps {}
 
-export interface ButtonProps extends ButtonOptions, ThemeProps {
-  [key: string]: any;
-}
+export interface ButtonProps extends ButtonOptions, ThemeProps {}
 
 export type ButtonInstanceProps = ButtonProps &
   TouchableWithoutFeedbackProps &
   TouchableHighlightProps &
   TouchableNativeFeedbackProps & {
     Touchable?: any;
+    children: any;
   };
-export interface TextProps extends TextOptions, ThemeProps {
-  [key: string]: any;
-}
+export interface TextProps extends TextOptions, ThemeProps {}
 
-export interface CardProps extends CardOptions, ThemeProps {
-  [key: string]: any;
-}
+export interface CardProps extends CardOptions, ThemeProps {}
 
 export interface InputProps extends InputOptions, ThemeProps {}
 
