@@ -204,7 +204,10 @@ export const mergeTheme = (theme, extra) => {
   };
 };
 
-export const usePixelRatio = (designPixels) => {
+export const usePixelRatio = (designPixels, scaleFactor = 0.5) => {
   const screenProportion = Dimensions.get("window").width / 180;
-  return PixelRatio.roundToNearestPixel(designPixels * screenProportion);
+  const proportionedPixel = PixelRatio.roundToNearestPixel(
+    designPixels * screenProportion
+  );
+  return parseInt(proportionedPixel * scaleFactor, 10);
 };

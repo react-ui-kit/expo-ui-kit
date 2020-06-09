@@ -2,7 +2,12 @@ import React from "react";
 import { Animated, StyleSheet, Text } from "react-native";
 
 import expoTheme from "./theme";
-import { mergeTheme, getMargins, getPaddings, usePixelRatio } from "./utils/index";
+import {
+  mergeTheme,
+  getMargins,
+  getPaddings,
+  usePixelRatio
+} from "./utils/index";
 
 /**
  * Usage:
@@ -150,29 +155,29 @@ const Typography = (props) => {
   const textStyles = StyleSheet.flatten([
     {
       fontWeight: WEIGHTS.regular,
-      fontSize: usePixelRatio(SIZES.font / 2),
+      fontSize: usePixelRatio(SIZES.font),
       color: COLORS.font
     },
-    h1 && { ...FONTS.h1, fontSize: usePixelRatio(FONTS.h1.fontSize / 2) },
-    h2 && { ...FONTS.h2, fontSize: usePixelRatio(FONTS.h2.fontSize / 2) },
-    h3 && { ...FONTS.h3, fontSize: usePixelRatio(FONTS.h3.fontSize / 2) },
+    h1 && { ...FONTS.h1, fontSize: usePixelRatio(FONTS.h1.fontSize) },
+    h2 && { ...FONTS.h2, fontSize: usePixelRatio(FONTS.h2.fontSize) },
+    h3 && { ...FONTS.h3, fontSize: usePixelRatio(FONTS.h3.fontSize) },
     title && {
       ...FONTS.title,
-      fontSize: usePixelRatio(FONTS.title.fontSize / 2)
+      fontSize: usePixelRatio(FONTS.title.fontSize)
     },
     subtitle && {
       ...FONTS.subtitle,
-      fontSize: usePixelRatio(FONTS.subtitle.fontSize / 2)
+      fontSize: usePixelRatio(FONTS.subtitle.fontSize)
     },
     caption && {
       ...FONTS.caption,
-      fontSize: usePixelRatio(FONTS.caption.fontSize / 2)
+      fontSize: usePixelRatio(FONTS.caption.fontSize)
     },
     small && {
       ...FONTS.small,
-      fontSize: usePixelRatio(FONTS.small.fontSize / 2)
+      fontSize: usePixelRatio(FONTS.small.fontSize)
     },
-    size && { fontSize: usePixelRatio(size / 2) },
+    size && { fontSize: usePixelRatio(size) },
     marginSpacing,
     paddingSpacing,
     transform && { textTransform: transform },
