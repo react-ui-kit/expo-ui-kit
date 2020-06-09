@@ -16,6 +16,8 @@
  * const marginSpacing = spacing("margin", "0.5x", 12); // multiply 0.5 * 10 => margin 6
  */
 
+import { Dimensions, PixelRatio } from "react-native";
+
 export const getSpacings = (value, defaultValue = 0) => {
   // if the value is boolean return defaultValue
   if (typeof value === "boolean") return defaultValue;
@@ -200,4 +202,12 @@ export const mergeTheme = (theme, extra) => {
     WEIGHTS: { ...theme?.WEIGHTS, ...WEIGHTS },
     ...REST
   };
+};
+
+export const usePixelRatio = (designPixels, scaleFactor = 0.5) => {
+  const screenProportion = Dimensions.get("window").width / 180;
+  const proportionedPixel = PixelRatio.roundToNearestPixel(
+    designPixels * screenProportion
+  );
+  return parseInt(proportionedPixel * scaleFactor, 10);
 };
