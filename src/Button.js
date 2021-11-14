@@ -24,6 +24,7 @@ const Button = (props) => {
     height,
     width,
     borderWidth,
+    radius,
     // colors
     color,
     transparent,
@@ -110,6 +111,7 @@ const Button = (props) => {
     width && { width }, // custom width
     borderWidth && { borderWidth },
     borderColor && { borderColor },
+    radius && {borderRadius:radius},
     marginSpacing,
     paddingSpacing,
     style
