@@ -111,7 +111,7 @@ const Button = (props) => {
     width && { width }, // custom width
     borderWidth && { borderWidth },
     borderColor && { borderColor },
-    radius && {borderRadius:radius},
+    radius && { borderRadius: radius },
     marginSpacing,
     paddingSpacing,
     style
