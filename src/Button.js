@@ -15,54 +15,49 @@ export const ButtonInstance = ({
   ...props
 }) => <Touchable {...props}>{children}</Touchable>;
 
-const Button = (props) => {
-  const {
-    disabled,
-    opacity,
-    outlined,
-    flex,
-    height,
-    width,
-    borderWidth,
-    // colors
-    color,
-    transparent,
-    primary,
-    secondary,
-    tertiary,
-    black,
-    white,
-    gray,
-    error,
-    warning,
-    success,
-    info,
-    borderColor,
-    // support for touchables
-    highlight,
-    nativeFeedback,
-    withoutFeedback,
-    theme,
-    style,
-    children,
-    // sizing props
-    margin,
-    marginHorizontal,
-    marginVertical,
-    marginTop,
-    marginBottom,
-    marginLeft,
-    marginRight,
-    padding,
-    paddingHorizontal,
-    paddingVertical,
-    paddingTop,
-    paddingBottom,
-    paddingLeft,
-    paddingRight,
-    ...rest
-  } = props;
-
+const Button = ({
+  disabled = false,
+  opacity = 0.8,
+  outlined = false,
+  flex = 0,
+  height,
+  width,
+  borderWidth,
+  color = null,
+  transparent = false,
+  primary = false,
+  secondary = false,
+  tertiary = false,
+  black = false,
+  white = false,
+  gray = false,
+  error = false,
+  warning = false,
+  success = false,
+  info = false,
+  borderColor,
+  highlight,
+  nativeFeedback,
+  withoutFeedback,
+  theme = {},
+  style = {},
+  children,
+  margin = null,
+  marginHorizontal,
+  marginVertical,
+  marginTop,
+  marginBottom,
+  marginLeft,
+  marginRight,
+  padding = null,
+  paddingHorizontal,
+  paddingVertical,
+  paddingTop,
+  paddingBottom,
+  paddingLeft,
+  paddingRight,
+  ...rest
+}) => {
   const { SIZES, COLORS } = mergeTheme({ ...expoTheme }, theme);
 
   const marginSpacing = getMargins({
@@ -145,29 +140,6 @@ const Button = (props) => {
       {...rest}
     />
   );
-};
-
-Button.defaultProps = {
-  color: null,
-  disabled: false,
-  opacity: 0.8,
-  outlined: false,
-  margin: null,
-  padding: null,
-  flex: 0,
-  transparent: false,
-  primary: false,
-  secondary: false,
-  tertiary: false,
-  black: false,
-  white: false,
-  gray: false,
-  error: false,
-  warning: false,
-  success: false,
-  info: false,
-  theme: {},
-  style: {}
 };
 
 export default Button;

@@ -33,11 +33,27 @@ export const reducer = (state, action) => {
   }
 };
 
-const Input = (props) => {
+const Input = ({
+  pattern = null,
+  onFocus = null,
+  onBlur = null,
+  onChangeText = null,
+  onValidation = null,
+  placeholder = null,
+  autoCorrect = false,
+  autoCapitalize = "none",
+  internalRef = null,
+  theme = {},
+  style = {},
+  children,
+  borderWidth,
+  borderColor,
+  type,
+  ...rest
+}) => {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
 
   const handleValidation = (value) => {
-    const { pattern } = props;
     if (!pattern) return true;
 
     // string pattern, one validation rule
@@ -54,7 +70,6 @@ const Input = (props) => {
   };
 
   const handleChange = (value) => {
-    const { onChangeText, onValidation } = props;
     const isValid = handleValidation(value);
     dispatch(change(value));
     onValidation && onValidation(isValid);
@@ -62,13 +77,11 @@ const Input = (props) => {
   };
 
   const handleFocus = (event) => {
-    const { onFocus } = props;
     dispatch(focus());
     onFocus && onFocus(event);
   };
 
   const handleBlur = (event) => {
-    const { onBlur } = props;
     dispatch(blur());
     onBlur && onBlur(event);
   };
@@ -81,22 +94,6 @@ const Input = (props) => {
       : type;
   };
 
-  const {
-    autoCorrect,
-    autoCapitalize,
-    placeholder,
-    children,
-    borderWidth,
-    borderColor,
-    type,
-    style,
-    theme,
-    internalRef,
-    onFocus,
-    onBlur,
-    onChangeText,
-    ...rest
-  } = props;
   const { SIZES, COLORS } = mergeTheme({ ...expoTheme }, theme);
 
   const textStyles = StyleSheet.flatten([
@@ -129,26 +126,12 @@ const Input = (props) => {
   return (
     <TextInput
       ref={internalRef}
-      {...props}
+      {...rest}
       {...internalProps}
       testID="text-input">
       {children}
     </TextInput>
   );
-};
-
-Input.defaultProps = {
-  pattern: null,
-  onFocus: null,
-  onBlur: null,
-  onChangeText: null,
-  onValidation: null,
-  placeholder: null,
-  autoCorrect: false,
-  autoCapitalize: "none",
-  internalRef: null,
-  theme: {},
-  style: {}
 };
 
 export default Input;
